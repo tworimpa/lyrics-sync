@@ -1,0 +1,1268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; media-src blob:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Lyrics Sync Studio · 제로수</title>
+<style>
+:root{--bg:#f6f4ed;--paper:#fffefa;--ink:#273f36;--muted:#728077;--line:#dee4da;--green:#34694c;--soft:#edf3e8;--amber:#a36520;--warn:#fff2dd;--red:#ad493f;--shadow:0 5px 24px #233d3210}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font:14px/1.55 system-ui,-apple-system,'Segoe UI','Malgun Gothic',sans-serif}button,input,textarea,select{font:inherit;color:inherit}button,select{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}button{font-weight:560;white-space:nowrap}button:hover:not(:disabled){background:var(--soft);border-color:#abc1ac}button:active:not(:disabled){transform:translateY(1px)}button:disabled{opacity:.4;cursor:not-allowed}button.primary{background:var(--green);border-color:var(--green);color:white}button.primary:hover:not(:disabled){background:#29583e}button.danger{color:var(--red)}button.ghost{background:transparent}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,canvas:focus-visible{outline:3px solid #d6a759;outline-offset:2px}input,textarea{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 11px;min-width:0}input[type=number]{font-variant-numeric:tabular-nums}input[type=checkbox]{accent-color:var(--green)}input[type=range]{accent-color:var(--green);padding:0;cursor:pointer}input[type=file]{display:none}small,.muted{color:var(--muted)}h1,h2,h3,p{margin-top:0}h1{font-size:25px;letter-spacing:-.7px;margin-bottom:3px}h2{font-size:18px;letter-spacing:-.3px;margin-bottom:0}h3{font-size:15px;margin-bottom:10px}.eyebrow{font-size:10px;letter-spacing:1.9px;font-weight:750;color:var(--muted)}.page{max-width:1420px;margin:0 auto;padding:0 28px}.app-header{display:flex;gap:24px;align-items:center;justify-content:space-between;padding:25px 0 18px}.brand{display:flex;align-items:center;gap:13px}.logo{background:var(--green);color:#fff;height:44px;width:44px;display:grid;place-items:center;border-radius:13px;font-size:24px;font-weight:650;flex-shrink:0}.brand-caption{font-size:12px;color:var(--muted)}.toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:30px;background:var(--soft);color:var(--green);font-size:11px;font-weight:650;white-space:nowrap}.badge::before{content:'';width:6px;height:6px;border-radius:100%;background:currentColor}.badge.warn{background:var(--warn);color:var(--amber)}.project-bar{border:1px solid var(--line);background:var(--paper);border-radius:13px;padding:13px 17px;display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}.title-group{display:flex;align-items:center;gap:11px;min-width:0;flex:1}.title-group label{font-size:11px;color:var(--muted);white-space:nowrap}.title-input{font-size:16px;font-weight:650;max-width:430px;width:100%;padding:6px 9px;background:transparent;border-color:transparent}.title-input:hover,.title-input:focus{border-color:var(--line);background:white}.save-group{display:flex;align-items:center;gap:9px}.save-meta{font-size:11px;max-width:290px;line-height:1.5;text-align:right}.workflow{display:flex;align-items:center;gap:18px;margin-bottom:15px;font-size:11px;color:var(--muted)}.workflow span{display:flex;gap:6px;align-items:center}.step-num{display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid var(--line);border-radius:100%;background:#fff}.workflow .done{color:var(--green);font-weight:650}.workflow .done .step-num{background:var(--green);color:white;border-color:var(--green)}
+main{display:grid;grid-template-columns:350px minmax(0,1fr);gap:18px;padding-bottom:25px;align-items:start}.card{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:20px;box-shadow:var(--shadow)}.left{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;scrollbar-width:thin}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.audio-name{font-size:12px;font-weight:600;overflow-wrap:anywhere;margin-bottom:3px}.audio-note{font-size:11px;color:var(--muted);line-height:1.55;min-height:32px}.audio-filebox{padding:11px 12px;background:#f4f6f0;border:1px dashed #bdcbbc;border-radius:10px;cursor:pointer;margin-bottom:8px}.audio-filebox:hover{background:var(--soft)}.audio-filebox.dragover{outline:3px solid var(--green)}.time{font-size:34px;font-weight:660;line-height:1.35;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin:12px 0 2px}.time small{font-size:13px;letter-spacing:0;font-weight:450}audio{width:100%;height:36px;margin:7px 0 9px}.transport{display:flex;align-items:center;gap:6px}.transport button{flex:1}.transport select{width:79px;padding:8px 5px}.selected{border-top:1px solid var(--line);margin-top:18px;padding-top:17px}.selected-meta{display:flex;justify-content:space-between;gap:8px;align-items:center}.selected .current{font-size:22px;font-weight:600;line-height:1.45;min-height:62px;overflow-wrap:anywhere;margin:8px 0 13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}.stamp button{padding:12px 8px}.fast{width:100%;margin-top:7px}.hint{font-size:11px;line-height:1.8;color:var(--muted);margin:10px 0}.row-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:9px 0}.row-tools button{font-size:12px;padding:7px 10px}.checklabel{font-size:12px;display:inline-flex;gap:5px;align-items:center;cursor:pointer}.nudge{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}.nudge select,.nudge button{font-size:12px;padding:7px 8px}.nudge #edge{flex:1}.divider{height:1px;background:var(--line);margin:15px 0}.history{display:flex;gap:6px}.history button{flex:1;font-size:12px}.subtitle-box{background:var(--ink);color:#fff;padding:13px 15px;border-radius:10px;margin-top:14px}.subtitle-box .eyebrow{color:#a4b8ac;font-size:9px}.subtitle{font-size:16px;line-height:1.6;min-height:28px;margin-top:5px;word-break:keep-all;overflow-wrap:anywhere}.right{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}.wave-card{padding:17px 20px}.wave-tools{display:flex;gap:8px;align-items:center;font-size:11px}.wave-tools select{font-size:11px;padding:4px 5px}.wave-tools .checklabel{font-size:11px}canvas{display:block;width:100%;height:107px;background:#f3f6ef;border-radius:9px;cursor:crosshair}.wave-hint{font-size:11px;color:var(--muted);margin:6px 0 0;min-height:17px}.wave-scroll{display:flex;gap:10px;align-items:center;margin-top:6px;font-size:10px;color:var(--muted)}.wave-scroll input{flex:1;min-width:0}.wave-scroll[hidden]{display:none}.listhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:11px}.summary{display:flex;gap:10px;align-items:center}.summary .count{font-size:13px;font-variant-numeric:tabular-nums;color:var(--green);font-weight:700}.progress{width:100%;height:5px;border-radius:8px;background:var(--soft);overflow:hidden;margin:8px 0 11px}.progress div{background:var(--green);height:100%;transition:width .15s}.notice{border-radius:8px;padding:10px 12px;background:var(--soft);color:var(--green);font-size:12px;margin:10px 0;line-height:1.65}.notice.warn{background:var(--warn);color:var(--amber)}.notice.error{background:#faeae4;color:var(--red)}.issues-toggle{padding:0;border:0;background:none;color:inherit;font-size:12px;white-space:normal;text-align:left;width:100%}.issue-list{max-height:155px;overflow:auto;display:grid;gap:5px;margin-top:8px}.issue-list button{font-size:11px;white-space:normal;text-align:left;background:transparent;border:0;padding:3px 0;font-weight:400;color:inherit}.table-wrap{overflow:auto;max-height:600px;scrollbar-width:thin;border-top:1px solid var(--line)}table{border-collapse:separate;border-spacing:0;width:100%;font-size:12px}thead th{position:sticky;top:0;background:var(--paper);z-index:1;font-size:10px;font-weight:600;color:var(--muted);text-align:left;padding:10px 6px;border-bottom:1px solid var(--line);white-space:nowrap}td{border-bottom:1px solid #e8ece3;padding:10px 6px;vertical-align:middle}.row{cursor:pointer}.row.active{background:#edf3e8}.row.playing td:first-child{box-shadow:inset 3px 0 #bd883e}.row .num{width:32px;font-size:11px;color:var(--muted);text-align:center}.lyric{font-size:13px;min-width:160px;word-break:keep-all;overflow-wrap:anywhere}.sec{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.row input[type=number]{width:89px;font-size:12px;padding:7px 6px;font-variant-numeric:tabular-nums;background:#ffffffc9}.row.invalid input{border-color:#d3a173}.tiny{font-size:11px;padding:5px 7px}.row-actions{display:flex;gap:4px}.duration-cell{font-size:11px;color:var(--muted);width:55px;white-space:nowrap;font-variant-numeric:tabular-nums}.table-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:13px}.table-foot .toolbar button{padding:6px 9px;font-size:11px}.empty{text-align:center;padding:39px 20px 34px}.empty .mark{font-size:28px;color:var(--green);margin-bottom:10px}.empty h3{font-size:19px;letter-spacing:-.4px}.empty p{max-width:360px;margin:0 auto 18px;font-size:13px;color:var(--muted);line-height:1.8}.empty .mini{margin-top:17px;font-size:11px;color:var(--muted)}.empty[hidden]{display:none}.bottom-note{font-size:11px;color:var(--muted);line-height:1.8;text-align:center;padding:4px 0 23px}#toast{position:fixed;bottom:23px;left:50%;transform:translateX(-50%);padding:12px 20px;max-width:min(750px,94vw);background:#273f36;color:#fff;box-shadow:0 6px 24px #0003;border-radius:11px;font-size:13px;z-index:100;white-space:pre-line}#toast[hidden]{display:none}#toast.error{background:#8b4035}.shortcut{margin-top:14px;font-size:11px;color:var(--muted)}.shortcut summary{cursor:pointer}.shortcut p{margin:8px 0 0}kbd{background:#eef2e9;border:1px solid var(--line);border-radius:4px;padding:1px 4px;color:var(--ink);font:10px system-ui}.recovery{margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6}.recovery.warn{color:var(--red)}dialog{border:1px solid var(--line);border-radius:16px;padding:25px;color:var(--ink);background:var(--paper);max-height:88vh;max-width:calc(100vw - 28px);width:660px;box-shadow:0 20px 70px #15372f30}dialog::backdrop{background:#16332a88;backdrop-filter:blur(2px)}dialog h2{margin-bottom:8px}dialog p{font-size:12px;color:var(--muted)}dialog .fields{display:grid;gap:12px}dialog label.field{display:grid;gap:5px;font-size:12px}dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px;flex-wrap:wrap}dialog textarea{width:100%;height:35vh;resize:vertical;font-size:14px;line-height:1.8}dialog input[type=text]{width:100%}.dialog-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.recent-list{display:grid;gap:8px;margin-top:16px;max-height:55vh;overflow:auto}.recent-item{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px;align-items:center}.recent-info{flex:1;min-width:0}.recent-title{font-size:14px;font-weight:650;overflow-wrap:anywhere}.recent-meta{font-size:11px;color:var(--muted);margin-top:3px}.help-body{font-size:13px;line-height:1.8}.help-body h3{margin:19px 0 5px}.help-body p{font-size:13px}.help-table{font-size:12px}.help-table td{padding:5px 7px}.text-error{color:var(--red);font-size:12px;white-space:pre-wrap}#busyBanner{margin-bottom:14px}#busyBanner[hidden]{display:none}[hidden]{display:none!important}
+@media(max-width:1080px){.page{padding:0 18px}main{grid-template-columns:320px minmax(0,1fr)}.card{padding:16px}.row input[type=number]{width:78px}.row-actions{flex-direction:column}.duration-cell{display:none}.app-header{gap:12px}.app-header .toolbar button{font-size:12px;padding:7px 10px}.save-meta{max-width:220px}}
+@media(max-width:850px){.app-header{align-items:flex-start;flex-wrap:wrap;gap:13px}.app-header .toolbar{width:100%}.project-bar{flex-direction:column;align-items:stretch;gap:9px}.title-group{width:100%}.save-group{justify-content:space-between}.save-meta{text-align:left;max-width:none}main{grid-template-columns:1fr}.left{position:static;max-height:none;overflow:visible}.left .current{min-height:35px}.subtitle-box{margin-top:10px}.wave-card{order:0}.table-wrap{max-height:530px}.row-actions{flex-direction:row}.duration-cell{display:table-cell}.time{font-size:31px}.workflow{gap:10px;flex-wrap:wrap}.panel-head,.listhead{flex-wrap:wrap}.page{padding:0 12px}.audio-note{min-height:0}.nudge{flex-wrap:nowrap}.hint{margin:8px 0}.selected{margin-top:13px;padding-top:13px}.card{border-radius:12px}.brand h1{font-size:23px}.table-foot{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}dialog::backdrop{backdrop-filter:none}}
+
+/* v2: retain familiar palette and workspace; progressively enhance the editor. */
+[hidden]{display:none!important}.lyric-text,.subtitle,.current{white-space:pre-line}.advanced-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.advanced-bar .spacer{flex:1}.advanced-bar details{position:relative}.advanced-bar summary{padding:8px 12px;cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--paper);font-weight:600}.save-menu{position:absolute;right:0;top:44px;width:285px;padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 35px #1234;z-index:20;display:grid;gap:8px}.save-menu small{padding:0 5px}.filterbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0}.filterbar input{flex:1;min-width:100px}.filterbar select{max-width:140px}.filterbar small{font-size:11px}.section-nav{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}.section-chip{border-radius:25px;font-size:11px;padding:5px 11px}.section-chip.selected{background:var(--green);color:#fff}.cue-item{border-top:1px solid var(--line);padding:13px 0;display:flex;align-items:flex-start;gap:14px;justify-content:space-between}.cue-item-info{min-width:0;display:grid;gap:5px}.cue-item-info b{overflow-wrap:anywhere}.cue-notes{font-size:12px;white-space:pre-line;color:var(--muted);overflow-wrap:anywhere;max-height:110px;overflow:auto}.cue-error{color:var(--red)}.cue-empty{padding:20px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed var(--line);border-radius:10px}#cueList{max-height:460px;overflow:auto}.cue-choice{display:flex;gap:8px;align-items:flex-start;padding:7px;font-size:12px}.cue-choice:hover{background:var(--soft)}.cue-choice span{white-space:pre-line}#cueLyricChoices{max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:8px}textarea.compact{min-height:70px;height:90px;resize:vertical;width:100%}#splitInfo{white-space:pre-line}#importPreview{max-height:240px;overflow:auto;font-size:12px;white-space:pre-wrap;padding:14px;background:var(--soft);border-radius:10px}#importWarnings{white-space:pre-line}.wave-options{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}#wave{touch-action:pan-y}#stageDialog{width:min(1100px,96vw);background:#162a22;color:#fff;padding:28px}#stageLine{font-size:clamp(25px,4vw,48px);text-align:center;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;min-height:180px;display:grid;align-content:center;padding:40px 0}#stageNext{font-size:16px;color:#adbfaf;white-space:pre-line;text-align:center;min-height:48px}.version-note{font-size:10px;padding:3px 7px;border:1px solid var(--line);border-radius:6px;margin-left:6px;color:var(--green);white-space:nowrap}#conflictBanner{display:flex;justify-content:space-between;gap:10px;align-items:center}#cueName,#cueNotes{width:100%}.help-body p{line-height:1.8}
+@media(max-width:650px){.advanced-bar{gap:6px}.advanced-bar button,.advanced-bar summary{font-size:11px;padding:7px 9px}.advanced-bar .spacer{display:none}.save-menu{left:0;right:auto;max-width:88vw}.filterbar small{width:100%}.cue-item{gap:7px}.cue-item .toolbar{flex-shrink:0}.table-foot{gap:12px}.table-foot .toolbar{gap:5px}.table-foot button{font-size:11px;padding:7px}.wave-tools{flex-wrap:wrap}.wave-options{font-size:11px}.app-header{gap:12px}.brand-caption{font-size:11px}#stageLine{padding:20px 0}.version-note{display:block;width:fit-content;margin:4px 0 0}}
+</style>
+<style>
+.story-inspector .toolbar>select{width:auto;max-width:130px}.story-inspector .toolbar>label input[type=checkbox]{width:auto}.story-inspector .toolbar input[type=number]{width:95px} /* Existing olive/cream design, with a real asset-based cut timeline. */
+.workspace-tabs{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}.workspace-tabs button{font-weight:700}.workspace-tabs button.active{background:var(--green);color:#fff}.workspace-tabs small{align-self:center;margin-left:8px}.story-mode .timeline-card,.story-mode .wave-card,.story-mode #cueCard{display:none!important}.lyrics-mode #storyCard{display:none!important}.story-mode .left .stamp,.story-mode .left .fast,.story-mode .left .selected>p.hint,.story-mode .left .nudge,.story-mode .left .row-tools{display:none}.story-mode .left .selected .current{min-height:0;font-size:17px}.story-mode .left .selected{margin-top:12px}.legacy-label{font-size:12px;color:var(--muted)}#storyCard{padding:20px;min-width:0}.story-toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.story-toolbar button{font-size:12px}.story-toolbar input[type=search]{min-width:140px;flex:1}.story-drop{border:1px dashed #91a88e;padding:15px;background:var(--soft);border-radius:10px;line-height:1.75;font-size:12px;margin-bottom:12px}.story-drop.dragover{outline:3px solid #e2ad53}.story-preview{position:relative;background:#12261d;border-radius:12px;overflow:hidden;aspect-ratio:16/9;max-height:none;max-width:760px;margin:12px auto;width:100%;color:#e9f0e8;display:grid;place-items:center}.story-preview img,.story-preview video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#12261d}.story-preview.fit-cover img,.story-preview.fit-cover video{object-fit:cover}.story-placeholder{padding:36px;text-align:center;max-width:630px}.story-placeholder b{font-size:25px;display:block;margin-bottom:10px}.story-placeholder p{white-space:pre-line;font-size:14px;line-height:1.7;margin:6px}.story-caption{position:absolute;bottom:8%;left:5%;right:5%;font-size:clamp(14px,1.8vw,24px);font-weight:700;text-align:center;white-space:pre-line;text-shadow:0 2px 5px #000,0 0 4px #000;background:#0005;border-radius:6px;pointer-events:none}.story-caption:empty{display:none}.story-preview-label{position:absolute;top:12px;left:12px;font-size:11px;background:#0e1d19cc;padding:4px 8px;border-radius:5px;pointer-events:none}.story-playerbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}.story-playerbar input[type=range]{flex:1;min-width:90px}.story-playerbar small{font-variant-numeric:tabular-nums}.story-timeline-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:#f8faf5;position:relative;overscroll-behavior-x:contain}.story-tracks{height:203px;position:relative;min-width:100%;touch-action:pan-y}.story-ruler{height:27px;position:absolute;top:0;left:0;width:100%;border-bottom:1px solid var(--line);cursor:crosshair}.story-tickmark{position:absolute;top:3px;font-size:10px;color:var(--muted);border-left:1px solid #becfba;padding-left:4px;white-space:nowrap}.story-wave{position:absolute;left:0;top:30px;width:100%;height:35px;cursor:crosshair}.story-cuttrack{position:absolute;left:0;top:72px;width:100%;height:83px}.cut-block{position:absolute;height:80px;border:1px solid #a4b69c;border-radius:5px;background:#dfE8d8;cursor:pointer;overflow:hidden;min-width:2px;padding:0;text-align:left;color:var(--ink)}.cut-block:hover{filter:brightness(1.03)}.cut-block.selected{outline:2px solid #34694c;outline-offset:-2px;background:#c6dac0;z-index:2}.cut-block.playing{box-shadow:inset 0 -4px #bb883e}.cut-block img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:.67;inset:0}.cut-block span.code{position:absolute;top:5px;left:9px;background:#fffc;border-radius:3px;padding:1px 4px;font-size:11px;white-space:nowrap;font-weight:700}.cut-block span.length{position:absolute;bottom:5px;left:9px;background:#fffc;font-size:10px;border-radius:3px;padding:1px 4px;white-space:nowrap}.cut-handle{position:absolute;top:0;bottom:0;width:9px;background:#34694c33;cursor:ew-resize;touch-action:none;z-index:3}.cut-handle.start{left:0}.cut-handle.end{right:0}.cut-handle:hover{background:#34694cbb}.story-lyrictrack{position:absolute;top:163px;left:0;width:100%;height:28px;background:#f0f2ed}.story-lyricblock{position:absolute;top:0;height:27px;white-space:nowrap;overflow:hidden;font-size:10px;border-left:1px solid #abbfaf;background:#e5eddf;padding:5px;color:#607b61;pointer-events:none}.story-playhead{position:absolute;left:0;top:0;height:202px;width:2px;background:#b2712c;pointer-events:none;z-index:6}.story-playhead:before{content:'';border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #b2712c;position:absolute;top:0;left:-4px}.story-sections{display:flex;overflow-x:auto;gap:6px;padding:10px 0}.story-sections button{font-size:11px;white-space:nowrap}.story-sections button.selected{background:var(--green);color:white}.story-inspector{margin:14px 0;padding:15px;border:1px solid var(--line);border-radius:10px;background:#fafbf7}.story-inspector label{font-size:11px;display:grid;gap:4px}.story-inspector input,.story-inspector select{min-width:0;width:100%}.story-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.story-fields .full{grid-column:1/-1}.story-inspector .toolbar{margin-top:9px}.story-inspector small{font-size:11px}.story-inspector textarea{font-size:12px;height:66px;width:100%;min-width:0}.story-cutlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:9px;max-height:490px;overflow:auto;margin-top:10px;padding:3px}.story-tile{display:flex;flex-direction:column;padding:0;text-align:left;border-radius:9px;overflow:hidden}.story-tile.selected{outline:2px solid var(--green)}.story-tile.playing{box-shadow:inset 0 -3px #b2812c}.story-tile figure{margin:0;aspect-ratio:16/9;background:#edf2e7;display:grid;place-items:center;color:#788a72;overflow:hidden}.story-tile figure img{width:100%;height:100%;object-fit:contain}.story-tile .info{padding:10px;display:grid;gap:5px;min-width:0}.story-tile .info b{font-size:12px}.story-tile .info small{font-size:10px}.story-tile .tile-desc{font-size:11px;line-height:1.5;color:var(--muted);height:33px;overflow:hidden}.story-tile .file-status{overflow-wrap:anywhere;white-space:normal}.story-tile.unlinked .file-status{color:#98613d}.story-issues{font-size:12px;line-height:1.7;white-space:pre-line;max-height:175px;overflow:auto}.story-import-table{max-height:300px;overflow:auto;margin-top:12px}.story-import-table td{font-size:12px;padding:7px;vertical-align:top}.story-import-table th{position:sticky;top:0;background:white}.story-bottom{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.story-dialog{width:780px}.story-dialog textarea{height:90px}.story-maprow{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;margin:7px 0}.story-maplist{max-height:360px;overflow:auto}.story-maprow select{width:100%;min-width:0}.story-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto;font:12px/1.7 system-ui}.story-error{white-space:pre-line;color:var(--red);font-size:12px;min-height:20px}#storySourcesList{max-height:250px;overflow:auto}.story-empty-message{padding:30px;color:var(--muted);text-align:center;font-size:13px}.story-cue-note{padding:10px;font-size:12px;line-height:1.7}.story-preview:fullscreen{max-height:none;width:100vw;height:100vh;aspect-ratio:auto;border-radius:0}.story-preview:fullscreen .story-caption{font-size:clamp(25px,4vw,50px)}
+@media(max-width:650px){#storyCard{padding:12px}.story-fields{grid-template-columns:1fr 1fr}.story-fields .file-field{grid-column:1/-1}.story-preview{max-height:none}.story-placeholder{padding:22px}.story-placeholder b{font-size:18px}.story-placeholder p{font-size:12px}.story-toolbar button{font-size:11px;padding:7px 9px}.story-inspector{padding:10px}.story-cutlist{grid-template-columns:repeat(2,minmax(0,1fr))}.story-playerbar{gap:5px}.story-playerbar button{font-size:11px;padding:6px}.story-maprow{grid-template-columns:55px 1fr}}
+
+</style>
+<style>
+/* 3.0.1: short/long selected lyrics must not move the mobile stamp buttons. */
+@media(max-width:850px){
+  .selected-meta{height:36px;min-height:36px;flex-wrap:nowrap}
+  .selected-meta .toolbar{flex-shrink:0;flex-wrap:nowrap}
+  #selection{min-width:0;flex:1;height:3.1em;overflow:auto;overflow-wrap:anywhere;scrollbar-width:thin}
+  .left .current{height:2.9em;min-height:0;overflow-y:auto;overflow-x:hidden;white-space:pre-line;scrollbar-width:thin;overscroll-behavior-y:contain}
+  .left .subtitle{height:3.2em;min-height:0;overflow-y:auto;white-space:pre-line;scrollbar-width:thin;overscroll-behavior-y:contain}
+}
+</style>
+</head>
+<body class="story-mode">
+<div class="page">
+<header class="app-header">
+  <div class="brand"><div class="logo" aria-hidden="true">♪</div><div><div class="eyebrow">ZEROSU · MUSIC VIDEO WORKSPACE</div><h1>Lyrics Sync Studio <span class="version-note">3.0.1 · MOBILE FIX</span></h1><div class="brand-caption">가사 싱크에서 콘티 파일 타임라인까지 <span style="margin-left:7px">v3.0.1</span></div></div></div>
+  <nav class="toolbar" aria-label="프로젝트"><span class="badge">로컬 전용</span><button id="newProject">＋ 새 프로젝트</button><button id="openProject">프로젝트 열기</button><button id="recentProjects">최근 작업</button><button id="help">사용법</button></nav>
+</header>
+<div class="project-bar">
+  <div class="title-group"><label for="projectTitle">프로젝트</label><input id="projectTitle" class="title-input" type="text" maxlength="200" value="새 프로젝트" aria-label="프로젝트 제목"><span id="dirtyBadge" class="badge">시작 전</span></div>
+  <div class="save-group"><div id="saveMeta" class="save-meta">JSON에 가사와 시간만 저장됩니다.<br>음원은 별도로 보관하세요.</div><button id="saveProject" class="primary">프로젝트 저장</button></div>
+</div>
+<div class="workflow" aria-label="진행 단계"><span id="stepAudio"><b class="step-num">1</b> 음원 선택</span><span id="stepLyrics"><b class="step-num">2</b> 가사 입력</span><span id="stepSync"><b class="step-num">3</b> 시간 맞추기</span><span id="stepExport"><b class="step-num">4</b> 저장 · 내보내기</span></div>
+<div id="busyBanner" class="notice" role="status" hidden></div>
+<div id="conflictBanner" class="notice warn" hidden><span>다른 탭에서 이 프로젝트를 변경했습니다. 자동 저장을 멈췄습니다.</span><button id="resolveConflict">내 작업을 사본으로</button></div>
+<div class="advanced-bar"><button id="importSubtitles">자막 가져오기</button><button id="cloneProject">프로젝트 사본</button><button id="stagePreview">큰 자막 미리보기</button><button id="diagnostics">환경 점검</button><span class="spacer"></span><details id="saveOptions"><summary>파일 포함 저장 ▾</summary><div class="save-menu"><button id="saveBundle" class="primary">통합 파일 저장 · .lysync</button><small>음원 + 가사 + 콘티 + 연결된 컷 파일. 편집기의 프로젝트 열기로 복원.</small><button id="savePortable">휴대용 HTML 저장</button><small>편집기까지 포함. 이 파일 하나로 다른 PC에서 작업.</small><small>음원 최대 40 MiB · 음원+컷 파일 합계 80 MiB 이하. 더 큰 프로젝트는 JSON+원본 폴더로 보관하세요.</small></div></details></div>
+<div class="workspace-tabs" role="tablist" aria-label="작업 모드"><button id="modeStory" role="tab" aria-selected="true" class="active">콘티 · 파일 타임라인</button><button id="modeLyrics" role="tab" aria-selected="false">가사 싱크</button><small>가사와 컷 시간을 독립적으로 편집합니다.</small></div>
+<main>
+<aside class="card left">
+  <div class="panel-head"><span class="eyebrow">01 / AUDIO & SYNC</span><button id="chooseAudio" class="tiny">음원 선택 / 재연결</button></div>
+  <div id="audioDrop" class="audio-filebox" role="button" tabindex="0" aria-label="음원 파일 선택 또는 끌어놓기"><div id="audioName" class="audio-name">음원을 선택해 주세요</div><div id="audioNote" class="audio-note">파일을 여기에 놓거나 위 버튼으로 선택하세요.<br>음원과 가사는 서버로 전송되지 않습니다.</div></div>
+  <div class="time"><span id="clock">00:00.000</span> <small>/ <span id="duration">—</span></small></div>
+  <audio id="audio" controls preload="metadata" aria-label="음원 플레이어"></audio>
+  <div class="transport"><button id="back" aria-label="3초 이전">−3초</button><button id="play" class="primary">▶ 재생</button><button id="forward" aria-label="3초 이후">+3초</button><select id="speed" aria-label="재생 속도"><option value="0.5">0.5×</option><option value="0.65">0.65×</option><option value="0.75">0.75×</option><option value="0.85">0.85×</option><option value="1" selected>1.0×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></div>
+  <div class="selected">
+    <div class="selected-meta"><span id="selection" class="eyebrow">선택된 가사 없음</span><div class="toolbar"><button id="prev" class="tiny" aria-label="이전 가사">↑</button><button id="next" class="tiny" aria-label="다음 가사">↓</button><button id="showSelectedLyric" class="tiny" aria-label="선택 가사 표로 이동" title="필요할 때만 아래 가사 표로 이동">표 보기</button></div></div>
+    <p id="current" class="current" tabindex="0" aria-label="현재 선택 가사. 긴 가사는 이 영역 안에서 스크롤하세요.">첫 가사를 기다리고 있어요.</p>
+    <div class="grid2 stamp"><button id="start" class="primary">시작 찍기 · S</button><button id="end">종료 → 다음 · E</button></div>
+    <button id="fast" class="fast">시작 찍고 다음 줄 · Enter</button>
+    <p class="hint">Enter는 이전 줄의 빈 종료를 현재 시각으로 채웁니다.<br>간주 직전에는 <b>이전 줄을 선택해 E로 실제 종료</b>를 찍어 주세요.</p>
+    <div class="row-tools"><button id="listen">▶ 선택 줄 듣기</button><label class="checklabel"><input id="loop" type="checkbox">반복 듣기</label><button id="clearTiming">시간 지우기</button></div>
+    <div class="nudge"><select id="edge" aria-label="보정할 경계"><option value="start">시작</option><option value="end">종료</option></select><select id="nudgeStep" aria-label="보정 간격"><option value="0.01">0.01초</option><option value="0.05">0.05초</option><option value="0.1" selected>0.1초</option></select><button id="minus">−0.1초</button><button id="plus">+0.1초</button></div>
+    <div class="divider"></div>
+    <div class="history"><button id="undo">↶ 실행 취소</button><button id="redo">↷ 다시 실행</button></div>
+  </div>
+  <div class="subtitle-box"><div class="eyebrow">LIVE LYRIC PREVIEW</div><div id="subtitle" class="subtitle">시간을 기록하면 여기에 표시됩니다.</div></div>
+  <div id="autosave" class="recovery" role="status">이 브라우저의 자동 복구는 보조 기능입니다. JSON으로 백업하세요.</div>
+  <details class="shortcut"><summary>단축키 보기</summary><p><kbd>Space</kbd> 재생/정지 · <kbd>S</kbd> 시작 · <kbd>E</kbd> 종료/다음<br><kbd>Enter</kbd> 시작/다음 · <kbd>↑↓</kbd> 줄 선택 · <kbd>←→</kbd> 3초 이동<br><kbd>Ctrl/Cmd+Z</kbd> 취소 · <kbd>Ctrl/Cmd+Shift+Z</kbd> 다시 실행<br><kbd>Ctrl/Cmd+S</kbd> 프로젝트 저장<br>입력칸에서는 편집기 단축키가 작동하지 않습니다.</p></details>
+</aside>
+<div class="right">
+<section class="card" id="storyCard" aria-label="콘티 파일 타임라인">
+ <div class="listhead"><div><div class="eyebrow">STORYBOARD / FILE TIMELINE</div><div class="summary"><h2>콘티 · 컷 파일 타임라인</h2><span id="storyCount" class="count">0컷</span></div></div><button id="importStory" class="primary">콘티 가져오기</button></div>
+ <div id="storyDrop" class="story-drop" tabindex="0">완성한 <b>콘티 MD·JSON·CSV</b>와 <b>컷 이미지·영상</b>을 여기에 놓으세요.<br>콘티의 원래 시간을 그대로 적용합니다. <b>가사 시간은 변경하지 않습니다.</b> ZIP은 먼저 압축을 풀어 주세요.</div>
+ <div class="story-toolbar"><button id="addMedia">컷 파일 여러 개 선택</button><button id="addMediaFolder">컷 폴더 선택</button><button id="mapMedia">파일 연결 확인</button><button id="storySources">원본 콘티</button><button id="storyFromFiles">파일만 순서 배치</button></div>
+ <div class="story-preview" id="storyPreview"><img id="storyImage" hidden alt="현재 컷 이미지"><video id="storyVideo" hidden muted playsinline preload="metadata"></video><div id="storyPlaceholder" class="story-placeholder"><b id="storyPreviewCode">콘티를 불러오세요</b><p id="storyPreviewDescription">이미 만든 컷을 음악에 맞춰 배치하는 작업 공간입니다.</p></div><span id="storyPreviewLabel" class="story-preview-label">16:9 PREVIEW</span><div id="storyCaption" class="story-caption"></div></div>
+ <div class="story-playerbar"><button id="storyPrev">이전 컷</button><button id="storyPlay" class="primary">▶ 재생</button><button id="storyNext">다음 컷</button><input id="storySeek" type="range" min="0" max="0" value="0" step="0.001" aria-label="콘티 재생 위치"><small id="storyClock">00:00.000</small><button id="storyFullscreen" title="미리보기 전체화면">전체화면</button></div>
+ <div class="story-toolbar"><label class="checklabel">확대 <select id="storyZoom"><option value="1">전체</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option><option value="16">16×</option></select></label><label class="checklabel"><input id="storyFollow" type="checkbox" checked>재생 따라가기</label><label class="checklabel"><input id="storyCaptions" type="checkbox" checked>가사 표시</label><label class="checklabel"><input id="storyCover" type="checkbox">화면 채우기</label><small>위: 음원 · 중간: 컷 · 아래: 가사</small></div>
+ <div id="storyScroll" class="story-timeline-scroll"><div id="storyTracks" class="story-tracks"><div id="storyRuler" class="story-ruler"></div><canvas id="storyWave" class="story-wave" height="35"></canvas><div id="storyCutTrack" class="story-cuttrack"></div><div id="storyLyricTrack" class="story-lyrictrack"></div><div id="storyPlayhead" class="story-playhead"></div></div></div>
+ <div id="storySections" class="story-sections" aria-label="콘티 구간"></div>
+ <div id="storyInspector" class="story-inspector" hidden>
+  <div class="panel-head"><b id="storySelection"></b><small id="storyOriginal"></small></div>
+  <div class="story-fields"><label>시작 (초)<input id="cutStart" type="number" min="0" step="0.001"></label><label>종료 (초)<input id="cutEnd" type="number" min="0" step="0.001"></label><label class="file-field">대표 이미지 / 영상<select id="cutAsset"></select></label></div>
+  <div class="toolbar"><label class="checklabel"><input id="cutLinked" type="checkbox" checked>맞닿은 앞·뒤 컷 경계 함께 변경</label><button id="cutStampStart" class="tiny">현재 시각 → 시작</button><button id="cutStampEnd" class="tiny">현재 시각 → 종료</button><button id="cutListen" class="tiny">선택 컷 재생</button><label class="checklabel"><input id="cutLoop" type="checkbox">반복</label></div>
+  <div class="toolbar"><select id="cutEdge"><option value="start">시작</option><option value="end">종료</option></select><select id="cutStep"><option value="frame">1프레임</option><option value="0.01">0.01초</option><option value="0.1" selected>0.1초</option><option value="1">1초</option></select><button id="cutMinus" class="tiny">−</button><button id="cutPlus" class="tiny">＋</button><label class="checklabel">fps <select id="storyFps"><option>24</option><option>25</option><option selected>30</option><option>60</option></select></label><button id="storySectionBoundary" class="tiny">이 구간 시작 조정</button></div>
+  <div id="storyVideoOptions" class="toolbar" hidden><label>영상 원본 시작 (초)<input id="cutMediaIn" type="number" min="0" value="0" step="0.001"></label><label>영상이 짧을 때<select id="cutVideoMode"><option value="hold">끝 화면 유지</option><option value="loop">반복</option></select></label><small>영상 소리는 끄고 노래를 기준으로 재생합니다.</small></div>
+  <div id="storyDetails" class="hint" style="white-space:pre-line;max-height:150px;overflow:auto"></div><div id="storyEditError" class="story-error" role="alert"></div>
+ </div>
+ <div class="story-toolbar"><button id="storyLayout">범위 지정 배치</button><button id="storyShift">컷 시간 일괄 이동</button><button id="storyUndo">↶ 취소</button><button id="storyRedo">↷ 다시 실행</button><input id="storySearch" type="search" placeholder="컷 번호 · 구간 · 파일 검색"><select id="storyFilter"><option value="all">전체 컷</option><option value="unlinked">파일 미연결</option><option value="untimed">시간 미입력</option></select></div>
+ <details id="storyIssuesBox" class="notice"><summary id="storyIssuesSummary">콘티를 불러오세요.</summary><div id="storyIssues" class="story-issues"></div></details>
+ <div id="storyCutList" class="story-cutlist"></div>
+ <div class="story-bottom"><button id="exportCutJson" class="primary">적용 타임라인 JSON</button><button id="exportCutCsv">컷 CSV</button><button id="exportCutMd">수정 콘티 MD</button><button id="clearStory" class="danger">콘티 트랙 비우기</button></div>
+ <p class="hint">원문·컷 번호·내용은 보존됩니다. 컷 경계는 드래그 또는 숫자로 조정하세요. 순서 재배치는 ‘범위 지정 배치’에서만 명시적으로 실행합니다. 실제 MP4 렌더링은 하지 않습니다.</p>
+</section>
+
+<section class="card wave-card" aria-label="음원 파형">
+  <div class="panel-head"><span class="eyebrow">02 / WAVEFORM</span><div class="wave-tools"><label for="zoom">확대</label><select id="zoom"><option value="1">전체</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option><option value="16">16×</option></select><label class="checklabel"><input id="followWave" type="checkbox" checked>재생 따라가기</label></div></div>
+  <canvas id="wave" width="1000" height="135" tabindex="0" role="slider" aria-label="음원 파형: 클릭 또는 좌우 방향키로 탐색" aria-valuemin="0" aria-valuenow="0"></canvas>
+  <div id="waveScroll" class="wave-scroll" hidden><span id="viewStart">00:00</span><input id="pan" type="range" min="0" max="0" value="0" step="0.01" aria-label="파형 표시 범위 이동"><span id="viewEnd">00:00</span></div>
+  <div class="wave-options"><label class="checklabel"><input id="dragEdges" type="checkbox">선택 줄 S/E 경계 드래그</label><small>숫자 입력으로도 보정할 수 있어요.</small></div>
+  <div id="waveHint" class="wave-hint">음원을 불러오면 파형을 생성합니다. 선택한 가사 구간은 연하게 표시됩니다.</div>
+</section>
+<section class="card timeline-card">
+  <div class="listhead"><div><div class="eyebrow">03 / LYRICS TIMELINE</div><div class="summary"><h2>가사 타임라인</h2><span id="progressText" class="count">0 / 0</span></div></div><div class="toolbar"><button id="backToSync" class="tiny">기록 버튼으로</button><button id="addRow" class="tiny">＋ 한 줄 추가</button><button id="bulkLyrics">가사 입력 / 전체 편집</button></div></div>
+  <div id="sectionNav" class="section-nav" aria-label="가사 구간 이동"></div>
+  <div class="filterbar"><input id="searchLyrics" type="search" placeholder="가사 또는 구간 검색" aria-label="가사 검색"><select id="filterMode" aria-label="가사 필터"><option value="all">전체 보기</option><option value="untimed">미입력만</option><option value="issues">확인 필요만</option></select><small id="filterCount"></small></div>
+  <div class="progress" role="progressbar" aria-label="완료한 가사" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" id="progress"><div id="progressFill" style="width:0%"></div></div>
+  <div id="issuesBox" class="notice"><button id="issuesToggle" class="issues-toggle" aria-expanded="false">아직 가사가 없습니다. 가사 입력으로 시작하세요.</button><div id="issuesList" class="issue-list" hidden></div></div>
+  <div id="empty" class="empty"><div class="mark" aria-hidden="true">♪ ─ ♪ ─ ♪</div><h3>새 노래, 같은 작업 공간.</h3><p>음원 파일과 가사를 준비하세요.<br>가사가 들리는 순간을 찍고, 필요한 만큼 다듬으면 됩니다.</p><button id="emptyLyrics" class="primary">가사 붙여넣기</button><div class="mini">[Verse 1] · [Chorus]처럼 구간명을 함께 넣을 수 있어요.</div></div>
+  <div class="table-wrap" id="tableWrap" hidden><table><thead><tr><th>#</th><th>가사 / 구간</th><th>시작 (초)</th><th>종료 (초)</th><th class="duration-cell">길이</th><th>편집</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <div class="table-foot"><div class="toolbar"><button id="moveUp">줄 위로</button><button id="moveDown">줄 아래로</button><button id="splitRow">분할</button><button id="mergeRow">다음 줄과 병합</button><button id="fillEnds">빈 종료 채우기</button><button id="shiftTimes">시간 일괄 이동</button><button id="renameSection">구간명 수정</button><button id="duplicateSection">구간 복제</button><button id="resetTiming" class="danger">전체 시간 초기화</button></div><div class="toolbar"><select id="exportFormat" aria-label="내보내기 형식"><option value="srt">SRT 자막</option><option value="csv">CSV 타임라인</option><option value="vtt">WebVTT 자막</option><option value="lrc">LRC 가사</option><option value="txt">TXT 가사</option></select><button id="export" class="primary">내보내기</button></div></div>
+</section>
+<details class="card" id="cueCard"><summary class="legacy-label">이전 버전 영상 큐 보기 (호환용)</summary><div class="listhead"><div><div class="eyebrow">04 / MUSIC VIDEO CUES</div><div class="summary"><h2>영상 큐 · 장면 메모</h2><span id="cueCount" class="count">0개</span></div></div><button id="addCue">＋ 영상 큐</button></div><p class="hint">가사에 연결하면 시간이 함께 갱신됩니다. 간주는 직접 시작·종료를 지정하세요. 영상이나 이미지를 생성하는 기능은 아닙니다.</p><div id="cueList"></div><div class="table-foot"><small>가사 ID 참조 · 자막과 별도 타임라인</small><div class="toolbar"><button id="exportCueMd">콘티 Markdown</button><button id="exportCues">영상 큐 JSON</button></div></div></details>
+</div>
+</main>
+<footer class="bottom-note">한 프로그램으로 여러 노래를 작업하세요. <b>HTML은 공통 편집기</b>, <b>JSON은 곡별 프로젝트</b>입니다.<br>브라우저 데이터 삭제나 파일 이동으로 자동 복구가 사라질 수 있습니다. 작업 후 JSON + 음원을 함께 보관하거나, 음원·컷 파일이 포함된 .lysync / 휴대용 HTML로 저장하세요.</footer>
+</div>
+<input id="audioInput" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.flac,.webm">
+<input id="projectInput" type="file" accept=".json,.lysync,application/json">
+<input id="subtitleInput" type="file" accept=".srt,.vtt,.lrc,text/plain"><input id="textInput" type="file" accept=".txt,text/plain">
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="newDialog" aria-labelledby="newHeading"><h2 id="newHeading">새 프로젝트</h2><p>음원과 가사 없이 시작합니다. 현재 프로젝트와 별도로 저장됩니다.</p><label class="field" for="newTitle">노래 / 프로젝트 제목<input id="newTitle" type="text" maxlength="200" placeholder="예: 달려라 투림맘"></label><div class="actions"><button data-close="newDialog">취소</button><button id="createProject" class="primary">만들기</button></div></dialog>
+<dialog id="lyricsDialog" aria-labelledby="lyricsHeading"><div class="dialog-head"><h2 id="lyricsHeading">가사 입력 / 전체 편집</h2><button id="loadText" class="tiny">TXT 불러오기</button></div><p>한 줄에 가사 하나를 입력하세요. [구간명]은 자막이 아닌 구간 제목입니다.<br>반복 가사는 실제 부르는 횟수만큼 직접 입력하세요. 문구만 수정할 때는 표의 ‘수정’ 버튼이 안전합니다.</p><textarea id="lyricsText" aria-label="전체 가사" placeholder="[Verse 1]&#10;첫 번째 가사&#10;두 번째 가사&#10;&#10;[Chorus]&#10;후렴 가사"></textarea><label class="field" for="keepMode">기존 시간 처리<select id="keepMode"><option value="safe">안전하게 유지: 구간명·가사가 유일하게 일치하는 줄만</option><option value="reset">전체 교체: 기존 시간을 사용하지 않음</option></select></label><div id="lyricsPreview" class="notice"></div><div id="lyricsError" class="text-error" role="alert"></div><div class="actions"><button data-close="lyricsDialog">취소</button><button id="applyLyrics" class="primary">적용</button></div></dialog>
+<dialog id="rowDialog" aria-labelledby="rowHeading"><h2 id="rowHeading">가사 수정</h2><p>문구를 바꿔도 이 줄의 ID와 시작·종료 시간은 유지됩니다.</p><div class="fields"><label class="field">가사<textarea id="rowText" class="compact" maxlength="2000" aria-label="선택 줄 가사"></textarea></label><label class="field">구간<select id="rowSection"></select></label><label class="field" id="newSectionWrap" hidden>새 구간 이름<input id="newSectionName" type="text" maxlength="120" placeholder="예: Chorus 2"></label></div><div id="rowError" class="text-error" role="alert"></div><div class="actions"><button id="deleteRow" class="danger" style="margin-right:auto">이 줄 삭제</button><button data-close="rowDialog">취소</button><button id="applyRow" class="primary">저장</button></div></dialog>
+<dialog id="shiftDialog" aria-labelledby="shiftHeading"><h2 id="shiftHeading">시간 일괄 이동</h2><p>시작과 종료를 같은 양만큼 옮깁니다. 빈 시간은 비워 두며, 범위를 벗어나면 적용하지 않습니다.</p><div class="fields"><label class="field">이동 대상<select id="shiftScope"><option value="from">선택 줄부터 끝까지</option><option value="section">선택한 구간만</option><option value="all">전체 가사</option></select></label><label class="field">이동할 시간 (초)<input id="shiftDelta" type="number" step="0.1" value="0.3"></label></div><div id="shiftPreview" class="notice"></div><div class="actions"><button data-close="shiftDialog">취소</button><button id="applyShift" class="primary">적용</button></div></dialog>
+<dialog id="recentDialog" aria-labelledby="recentHeading"><h2 id="recentHeading">최근 작업 / 자동 복구</h2><p>이 브라우저에서 자동 저장한 프로젝트입니다. 음원은 저장되지 않으므로 다시 선택하세요.<br>다른 PC로 옮길 때는 JSON 파일을 사용하세요.</p><div id="recentList" class="recent-list"></div><div class="actions"><button data-close="recentDialog">닫기</button></div></dialog>
+<dialog id="helpDialog" aria-labelledby="helpHeading"><h2 id="helpHeading">작업 순서와 주의사항</h2><div class="help-body"><h3>모바일 시간 기록</h3><p>시작·종료·Enter·이전/다음 가사를 눌러도 페이지는 자동으로 이동하지 않습니다. 가사 표 내부만 선택 줄을 따라갑니다. 긴 가사는 기록 버튼 위의 가사 영역 안에서 스크롤하세요. 표를 확인할 때는 ‘표 보기’, 돌아올 때는 ‘기록 버튼으로’를 누르세요. 일반 화면 스크롤은 그대로 사용할 수 있습니다.</p><h3>콘티 · 컷 파일 타임라인</h3><p>콘티 가져오기에서 MD·JSON·CSV를 선택한 뒤 목록을 확인하고 적용합니다. 원래 컷 시간과 원문을 보존하며 가사 시간은 바꾸지 않습니다. 컷 파일 여러 개 선택 또는 폴더 선택으로 이미지를 연결하세요. 맞닿은 컷 경계는 드래그하거나 숫자로 수정할 수 있습니다. 콘티 모드에서 S/E는 선택한 컷 시작/종료, ↑↓는 컷 선택입니다.</p><p>JSON은 파일명을 기억하지만 파일 바이트는 포함하지 않습니다. 같은 원본 폴더를 다시 선택하거나, 파일 포함 저장을 사용하세요. 음원 최대 40 MiB, 사용 중인 컷 파일과 합계 80 MiB 이하만 통합 저장합니다. ZIP은 먼저 압축을 풉니다. 원화/영상 생성과 MP4 렌더링은 하지 않습니다.</p><h3>새 노래 작업</h3><p>새 프로젝트 → 음원 선택 → 가사 입력 → 재생하며 S/E 또는 Enter → 미세 보정 → 프로젝트 저장 → SRT 내보내기.</p><h3>기존 제리 작업 이어하기</h3><p>원본 제리 편집기에서 저장한 버전 1 JSON을 ‘프로젝트 열기’로 선택하세요. 가사와 시간을 버전 3으로 변환합니다. 그다음 원본 제리 MP3를 선택하세요. 최초 HTML 자체에는 수정한 시간이 들어 있지 않습니다.</p><h3>가사와 시간 보정</h3><p>한 줄 문구 변경은 표의 ‘수정’을 사용하세요. 전체 붙여넣기는 반복 가사의 대응 관계를 확신할 수 없으면 시간을 초기화합니다. 전체 가사와 순서가 동일하면 그대로 유지합니다. 변경은 실행 취소로 복원할 수 있습니다.</p><h3>Enter 연속 기록</h3><p>선택 줄의 시작을 찍고 다음 줄로 이동합니다. 앞선 줄에 시작만 있다면 종료를 현재 시각으로 채웁니다. 간주 앞에서는 ↑로 이전 줄을 선택한 뒤 E로 실제 종료를 기록하세요. 마지막 줄은 E로 종료를 찍으세요. 시간은 음원 위치 기준으로 기록되므로 배속 재생에서도 같은 타임라인을 사용합니다.</p><h3>저장과 재연결</h3><p>기본 JSON에는 음원이 없습니다. JSON과 음원을 각각 선택하거나, 음원 포함 저장의 .lysync 파일을 프로젝트 열기로 불러오세요. 휴대용 HTML은 편집기와 음원·작업을 모두 담으며, 브라우저에서 열면 복원됩니다. 수정 후에는 다시 저장해야 파일에 반영됩니다. 자동 복구는 이 브라우저의 보조 저장이며 영구 보관을 보장하지 않습니다. 동일 위치의 HTML을 계속 사용하고 매 작업 후 JSON을 백업하세요.</p><h3>음원 변경</h3><p>음원 파일명·크기·길이·가능한 경우 SHA-256 해시를 비교합니다. 기존 정보와 다르면 확인합니다. 시간이 자동으로 늘어나거나 잘리지 않습니다. 음원 재연결 시 편집 실행 취소 기록은 비워집니다. 새 노래는 반드시 ‘새 프로젝트’에서 시작하세요.</p><h3>형식과 한계</h3><p>브라우저가 재생할 수 있는 음원만 지원합니다. 파일 선택란의 확장자가 실제 코덱 지원을 보장하지 않습니다. 최대 음원 120 MiB, 가사 1,000줄, 한 줄 2,000자, 길이 24시간입니다. 40 MiB 또는 20분을 넘는 음원은 메모리 보호를 위해 파형 생성을 건너뜁니다. 파형 실패 시 재생과 수동 기록은 사용할 수 있습니다.</p><p>이 버전은 수동 싱크 편집기입니다. 음원 포함 저장·가사 분할/병합·자막 가져오기·영상 큐를 지원합니다. 자동 음성 인식·보컬 종료 분석·영상/이미지 생성·단어별 노래방 자막은 제공하지 않습니다. 선택 줄 반복은 앞 0.7초, 뒤 0.4초를 포함하며 정밀한 오디오 루프 편집기는 아닙니다. SRT/WebVTT는 모든 시간을 입력하고 오류를 수정한 뒤 내보냅니다. CSV는 미입력 상태도 저장합니다.</p><h3>영상 큐와 편집</h3><p>가사 연결 큐는 선택한 가사들의 가장 이른 시작부터 가장 늦은 종료까지를 사용합니다. 가사 분할/병합 시 연결 ID를 갱신합니다. 가사를 삭제하거나 자막으로 교체하면 연결을 직접 확인하세요. 직접 지정 큐는 가사 시간 일괄 이동의 영향을 받지 않습니다. 큐 JSON/Markdown은 현재 시간의 스냅샷이며, 다시 이어 할 때는 프로젝트 JSON 또는 .lysync가 필요합니다.</p><h3>자막 가져오기</h3><p>SRT/WebVTT의 텍스트와 시간을 가져옵니다. 스타일·위치·주석은 제외하며 알림을 표시합니다. 여러 줄 자막은 유지합니다. 줄 단위 LRC의 종료는 다음 타임스탬프로 추정하므로 마지막 종료와 간주를 직접 보정하세요. LRC 내보내기는 밀리초 표기와 빈 종료 타임스탬프를 사용합니다. 플레이어에 따라 지원 차이가 있을 수 있습니다.</p><h3>음원 포함 저장</h3><p>.lysync / HTML에는 원본 음원이 포함됩니다. 공유할 때 공개 범위를 확인하세요. 메모리 보호를 위해 내장 음원은 40 MiB 이하입니다. 음원과 가사를 서버로 전송하지 않고 외부 스크립트도 사용하지 않습니다.</p><h3>단축키</h3><table class="help-table"><tbody><tr><td>Space</td><td>재생 / 정지</td></tr><tr><td>S / E</td><td>시작 / 종료 후 다음 줄</td></tr><tr><td>Enter</td><td>시작 후 다음 줄</td></tr><tr><td>↑ ↓ / ← →</td><td>줄 선택 / 3초 탐색</td></tr><tr><td>Ctrl 또는 Cmd + Z</td><td>실행 취소</td></tr><tr><td>Ctrl 또는 Cmd + Shift + Z</td><td>다시 실행 (Ctrl+Y도 가능)</td></tr><tr><td>Ctrl 또는 Cmd + S</td><td>프로젝트 저장</td></tr></tbody></table></div><div class="actions"><button data-close="helpDialog" class="primary">확인</button></div></dialog>
+
+<dialog id="splitDialog" aria-labelledby="splitHeading"><h2 id="splitHeading">가사 분할</h2><p id="splitInfo"></p><div class="fields"><label class="field">앞 가사<textarea id="splitLeft" class="compact" maxlength="2000"></textarea></label><label class="field">뒤 가사<textarea id="splitRight" class="compact" maxlength="2000"></textarea></label><label class="field">분할 시각 (초)<input id="splitAt" type="number" min="0" step="0.001"></label></div><div id="splitError" class="text-error" role="alert"></div><div class="actions"><button data-close="splitDialog">취소</button><button id="applySplit" class="primary">분할</button></div></dialog>
+<dialog id="importDialog" aria-labelledby="importHeading"><h2 id="importHeading">자막 가져오기 확인</h2><p id="importSummary"></p><div id="importWarnings" class="notice warn"></div><pre id="importPreview"></pre><label class="field">가져오기 위치<select id="importMode"><option value="new">새 프로젝트로 열기 (음원 재연결)</option><option value="replace">현재 프로젝트 가사 교체 (음원 유지)</option></select></label><div class="actions"><button data-close="importDialog">취소</button><button id="applyImport" class="primary">가져오기</button></div></dialog>
+<dialog id="cueDialog" aria-labelledby="cueHeading"><h2 id="cueHeading">영상 큐</h2><p>장면/간주 메모입니다. 가사 자막에 포함되지 않습니다. 미완성 큐도 프로젝트에는 저장할 수 있습니다.</p><label class="field">장면 이름<input id="cueName" type="text" maxlength="200" placeholder="예: 바닷가 러닝 하이라이트"></label><label class="field">시간 지정<select id="cueMode"><option value="lyrics">가사에 연결 · 시간 자동 반영</option><option value="manual">직접 지정 · 독립적인 시간</option></select></label><div id="cueManual" class="grid2"><label class="field">시작 (초)<input id="cueStart" type="number" min="0" step="0.001"></label><label class="field">종료 (초)<input id="cueEnd" type="number" min="0" step="0.001"></label></div><div id="cueLinks"><label class="field">연결할 가사 (복수 선택)</label><div id="cueLyricChoices"></div></div><label class="field">장면 설명 / 카메라 / 전환 / 메모<textarea id="cueNotes" class="compact" maxlength="8000"></textarea></label><div id="cueError" class="text-error" role="alert"></div><div class="actions"><button id="deleteCue" class="danger" style="margin-right:auto">삭제</button><button data-close="cueDialog">취소</button><button id="applyCue" class="primary">저장</button></div></dialog>
+<dialog id="stageDialog" aria-label="큰 자막 미리보기"><div class="eyebrow">LYRICS PREVIEW · 줄 단위 자막</div><div id="stageLine"></div><div id="stageNext"></div><div class="actions"><button id="stagePlay">재생 / 정지</button><button data-close="stageDialog">닫기</button></div></dialog>
+<dialog id="diagnosticDialog" aria-label="환경 점검"><h2>이 PC의 실행 환경</h2><pre id="diagnosticText" style="white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.8 system-ui"></pre><div class="actions"><button id="saveDiagnostic">보고서 저장</button><button data-close="diagnosticDialog">닫기</button></div></dialog>
+<input id="storyInput" type="file" multiple accept=".md,.markdown,.json,.csv,.txt"><input id="storyMediaInput" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,image/avif,image/bmp,video/mp4,video/webm,video/ogg,.mp4,.webm,.mov"><input id="storyFolderInput" type="file" multiple webkitdirectory>
+<dialog id="storyImportDialog" class="story-dialog"><h2>콘티 가져오기 · 적용 전 확인</h2><p id="storyImportSummary"></p><div id="storyImportWarnings" class="notice story-issues"></div><div class="story-import-table"><table><thead><tr><th>컷</th><th>구간</th><th>시작 → 종료</th><th>화면 / 파일</th></tr></thead><tbody id="storyImportRows"></tbody></table></div><label class="field">적용 방식<select id="storyImportMode"><option value="replace">콘티 트랙 교체 (가사·음원은 유지)</option><option value="append">기존 콘티 뒤에 추가 (시간은 이동하지 않음)</option></select></label><p>같은 컷 번호가 겹치면 추가를 거절합니다. 원본 시간을 보존하며 자동으로 가사 시간에 맞추지 않습니다.</p><div id="storyImportError" class="story-error"></div><div class="actions"><button data-close="storyImportDialog">취소</button><button id="applyStoryImport" class="primary">타임라인에 적용</button></div></dialog>
+<dialog id="storyMapDialog" class="story-dialog"><h2>컷과 실제 파일 연결</h2><p>원문 파일 경로 → 유일한 파일명 → 유일한 컷 번호 순으로 연결합니다. 후보가 둘 이상이면 자동 연결하지 않습니다.</p><div class="toolbar"><button id="storyAutoMatch">파일명으로 자동 연결</button><button id="storyOrderMatch">파일 순서로 연결…</button></div><div id="storyMapList" class="story-maplist"></div><div class="actions"><button data-close="storyMapDialog">닫기</button></div></dialog>
+<dialog id="storyOrderDialog" class="story-dialog"><h2 id="storyOrderHeading">파일 순서 연결 확인</h2><p>아래 파일을 자연 정렬한 순서로 사용합니다. 내용·인물을 인식해 매칭하는 기능이 아닙니다.</p><pre id="storyOrderPreview"></pre><div class="grid2" id="storyFromFilesRange" hidden><label class="field">범위 시작 (초)<input id="storyFilesStart" type="number" min="0" step="0.001" value="0"></label><label class="field">범위 종료 (초)<input id="storyFilesEnd" type="number" min="0" step="0.001"></label></div><div id="storyOrderError" class="story-error"></div><div class="actions"><button data-close="storyOrderDialog">취소</button><button id="applyStoryOrder" class="primary">확인 후 적용</button></div></dialog>
+<dialog id="storyTimingDialog" class="story-dialog"><h2 id="storyTimingTitle">컷 범위 지정</h2><p id="storyTimingHint"></p><label class="field" id="storyScopeWrap">적용 대상<select id="storyTimingScope"><option value="section">선택한 구간</option><option value="all">전체 컷</option><option value="from">선택 컷부터 끝까지</option><option value="untimed">시간 미입력 컷</option></select></label><div id="storyRangeFields" class="grid2"><label class="field">시작 (초)<input id="storyRangeStart" type="number" min="0" step="0.001"></label><label class="field">종료 (초)<input id="storyRangeEnd" type="number" min="0" step="0.001"></label></div><label id="storyDeltaWrap" class="field" hidden>이동량 (초, 음수는 앞당김)<input id="storyDelta" type="number" step="0.001" value="0.1"></label><label id="storyProportionWrap" class="field">컷 길이 배분<select id="storyProportion"><option value="equal">선택한 범위를 균등 분할</option><option value="ratio">현재 컷 길이 비율 유지</option></select></label><div id="storySectionStartWrap" hidden><label class="field">구간 시작 (초)<input id="storySectionStart" type="number" min="0" step="0.001"></label><button id="storySectionNow">현재 재생 시각 사용</button></div><div id="storyTimingPreview" class="notice"></div><div id="storyTimingError" class="story-error"></div><div class="actions"><button data-close="storyTimingDialog">취소</button><button id="applyStoryTiming" class="primary">적용</button></div></dialog>
+<dialog id="storySourcesDialog" class="story-dialog"><h2>원본 콘티 문서</h2><p>타임라인을 조정해도 원문 파일은 변경하지 않습니다. 원래 문서의 인물 설정과 제작 지침은 여기서 그대로 저장할 수 있습니다.</p><div id="storySourcesList"></div><div class="actions"><button data-close="storySourcesDialog">닫기</button></div></dialog>
+
+<script id="portableProject" type="application/json"></script>
+<script id="studio-core">
+/* Lyrics Sync Studio 2.0.0 — pure project / timing logic. No dependencies. */
+(function (root) {
+'use strict';
+const FORMAT = 'zerosu-lyrics-sync';
+const LIMIT = { rows: 1000, text: 2000, title: 200, section: 120, seconds: 86400 };
+const clone = x => JSON.parse(JSON.stringify(x));
+const round = x => Math.round((x + Number.EPSILON) * 1000) / 1000;
+function uid(prefix='id') {
+  return prefix + '_' + (root.crypto?.randomUUID ? root.crypto.randomUUID() : Date.now().toString(36)+'_'+Math.random().toString(36).slice(2)+'_'+Math.random().toString(36).slice(2));
+}
+function str(x, name, max, empty=false) {
+  if(typeof x !== 'string' || (!empty && !x.trim()) || x.length>max) throw Error(name+' 형식을 확인하세요.');
+  return x.trim();
+}
+function number(x, name, allowNull=true) {
+  if(x === null && allowNull) return null;
+  if(typeof x !== 'number' || !Number.isFinite(x) || x<0 || x>LIMIT.seconds) throw Error(name+'은 0~86,400 사이의 초 단위 숫자여야 합니다.');
+  return round(x);
+}
+function fresh(title='새 프로젝트') {
+  const now=new Date().toISOString();
+  return {format:FORMAT,version:3,projectId:uid('project'),title:str(title,'제목',LIMIT.title),timeUnit:'seconds',duration:null,
+    audio:{fileName:null,size:null,type:null,lastModified:null,sha256:null},rows:[],cues:[],
+    editor:{selectedRowId:null,playbackRate:1},createdAt:now,updatedAt:now};
+}
+function normalize(raw, fallbackTitle='불러온 프로젝트') {
+  if(!raw || typeof raw!=='object' || Array.isArray(raw)) throw Error('프로젝트 JSON 객체가 아닙니다.');
+  if(![1,2,3].includes(raw.version)) throw Error('지원하는 프로젝트 버전은 1, 2, 3입니다.');
+  const legacy=raw.version===1;
+  if(!legacy && raw.format && raw.format!==FORMAT) throw Error('다른 프로그램의 프로젝트 형식입니다.');
+  if(raw.timeUnit && raw.timeUnit!=='seconds') throw Error('초(seconds) 단위 프로젝트만 지원합니다.');
+  if(!Array.isArray(raw.rows) || raw.rows.length>LIMIT.rows) throw Error('가사는 최대 '+LIMIT.rows+'줄까지 지원합니다.');
+  const p=fresh(raw.title || (legacy && raw.song==='jerry-original-233544-v1' ? '내일의 앵무새 제리' : fallbackTitle));
+  if(!legacy) p.projectId=str(raw.projectId,'프로젝트 ID',160);
+  p.duration=number(raw.duration??null,'음원 길이');
+  if(p.duration===0) p.duration=null;
+  const seen=new Set(), sectionLabels=new Map();
+  let prevLabel=null, group=null;
+  p.rows=raw.rows.map((r,i)=>{
+    if(!r || typeof r!=='object') throw Error((i+1)+'번 가사 형식 오류');
+    const text=str(r.text,(i+1)+'번 가사',LIMIT.text);
+    if(/\n\s*\n/.test(text)) throw Error((i+1)+'번 가사 내부의 빈 줄은 제거하세요.');
+    const section=str(r.section??'구간 미지정','구간명',LIMIT.section);
+    if(section!==prevLabel){group=uid('section');prevLabel=section;}
+    const id=legacy?uid('lyric'):str(r.id,'가사 ID',160);
+    if(seen.has(id)) throw Error('중복 가사 ID: '+id);
+    seen.add(id);
+    const sectionId=legacy?group:(r.sectionId?str(r.sectionId,'구간 ID',160):group);
+    if(sectionLabels.has(sectionId)&&sectionLabels.get(sectionId)!==section) throw Error('동일한 구간 ID에 서로 다른 구간명이 있습니다.');
+    sectionLabels.set(sectionId,section);
+    return {id,sectionId,section,text,start:number(r.start??null,(i+1)+'번 시작'),end:number(r.end??null,(i+1)+'번 종료')};
+  });
+  if(raw.audio && typeof raw.audio==='object') {
+    const a=raw.audio;
+    p.audio.fileName=a.fileName==null?null:str(a.fileName,'음원 파일명',500);
+    p.audio.type=a.type==null?null:str(a.type,'음원 유형',150,true);
+    for(const k of ['size','lastModified']) {
+      if(a[k]!=null && (!Number.isSafeInteger(a[k])||a[k]<0)) throw Error('음원 '+k+' 형식 오류');
+      p.audio[k]=a[k]??null;
+    }
+    if(a.sha256!=null && (typeof a.sha256!=='string'||!/^[a-f\d]{64}$/i.test(a.sha256))) throw Error('음원 해시 형식 오류');
+    p.audio.sha256=a.sha256?.toLowerCase()??null;
+  }
+  if(typeof raw.song==='string') p.sourceSong=raw.song.slice(0,200);
+  if(typeof raw.sourceSong==='string') p.sourceSong=raw.sourceSong.slice(0,200);
+  const selected=legacy?p.rows[Math.max(0,Math.min(p.rows.length-1,raw.selected|0))]?.id:raw.editor?.selectedRowId;
+  p.editor.selectedRowId=seen.has(selected)?selected:(p.rows[0]?.id??null);
+  const speed=raw.editor?.playbackRate;
+  p.editor.playbackRate=[0.5,0.65,0.75,0.85,1,1.25,1.5].includes(speed)?speed:1;
+  p.cues=normalizeCues(raw.cues??[]);
+  for(const k of ['createdAt','updatedAt']) if(typeof raw[k]==='string' && Number.isFinite(Date.parse(raw[k]))) p[k]=raw[k];
+  return p;
+}
+function parseLyrics(source) {
+  if(typeof source!=='string' || source.length>2_100_000) throw Error('가사 텍스트가 너무 큽니다.');
+  let section='구간 미지정',sectionId=uid('section'),rows=[];
+  for(const raw of source.replace(/^\uFEFF/,'').split(/\r?\n/)) {
+    const line=raw.trim(); if(!line)continue;
+    const m=line.match(/^\[([^\[\]]+)\]$/);
+    if(m){section=str(m[1],'구간명',LIMIT.section);sectionId=uid('section');continue;}
+    if(line.length>LIMIT.text) throw Error('가사 한 줄은 '+LIMIT.text+'자 이하여야 합니다.');
+    rows.push({id:uid('lyric'),sectionId,section,text:line,start:null,end:null});
+    if(rows.length>LIMIT.rows)throw Error('가사는 최대 '+LIMIT.rows+'줄입니다.');
+  }
+  return rows;
+}
+function lyricsText(rows) {
+  let prev=null,lines=[];
+  for(const r of rows){if(r.sectionId!==prev){lines.push('['+r.section+']');prev=r.sectionId;}lines.push(r.text);}
+  return lines.join('\n');
+}
+function reconcile(oldRows, source, mode='safe') {
+  const rows=parseLyrics(source);
+  if(mode!=='reset' && rows.length===oldRows.length && rows.every((r,i)=>r.text===oldRows[i].text && r.section===oldRows[i].section && (!i || (r.sectionId===rows[i-1].sectionId)===(oldRows[i].sectionId===oldRows[i-1].sectionId))))
+    return {rows:clone(oldRows),kept:rows.length,cleared:0,ambiguous:0};
+  const key=r=>JSON.stringify([r.section,r.text]);
+  const oldMap=new Map(),count=new Map();
+  for(const r of oldRows){const k=key(r);if(!oldMap.has(k))oldMap.set(k,[]);oldMap.get(k).push(r);}
+  for(const r of rows)count.set(key(r),(count.get(key(r))||0)+1);
+  let kept=0,ambiguous=0;const reused=new Set(),groupMaps=new Map();
+  if(mode==='safe') for(const r of rows){
+    const k=key(r),matches=oldMap.get(k)||[];
+    if(matches.length===1 && count.get(k)===1){
+      const o=matches[0];r.id=o.id;r.start=o.start;r.end=o.end;reused.add(o.id);kept++;
+      if(!groupMaps.has(r.sectionId))groupMaps.set(r.sectionId,new Set());groupMaps.get(r.sectionId).add(o.sectionId);
+    }else if(matches.length){ambiguous++;}
+  }
+  const usedGroups=new Set(),resolved=new Map();
+  for(const [k,v] of groupMaps){if(v.size===1){const id=[...v][0];if(!usedGroups.has(id)){resolved.set(k,id);usedGroups.add(id);}}}
+  for(const r of rows)if(resolved.has(r.sectionId))r.sectionId=resolved.get(r.sectionId);
+  return {rows,kept,ambiguous,cleared:oldRows.filter(r=>(r.start!==null||r.end!==null)&&!reused.has(r.id)).length};
+}
+function validate(p) {
+  let errors=[];let maxStart=-1,maxEnd=-1,maxEndRow=-1;
+  p.rows.forEach((r,i)=>{
+    const add=(code,msg)=>errors.push({rowId:r.id,index:i,code,message:(i+1)+'번: '+msg});
+    if(['start','end'].some(k=>r[k]!==null&&(!Number.isFinite(r[k])||r[k]<0||r[k]>LIMIT.seconds)))add('invalid','유효하지 않은 시간');
+    if(r.start===null||r.end===null)add('missing','시작 또는 종료 미입력');
+    if(r.start!==null && r.end!==null && r.end<=r.start)add('order','종료가 시작보다 늦어야 합니다');
+    if(p.duration!==null && (r.start>p.duration || r.end>p.duration))add('range','음원 길이를 초과합니다');
+    if(r.start!==null){
+      if(r.start<maxStart)add('sequence','앞선 가사보다 시작 시간이 빠릅니다');
+      if(r.start<maxEnd)add('overlap',(maxEndRow+1)+'번 가사와 시간이 겹칩니다');
+      maxStart=Math.max(maxStart,r.start);
+    }
+    if(r.end!==null && (r.start===null||r.end>r.start) && r.end>maxEnd){maxEnd=r.end;maxEndRow=i;}
+  });
+  return errors;
+}
+function shift(p, ids, delta) {
+  if(!Number.isFinite(delta))throw Error('이동할 시간을 숫자로 입력하세요.');
+  const chosen=new Set(ids),q=clone(p);let count=0;
+  for(const r of q.rows)if(chosen.has(r.id)){
+    if(r.start!==null||r.end!==null)count++;
+    for(const k of ['start','end'])if(r[k]!==null){
+      const t=round(r[k]+delta);
+      if(t<0||t>LIMIT.seconds||(q.duration!==null&&t>q.duration))throw Error('이동 후 음원 범위를 벗어나는 시간이 있습니다. 어떤 시간도 변경하지 않았습니다.');
+      r[k]=t;
+    }
+  }
+  return {rows:q.rows,count};
+}
+function fmt(value,style='clock') {
+  if(value===null||!Number.isFinite(value))return '—';
+  const n=Math.max(0,Math.round(value*1000)),h=Math.floor(n/3600000),m=Math.floor(n/60000)%60,s=Math.floor(n/1000)%60,ms=n%1000;
+  const p=(v,len=2)=>String(v).padStart(len,'0');
+  return (style!=='clock'||h>0?p(h)+':':'')+p(m)+':'+p(s)+(style==='srt'?',':'.')+p(ms,3);
+}
+function subtitles(p,format='srt') {
+  if(!['srt','vtt'].includes(format))throw Error('지원하지 않는 자막 형식');
+  if(!p.rows.length)throw Error('먼저 가사를 입력하세요.');
+  if(validate(p).length)throw Error('자막을 저장하려면 미입력·시간 오류를 먼저 수정하세요.');
+  const body=p.rows.map((r,i)=>(format==='srt'?(i+1)+'\n':'')+fmt(r.start,format==='srt'?'srt':'vtt')+' --> '+fmt(r.end,format==='srt'?'srt':'vtt')+'\n'+(format==='vtt'?r.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):r.text)+'\n').join('\n');
+  return (format==='vtt'?'WEBVTT\n\n':'')+body;
+}
+function csv(p) {
+  // Spreadsheet formula injection protection for all string cells.
+  const cell=v=>{let s=String(v??'');if(typeof v==='string' && /^[\s\uFEFF]*[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
+  return '\uFEFF'+[['번호','구간','가사','시작_초','종료_초','가사_ID','구간_ID'],...p.rows.map((r,i)=>[i+1,r.section,r.text,r.start,r.end,r.id,r.sectionId])].map(r=>r.map(cell).join(',')).join('\r\n');
+}
+function filename(title) {
+  let s=title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').replace(/[. ]+$/,'').slice(0,100)||'Lyrics';
+  if(/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\.|$)/i.test(s))s='_'+s;
+  return s;
+}
+/* Version 3 extensions: portable data model, interchange, safe editing, MV cues. */
+function normalizeCues(items) {
+  if(!Array.isArray(items)||items.length>1000)throw Error('영상 큐는 최대 1,000개입니다.');
+  const seen=new Set();
+  return items.map((c,i)=>{
+    if(!c||typeof c!=='object')throw Error('영상 큐 형식 오류');
+    const id=str(c.id,'큐 ID',160);if(seen.has(id))throw Error('중복 큐 ID');seen.add(id);
+    if(c.mode!=='manual'&&c.mode!=='lyrics')throw Error('큐 연결 방식 오류');
+    if(!Array.isArray(c.lyricIds)||c.lyricIds.length>LIMIT.rows||c.lyricIds.some(x=>typeof x!=='string'||!x||x.length>160))throw Error('가사 연결 ID 형식 오류');
+    if(new Set(c.lyricIds).size!==c.lyricIds.length)throw Error('큐에 중복된 가사 ID');
+    return {id,name:str(c.name,'큐 이름',200),mode:c.mode,lyricIds:[...c.lyricIds],start:number(c.start??null,'큐 시작'),end:number(c.end??null,'큐 종료'),notes:str(c.notes??'','큐 메모',8000,true)};
+  });
+}
+function cueTiming(p,c) {
+  if(c.mode==='manual')return {start:c.start,end:c.end,error:null};
+  const rows=c.lyricIds.map(id=>p.rows.find(r=>r.id===id));
+  if(!rows.length||rows.some(r=>!r))return {start:null,end:null,error:'연결된 가사가 없거나 삭제됨'};
+  if(rows.some(r=>r.start===null||r.end===null))return {start:null,end:null,error:'연결된 가사의 시간 미입력'};
+  if(rows.some(r=>r.end<=r.start))return {start:null,end:null,error:'연결된 가사의 시작/종료 오류'};
+  return {start:Math.min(...rows.map(r=>r.start)),end:Math.max(...rows.map(r=>r.end)),error:null};
+}
+function cueErrors(p) {
+  return (p.cues||[]).flatMap((c,i)=>{
+    const t=cueTiming(p,c);let m=t.error;
+    if(!m&&(t.start===null||t.end===null))m='시작 또는 종료 미입력';
+    if(!m&&(t.end<=t.start||t.start<0))m='시작/종료 순서 오류';
+    if(!m&&p.duration!==null&&t.end>p.duration)m='음원 길이 초과';
+    return m?[{id:c.id,index:i,message:(i+1)+'번 큐: '+m}]:[];
+  });
+}
+function storyboard(p,kind='json') {
+  if(!p.cues?.length)throw Error('먼저 영상 큐를 추가하세요.');
+  if(cueErrors(p).length)throw Error('영상 큐의 시간/연결 오류를 먼저 수정하세요.');
+  const cues=p.cues.map((c,i)=>({...clone(c),...cueTiming(p,c),index:i+1}));cues.forEach(c=>delete c.error);
+  const data={format:'zerosu-mv-cues',version:1,projectId:p.projectId,title:p.title,timeUnit:'seconds',duration:p.duration,audio:clone(p.audio),cues};
+  if(kind==='json')return JSON.stringify(data,null,2);
+  const esc=x=>String(x).replace(/\|/g,'\\|').replace(/\r?\n/g,'<br>');
+  return '# '+p.title.replace(/[\r\n]/g,' ')+' — 영상 큐\n\n시간 단위: 초. 가사 연결 큐는 내보내기 시점의 시간으로 계산한 스냅샷입니다.\n\n| # | 장면 | 시작 | 종료 | 연결 | 메모 |\n|---|---|---:|---:|---|---|\n'+cues.map(c=>'| '+[c.index,esc(c.name),fmt(c.start),fmt(c.end),c.mode==='lyrics'?'가사 '+c.lyricIds.length+'줄':'직접 지정',esc(c.notes)].join(' | ')+' |').join('\n')+'\n';
+}
+function splitRow(p,id,left,right,time) {
+  const i=p.rows.findIndex(r=>r.id===id);if(i<0)throw Error('선택한 가사가 없습니다.');
+  if(p.rows.length>=LIMIT.rows)throw Error('최대 가사 수를 초과합니다.');
+  left=str(left,'앞 가사',LIMIT.text);right=str(right,'뒤 가사',LIMIT.text);
+  if(/\n\s*\n/.test(left+right))throw Error('가사 내부의 빈 줄은 제거하세요.');
+  const q=clone(p),r=q.rows[i];let at=null;
+  if(r.start!==null&&r.end!==null&&r.end>r.start){at=number(time,'분할 시각',false);if(at<=r.start||at>=r.end)throw Error('분할 시각은 시작과 종료 사이여야 합니다.');}
+  else if(r.start!==null||r.end!==null)throw Error('시작·종료를 모두 입력하거나 모두 비운 뒤 분할하세요.');
+  const nr={...r,id:uid('lyric'),text:right,start:at,end:r.end};r.text=left;r.end=at;q.rows.splice(i+1,0,nr);
+  for(const c of q.cues||[])if(c.mode==='lyrics'&&c.lyricIds.includes(id))c.lyricIds.splice(c.lyricIds.indexOf(id)+1,0,nr.id);
+  q.editor.selectedRowId=r.id;return q;
+}
+function mergeRow(p,id,joiner=' ') {
+  const i=p.rows.findIndex(r=>r.id===id),r=p.rows[i],next=p.rows[i+1];
+  if(!r||!next)throw Error('다음 가사가 없습니다.');
+  if(r.sectionId!==next.sectionId)throw Error('같은 구간 안의 인접 가사만 병합할 수 있습니다.');
+  const empty=[r.start,r.end,next.start,next.end].every(t=>t===null);
+  if(!empty&&(r.start===null||r.end===null||next.start===null||next.end===null||r.end<=r.start||next.end<=next.start||next.start<r.end))throw Error('두 줄의 정상 시간을 모두 입력하거나 모두 비운 뒤 병합하세요.');
+  const text=r.text+joiner+next.text;if(text.length>LIMIT.text)throw Error('병합하면 2,000자를 초과합니다.');
+  const q=clone(p);q.rows[i].text=text;q.rows[i].end=next.end;q.rows.splice(i+1,1);
+  for(const c of q.cues||[])if(c.mode==='lyrics')c.lyricIds=[...new Set(c.lyricIds.map(x=>x===next.id?r.id:x))];
+  q.editor.selectedRowId=r.id;return q;
+}
+function parseTime(x) {
+  if(typeof x!=='string')throw Error('시간 문자열 오류');
+  const m=x.trim().match(/^(?:(\d+):)?(\d{1,3}):(\d{2})(?:[.,](\d{1,3}))?$/);
+  if(!m||Number(m[3])>59||(m[1]&&Number(m[2])>59))throw Error('시간 형식 오류: '+x);
+  return number((Number(m[1]||0)*60+Number(m[2]))*60+Number(m[3])+Number((m[4]||'').padEnd(3,'0'))/1000,'자막 시간',false);
+}
+function plainCaption(text) {
+  // Keep user text inert. Only remove known subtitle markup, never evaluate HTML.
+  let s=text.replace(/<(?:\/?(?:b|i|u|c|v|lang|ruby|rt))(?:[.\s][^>]*)?>/gi,'').replace(/<\d{1,3}:\d{2}(?::\d{2})?[.]\d{3}>/g,'');
+  s=s.replace(/&#(x[0-9a-f]+|\d+);/gi,(m,n)=>{const x=n[0].toLowerCase()==='x'?parseInt(n.slice(1),16):Number(n);return x>0&&x<=0x10ffff?String.fromCodePoint(x):m;});
+  return s.replace(/&(lt|gt|amp|nbsp|quot|apos);/g,(m,n)=>({lt:'<',gt:'>',amp:'&',nbsp:' ',quot:'"',apos:"'"}[n]));
+}
+function importSubtitles(source,format) {
+  if(typeof source!=='string'||source.length>5_000_000)throw Error('자막은 5MB 이하 텍스트여야 합니다.');
+  source=source.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');const sectionId=uid('section'),warnings=[];let rows=[];
+  const add=(text,start,end)=>{text=str(text,'자막 가사',LIMIT.text);rows.push({id:uid('lyric'),sectionId,section:'가져온 자막',text,start,end});if(rows.length>LIMIT.rows)throw Error('최대 1,000줄 초과');};
+  if(format==='lrc') {
+    const offsets=[...source.matchAll(/^\[offset:([+-]?\d+)\]\s*$/gmi)];
+    if(offsets.length>1)throw Error('LRC offset은 하나만 지원합니다.');
+    const offset=offsets.length?Number(offsets[0][1])/1000:0;
+    if(offset)warnings.push('offset '+offset+'초를 적용했습니다 (양수는 앞당김).');
+    const events=[];
+    for(const line of source.split('\n')){
+      if(!line.trim()||/^\[(?:ar|ti|al|by|offset|length|re|ve):[^\]]*\]\s*$/i.test(line.trim()))continue;
+      const mm=line.match(/^((?:\[\d{1,5}:\d{2}(?:[.:]\d{1,3})?\])+)(.*)$/);
+      if(!mm)throw Error('해석할 수 없는 LRC 줄: '+line.slice(0,80));
+      const text=mm[2].trim();if(/<\d+:\d+/.test(text))throw Error('단어별 Enhanced LRC는 지원하지 않습니다. 줄 단위 LRC를 사용하세요.');
+      for(const ts of mm[1].matchAll(/\[(\d+):(\d{2})(?:[.:](\d{1,3}))?\]/g)){
+        if(Number(ts[2])>59)throw Error('잘못된 LRC 초');
+        const t=round(Number(ts[1])*60+Number(ts[2])+Number((ts[3]||'').padEnd(3,'0'))/1000-offset);number(t,'LRC 시간',false);events.push({t,text});
+        if(events.length>3000)throw Error('LRC 이벤트가 너무 많습니다.');
+      }
+    }
+    events.sort((a,b)=>a.t-b.t);
+    events.forEach((e,i)=>{if(e.text){const next=events.slice(i+1).find(x=>x.t>e.t);add(e.text,e.t,next?.t??null);}});
+    warnings.push('LRC 종료는 다음 타임스탬프를 기준으로 채웠습니다. 마지막 종료와 간주를 직접 확인하세요.');
+  } else if(format==='srt'||format==='vtt') {
+    if(format==='vtt'&&!/^WEBVTT(?:[ \t].*)?(?:\n|$)/.test(source))throw Error('WEBVTT 헤더가 없습니다.');
+    if(format==='vtt')source=source.replace(/^WEBVTT[^\n]*(?:\n|$)/,'');
+    let ignored=0;
+    for(const block of source.split(/\n[ \t]*\n/)){
+      const lines=block.trim().split('\n');if(!lines[0])continue;
+      if(format==='vtt'&&/^(NOTE(?:\s|$)|STYLE$|REGION$)/.test(lines[0])){ignored++;continue;}
+      const at=lines.findIndex(l=>l.includes('-->'));if(at<0||at>1)throw Error('자막 블록에 시작 --> 종료가 없습니다.');
+      const match=lines[at].match(/^\s*(\S+)\s+-->\s+(\S+)(.*)$/);if(!match)throw Error('자막 시간행 오류');
+      const start=parseTime(match[1]),end=parseTime(match[2]);if(end<=start)throw Error('자막 종료는 시작보다 늦어야 합니다.');
+      let text=lines.slice(at+1).join('\n').trim();if(!text)throw Error('빈 자막 블록입니다.');
+      const clean=plainCaption(text);if(clean!==text||match[3].trim())ignored++;
+      add(clean,start,end);
+    }
+    if(ignored)warnings.push('서식 태그·위치 설정·주석 '+ignored+'건은 텍스트 편집용으로 제거했습니다.');
+  } else throw Error('SRT, VTT, 줄 단위 LRC만 지원합니다.');
+  if(!rows.length)throw Error('가져올 자막이 없습니다.');return {rows,warnings};
+}
+function lrc(p) {
+  if(!p.rows.length||validate(p).length)throw Error('LRC를 저장하려면 모든 시간 오류를 수정하세요.');
+  const ts=t=>{const n=Math.round(t*1000);return '['+String(Math.floor(n/60000)).padStart(2,'0')+':'+String(Math.floor(n/1000)%60).padStart(2,'0')+'.'+String(n%1000).padStart(3,'0')+']';};
+  const lines=['[ti:'+p.title.replace(/[\r\n\[\]]/g,' ')+']','[by:Lyrics Sync Studio]'];
+  p.rows.forEach((r,i)=>{lines.push(ts(r.start)+r.text.replace(/\n/g,' '));if(!p.rows[i+1]||p.rows[i+1].start>r.end)lines.push(ts(r.end));});
+  return lines.join('\n')+'\n';
+}
+function alignEnds(p,ids,gap=0) {
+  if(!Number.isFinite(gap)||gap<0)throw Error('간격은 0 이상의 숫자');
+  const q=clone(p),chosen=new Set(ids);let count=0;
+  for(let i=0;i<q.rows.length;i++){const r=q.rows[i];if(!chosen.has(r.id)||r.start===null||r.end!==null)continue;
+    const boundary=q.rows[i+1]?.start??(i===q.rows.length-1?q.duration:null);
+    if(boundary===null||boundary-gap<=r.start)continue;r.end=round(boundary-gap);count++;
+  }
+  return {rows:q.rows,count};
+}
+const api={FORMAT,LIMIT,clone,round,uid,fresh,normalize,parseLyrics,lyricsText,reconcile,validate,shift,fmt,subtitles,csv,filename,normalizeCues,cueTiming,cueErrors,storyboard,splitRow,mergeRow,parseTime,plainCaption,importSubtitles,lrc,alignEnds};
+if(typeof module!=='undefined' && module.exports)module.exports=api;
+root.LyricSyncCore=api;
+})(globalThis);
+
+</script>
+<script id="studio-storyboard">
+/* Storyboard model / import / timing / file matching. Dependency-free; text stays inert. */
+(function(root){'use strict';
+const C=root.LyricSyncCore||(typeof require==='function'?require('./core.js'):null);
+const clone=C.clone,round=C.round,uid=C.uid,MAX=86400;
+const limits={cuts:2000,assets:2000,source:5*1024*1024,totalSource:12*1024*1024};
+const txt=(v,max=8000)=>{if(v==null)return '';if(typeof v!=='string'&&typeof v!=='number')throw Error('텍스트 필드 형식 오류');const s=String(v);if(s.length>max)throw Error('텍스트 길이 제한 초과');return s;};
+function time(v){if(v===null||v===undefined||v==='')return null;if(typeof v==='number'){if(!Number.isFinite(v)||v<0||v>MAX)throw Error('시간은 0~86,400초 범위입니다.');return round(v);}if(typeof v!=='string')throw Error('시간 형식 오류');let s=v.trim().replace(/초$|s$/gi,'').trim();if(/^\d+(?:\.\d+)?$/.test(s))return time(Number(s));const m=s.match(/^(?:(\d{1,2}):)?(\d{1,5}):(\d{2})(?:[.,](\d{1,3}))?$/);if(!m||+m[3]>59||(m[1]!=null&&+m[2]>59))throw Error('시간을 초 또는 mm:ss.sss로 입력하세요: '+s.slice(0,40));return time((+(m[1]||0)*60 + +m[2])*60 + +m[3] + Number((m[4]||'').padEnd(3,'0'))/1000);}
+const TOKEN='(?:\\d{1,2}:)?\\d{1,5}:\\d{2}(?:[.,]\\d{1,3})?';
+function range(v){const s=txt(v),m=s.match(new RegExp('('+TOKEN+')\\s*(?:–|—|~|〜|→|-->|-)\\s*('+TOKEN+')'));if(m)return [time(m[1]),time(m[2])];const n=s.match(/^\s*(\d+(?:\.\d+)?)\s*(?:–|—|~|→|-)\s*(\d+(?:\.\d+)?)\s*(?:초|s)?\s*$/);return n?[time(n[1]),time(n[2])]:null;}
+function path(v){return txt(v,1200).replace(/\\/g,'/').replace(/^\.\//,'').normalize('NFC');}
+const basename=v=>path(v).split('/').pop();
+function code(v){return txt(v,100).trim().replace(/^(?:컷|cut)[ _-]*/i,'').replace(/\s+/g,'');}
+function codeKey(v){const c=code(v).toUpperCase(),m=c.match(/^([A-Z]*)(\d+)([A-Z]?)$/);return m?m[1]+Number(m[2])+m[3]:c;}
+function fileCode(v){const s=basename(v).replace(/\.[^.]+$/,''),m=s.match(/^(?:cut|컷)[ _-]*(\d+[A-Za-z]?)(?=[ _.-]|$)/i)||s.match(/^([A-Za-z]{0,3}\d+[A-Za-z]?)(?=[ _.-]|$)/);return m?codeKey(m[1]):null;}
+const keys={code:['cut','code','컷','컷번호','cutid','shot','shotid','번호','#'],start:['start','starttime','startsec','startseconds','시작','시작초','시작시간'],end:['end','endtime','endsec','endseconds','종료','종료초','종료시간','끝'],span:['time','timing','timerange','시간','타임코드','시간구간','가편집시간길이'],section:['section','sectionname','구간','섹션','파트'],title:['title','name','장면','제목'],description:['description','scene','action','화면','행동','장면설명','내용'],lyric:['lyric','lyrics','lyrictext','가사'],camera:['camera','카메라','카메라연결','카메라동작전환'],cast:['cast','characters','인물장소','시점등장','등장인물','등장'],file:['filename','file','image','imagepath','imagefile','media','asset','assetpath','파일','파일명','이미지','이미지파일'],duration:['duration','길이','길이초']};
+const normKey=k=>k.toLowerCase().replace(/[\s_()（）·/\-]/g,'');
+function pick(o,k){for(const key of Object.keys(o)){if(keys[k].includes(normKey(key)))return o[key];}return undefined;}
+function cleanCut(r,i,context={}){
+ if(!r||typeof r!=='object'||Array.isArray(r))throw Error((i+1)+'번째 컷 형식 오류');
+ let cutCode=code(pick(r,'code')??r.id??String(i+1).padStart(2,'0'));if(!cutCode)throw Error('빈 컷 번호');
+ let start=time(pick(r,'start')),end=time(pick(r,'end'));const rr=range(pick(r,'span')??'');if(rr){if(start===null)start=rr[0];if(end===null)end=rr[1];}
+ if(start===null&&r.startFrame!=null){if(!context.fps)throw Error('프레임 시간에는 원본 JSON의 fps가 필요합니다.');if(!Number.isSafeInteger(r.startFrame)||r.startFrame<0)throw Error('startFrame은 0 이상의 정수여야 합니다.');start=time(r.startFrame/context.fps);}
+ if(end===null&&r.endFrame!=null){if(!context.fps)throw Error('프레임 시간에는 원본 JSON의 fps가 필요합니다.');if(!Number.isSafeInteger(r.endFrame)||r.endFrame<0)throw Error('endFrame은 0 이상의 정수여야 합니다.');end=time(r.endFrame/context.fps);}
+ const d=time(pick(r,'duration'));if(start!==null&&end===null&&d!==null)end=time(start+d);
+ const imgs=Array.isArray(r.images)?r.images.filter(x=>typeof x==='string'):[];
+ const rawfile=pick(r,'file');const fileName=path(typeof rawfile==='string'?rawfile:imgs[0]||'');
+ const sec=txt(pick(r,'section')??context.section??'구간 미지정',120);
+ return {id:uid('cut'),code:cutCode,section:sec,sectionId:txt(r.sectionId??context.sectionId??'',160),title:txt(pick(r,'title')??cutCode,300),description:txt(pick(r,'description')),lyricText:txt(pick(r,'lyric')),camera:txt(pick(r,'camera')),cast:txt(pick(r,'cast')),notes:txt(r.notes??''),start,end,sourceStart:start,sourceEnd:end,assetId:null,fileName,images:imgs.map(path),mediaIn:time(r.mediaIn??0),videoMode:['hold','loop'].includes(r.videoMode)?r.videoMode:'hold',sourceBody:txt(r.sourceBody??'',30000),extra:clone(r)};
+}
+function groups(cuts){let prev=null,id=null;for(const c of cuts){if(c.sectionId){prev=c.section;id=c.sectionId;}else{if(c.section!==prev){id=uid('cutsection');prev=c.section;}c.sectionId=id;}}return cuts;}
+function unique(cuts){if(!cuts.length)throw Error('가져올 컷이 없습니다. 컷 번호와 시간 열 또는 ### C01 형식을 확인하세요.');if(cuts.length>limits.cuts)throw Error('최대 2,000컷입니다.');const s=new Set();for(const c of cuts){const key=codeKey(c.code);if(s.has(key))throw Error('중복 컷 번호: '+c.code+' · 병합하지 않았습니다.');s.add(key);}return groups(cuts);}
+function splitCells(line){let s=line.trim();if(s[0]==='|')s=s.slice(1);if(s.endsWith('|')&&!s.endsWith('\\|'))s=s.slice(0,-1);const out=[];let a='',escaped=false;for(const ch of s){if(escaped){a+=ch==='|'?'|':'\\'+ch;escaped=false;}else if(ch==='\\')escaped=true;else if(ch==='|'){out.push(a.trim());a='';}else a+=ch;}if(escaped)a+='\\';out.push(a.trim());return out;}
+function markdown(source){const lines=source.replace(/\r\n?/g,'\n').split('\n'),cuts=[];let section='구간 미지정',sectionId='',heads=0;
+ // Detailed cut headings take precedence over summary tables in the same source.
+ for(let i=0;i<lines.length;i++){const h=lines[i].match(/^#{3,6}\s+([A-Za-z]{1,3}\d{1,5}[A-Za-z]?|\d{2,5}[A-Za-z]?)\s*(?:[·:：]|\s[-–]\s)\s*(.*)$/);if(!h)continue;heads++;
+ let j=i+1;while(j<lines.length&&!/^#{1,6}\s/.test(lines[j]))j++;
+ const body=lines.slice(i+1,j).join('\n'),r={cut:h[1],time:h[2],sourceBody:body};
+ for(const line of lines.slice(i+1,j)){const m=line.match(/^\s*[-*]\s*\*\*([^*]+?)[:：]?\*\*\s*[:：]?\s*(.*)$/);if(!m)continue;let label=m[1].replace(/[:：]$/,'').trim(),value=m[2];if(label==='구간 / 가사'||label==='구간/가사'){const at=value.indexOf(' / ');r.section=at<0?value:value.slice(0,at);r.lyricText=at<0?'':value.slice(at+3);}else r[label]=value;}
+ if(!range(h[2])&&!('start' in r))r.time='';cuts.push(cleanCut(r,cuts.length));i=j-1;
+ }
+ if(heads)return unique(cuts);
+ let header=null;
+ for(let i=0;i<lines.length;i++){
+  const h=lines[i].match(/^#{2,6}\s+(.+?)(?:\s*·\s*\d.*)?$/);if(h){section=h[1].trim();sectionId=uid('cutsection');header=null;}
+  if(!lines[i].trim().startsWith('|')){header=null;continue;}
+  const cells=splitCells(lines[i]);if(cells.every(x=>/^:?-+:?$/.test(x)))continue;
+  const hasCode=cells.some(x=>keys.code.includes(normKey(x)));
+  const hasTime=cells.some(x=>[...keys.span,...keys.start,...keys.end].includes(normKey(x)));
+  if(hasCode&&hasTime){header=cells;continue;}
+  if(!header)continue;
+  const r={};header.forEach((k,j)=>r[k]=cells[j]??'');const id=pick(r,'code');
+  // Skip table summaries (e.g. "01–04" denotes four cuts, not one cut).
+  if(!/^([A-Za-z]{0,3})?\d{1,5}[A-Za-z]?$/.test(String(id).trim()))continue;
+  cuts.push(cleanCut(r,cuts.length,{section,sectionId}));
+ }
+ return unique(cuts);
+}
+function csvRows(source){const rows=[];let row=[],field='',quoted=false;source=source.replace(/^\uFEFF/,'');for(let i=0;i<source.length;i++){let c=source[i];if(quoted){if(c==='"'&&source[i+1]==='"'){field+='"';i++;}else if(c==='"')quoted=false;else field+=c;}else if(c==='"'&&!field)quoted=true;else if(c===','){row.push(field);field='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&source[i+1]==='\n')i++;row.push(field);if(row.some(s=>s.trim()))rows.push(row);row=[];field='';}else field+=c;}if(quoted)throw Error('CSV 따옴표가 닫히지 않았습니다.');row.push(field);if(row.some(s=>s.trim()))rows.push(row);return rows;}
+function parse(source,name='storyboard.md'){
+ if(typeof source!=='string'||new TextEncoder().encode(source).length>limits.source)throw Error('콘티 문서는 5 MiB 이하 텍스트만 지원합니다.');
+ const ext=name.split('.').pop().toLowerCase();let cuts=[],fps=30,warnings=[];source=source.replace(/^\uFEFF/,'');
+ if(ext==='json'){
+  const raw=JSON.parse(source);if(raw.timeUnit&&raw.timeUnit!=='seconds')throw Error('초 단위 JSON만 지원합니다.');
+  if(raw.fps!=null){fps=Number(raw.fps);if(!Number.isFinite(fps)||fps<1||fps>120)throw Error('fps 값 오류');}
+  if(raw.storyboard?.cuts||raw.format==='zerosu-storyboard-timeline'){
+   const sb=normalize(raw.storyboard??raw);cuts=sb.cuts.map(c=>({...c,id:uid('cut'),assetId:null}));fps=sb.fps;
+  }else{
+   let items=Array.isArray(raw)?raw:raw.cuts??raw.timeline?.cuts??(Array.isArray(raw.timeline)?raw.timeline:null);
+   if(!items&&Array.isArray(raw.sections)){items=raw.sections.flatMap(s=>(s.cuts||[]).map(c=>({...c,section:c.section??s.name??s.section,sectionId:c.sectionId??s.id})));}
+   if(!Array.isArray(items))throw Error('JSON에 cuts 배열이 없습니다. 프로젝트 열기와 콘티 가져오기는 다른 기능입니다.');
+   cuts=items.map((r,i)=>{const section=Array.isArray(raw.sections)?raw.sections.find(s=>s.id===r.sectionId):null;return cleanCut(r,i,{fps:raw.fps?fps:null,section:section?.name??section?.section});});
+  }
+  unique(cuts);
+ }else if(ext==='csv'){
+  const rows=csvRows(source),head=rows.shift();if(!head||!head.some(k=>keys.code.includes(normKey(k))))throw Error('CSV에는 cut / 컷 열이 필요합니다.');
+  cuts=unique(rows.map((cols,i)=>{if(cols.length!==head.length)throw Error((i+2)+'행 CSV 열 개수 불일치');const r={};head.forEach((h,j)=>r[h]=cols[j]);return cleanCut(r,i);}));
+ }else if(['md','markdown','txt'].includes(ext))cuts=markdown(source);
+ else throw Error('콘티 문서는 MD, JSON, CSV만 지원합니다. HTML은 실행하거나 해석하지 않습니다.');
+ let n=cuts.filter(c=>c.start===null||c.end===null).length;if(n)warnings.push(n+'컷의 시간이 없습니다. 가져온 뒤 직접 기록하거나 범위를 지정해 배치하세요.');
+ n=cuts.filter(c=>c.images.length>1).length;if(n)warnings.push(n+'컷에 복수 이미지 참조가 있습니다. 원본 목록을 보존하고 첫 파일을 대표로 사용합니다. 내부 컷으로 자동 분할하지 않습니다.');
+ const errs=issues({cuts},null);if(errs.length)warnings.push('시간 확인 '+errs.length+'건 (누락·겹침·빈 구간 등). 시간을 임의로 수정하지 않았습니다.');
+ return {cuts,fps,warnings,source:{id:uid('source'),name,format:ext,text:source}};
+}
+function fresh(){return {version:1,fps:30,cuts:[],assets:[],sources:[]};}
+function normalize(raw){if(raw==null)return fresh();if(!raw||typeof raw!=='object')throw Error('콘티 형식 오류');const sb=fresh();
+ sb.fps=raw.fps??30;if(!Number.isFinite(sb.fps)||sb.fps<1||sb.fps>120)throw Error('콘티 fps 오류');
+ for(const k of ['cuts','assets','sources'])if(!Array.isArray(raw[k]??[]))throw Error('콘티 '+k+' 배열 오류');
+ if((raw.cuts||[]).length>limits.cuts||(raw.assets||[]).length>limits.assets||(raw.sources||[]).length>30)throw Error('콘티 용량 제한 초과');
+ const aids=new Set(),cids=new Set(),codes=new Set();
+ sb.assets=(raw.assets||[]).map(a=>{const id=txt(a.id,160);if(!id||aids.has(id))throw Error('중복/빈 파일 ID');aids.add(id);if(!['image','video'].includes(a.kind)||!Number.isSafeInteger(a.size)||a.size<0||a.size>300*1024*1024)throw Error('파일 메타데이터 오류');return {id,kind:a.kind,fileName:txt(a.fileName,500),path:path(a.path||a.fileName),type:txt(a.type,150),size:a.size,lastModified:Number.isSafeInteger(a.lastModified)?a.lastModified:0};});
+ let sourceBytes=0;sb.sources=(raw.sources||[]).map(s=>{const text=txt(s.text,limits.source);sourceBytes+=new TextEncoder().encode(text).length;if(sourceBytes>limits.totalSource)throw Error('콘티 원문 총 크기 제한 초과');return {id:txt(s.id,160),name:txt(s.name,500),format:txt(s.format,30),text};});
+ const sg=new Map();sb.cuts=(raw.cuts||[]).map(c=>{const id=txt(c.id,160),cd=txt(c.code,100),ck=codeKey(cd);if(!id||!cd||cids.has(id)||codes.has(ck))throw Error('콘티 컷 ID/번호 중복');cids.add(id);codes.add(ck);const sectionId=txt(c.sectionId,160),section=txt(c.section,120);if(!sectionId)throw Error('컷 구간 ID 없음');if(sg.has(sectionId)&&sg.get(sectionId)!==section)throw Error('같은 구간 ID의 이름 불일치');sg.set(sectionId,section);
+  const extra=clone(c.extra??{});if(JSON.stringify(extra).length>30000)throw Error('컷 원본 정보가 너무 큽니다.');
+  return {id,code:cd,sectionId,section,title:txt(c.title,300),description:txt(c.description),lyricText:txt(c.lyricText),camera:txt(c.camera),cast:txt(c.cast),notes:txt(c.notes),start:time(c.start),end:time(c.end),sourceStart:time(c.sourceStart),sourceEnd:time(c.sourceEnd),assetId:c.assetId==null?null:txt(c.assetId,160),fileName:path(c.fileName),images:(c.images||[]).map(path),mediaIn:time(c.mediaIn??0),videoMode:c.videoMode==='loop'?'loop':'hold',sourceBody:txt(c.sourceBody,30000),extra};
+ });return sb;}
+function issues(sb,duration){const out=[];let maxEnd=0,maxStart=-1;for(let i=0;i<sb.cuts.length;i++){const c=sb.cuts[i],add=(code,message)=>out.push({id:c.id,code,message:c.code+': '+message});
+ if(c.start===null||c.end===null){add('missing','시작/종료 미입력');continue;}
+ if(c.end<=c.start)add('order','종료가 시작보다 늦어야 합니다.');if(c.start<maxStart)add('sequence','앞 컷보다 시작이 빠릅니다.');
+ if(c.start<maxEnd-.0005)add('overlap','앞 컷과 겹칩니다.');if(c.start>maxEnd+.0005)add('gap',C.fmt(maxEnd)+' ~ '+C.fmt(c.start)+' 화면 빈 구간');
+ if(duration!=null&&c.end>duration+.001){if(c.end-duration<=.05)add('tail-tolerance','원본 컷 종료가 브라우저 음원 끝보다 '+round(c.end-duration)+'초 늦습니다. 원본 시간을 유지했습니다.');else add('range','음원 길이를 초과합니다.');}maxEnd=Math.max(maxEnd,c.end);maxStart=Math.max(maxStart,c.start);
+ }if(sb.cuts.length&&duration!=null&&maxEnd<duration-.001)out.push({id:sb.cuts.at(-1).id,code:'gap',message:'마지막 컷 이후 '+C.fmt(duration-maxEnd)+' 빈 구간'});return out;}
+function editEdge(sb,id,edge,value,linked=true,duration=null){const q=clone(sb),i=q.cuts.findIndex(c=>c.id===id);if(i<0||!['start','end'].includes(edge))throw Error('컷을 선택하세요.');const c=q.cuts[i],t=time(value);if(t===null)throw Error('시간을 입력하세요.');if(duration!==null&&t>duration)throw Error('음원 길이를 초과합니다.');const prev=q.cuts[i-1],next=q.cuts[i+1],old=c[edge];
+ if(edge==='start'){if(c.end!==null&&t>=c.end)throw Error('시작은 이 컷 종료보다 빨라야 합니다.');if(linked&&prev&&old!==null&&prev.end!==null&&Math.abs(prev.end-old)<.001){if(prev.start!==null&&t<=prev.start)throw Error('앞 컷의 길이가 0 이하가 됩니다.');prev.end=t;}}
+ else{if(c.start!==null&&t<=c.start)throw Error('종료는 시작보다 늦어야 합니다.');if(linked&&next&&old!==null&&next.start!==null&&Math.abs(next.start-old)<.001){if(next.end!==null&&t>=next.end)throw Error('다음 컷의 길이가 0 이하가 됩니다.');next.start=t;}}
+ c[edge]=t;return q;}
+function shift(sb,ids,delta,duration=null){if(!Number.isFinite(delta))throw Error('이동량을 입력하세요.');const q=clone(sb),set=new Set(ids);for(const c of q.cuts)if(set.has(c.id))for(const k of ['start','end'])if(c[k]!==null){c[k]=time(round(c[k]+delta));if(duration!==null&&c[k]>duration)throw Error('이동 후 음원 길이를 초과합니다. 변경하지 않았습니다.');}return q;}
+function layout(sb,ids,start,end,proportional=false,duration=null){start=time(start);end=time(end);if(start===null||end===null||end<=start||(duration!==null&&end>duration))throw Error('배치할 시작/종료 범위를 확인하세요.');const q=clone(sb),set=new Set(ids),cs=q.cuts.filter(c=>set.has(c.id));if(!cs.length)throw Error('대상 컷이 없습니다.');const weights=cs.map(c=>proportional&&c.start!==null&&c.end>c.start?c.end-c.start:1),sum=weights.reduce((a,b)=>a+b,0);let w=0;cs.forEach((c,i)=>{c.start=round(start+(end-start)*w/sum);w+=weights[i];c.end=i===cs.length-1?end:round(start+(end-start)*w/sum);if(c.end<=c.start)throw Error('범위가 너무 짧아 1ms 미만의 컷이 생깁니다.');});return q;}
+function autoMatch(sb){const q=clone(sb);let matched=0,ambiguous=0;for(const c of q.cuts){if(c.assetId&&q.assets.some(a=>a.id===c.assetId))continue;let candidates=[];const ref=path(c.fileName||c.images[0]||'');
+ if(ref){candidates=q.assets.filter(a=>a.path===ref);if(!candidates.length){const base=basename(ref);candidates=q.assets.filter(a=>a.fileName===base);}}
+ if(!candidates.length)candidates=q.assets.filter(a=>fileCode(a.fileName)===codeKey(c.code));
+ if(candidates.length===1){c.assetId=candidates[0].id;matched++;}else if(candidates.length>1)ambiguous++;
+ }return {storyboard:q,matched,ambiguous};}
+function at(sb,t){return sb.cuts.filter(c=>c.start!==null&&c.end!==null&&t>=c.start&&t<c.end);}
+function serialize(sb,title,kind='json',duration=null){
+ if(!sb.cuts.length)throw Error('먼저 콘티를 가져오세요.');const bad=issues(sb,duration).filter(x=>!['gap','tail-tolerance'].includes(x.code));if(bad.length)throw Error('미입력·겹침·범위 오류를 수정한 후 확정 타임라인을 내보내세요. 작업 중에는 프로젝트 JSON으로 저장할 수 있습니다.');
+ const cuts=sb.cuts.map((c,i)=>({...clone(c),cut:c.code,index:i+1,duration:round(c.end-c.start),startFrame:Math.round(c.start*sb.fps),endFrame:Math.round(c.end*sb.fps),fileName:sb.assets.find(a=>a.id===c.assetId)?.path||c.fileName}));
+ const data={format:'zerosu-storyboard-timeline',version:1,title,timeUnit:'seconds',fps:sb.fps,duration,warnings:issues(sb,duration),framePolicy:'프레임은 지정 fps로 반올림한 참고값. 원본 초 단위 시간이 기준입니다.',cuts,assets:clone(sb.assets),sources:clone(sb.sources)};
+ if(kind==='json')return JSON.stringify(data,null,2);
+ const esc=x=>String(x??'').replace(/\|/g,'\\|').replace(/\r?\n/g,'<br>');
+ if(kind==='md')return '# '+title.replace(/\n/g,' ')+' — 적용된 컷 타임라인\n\n가사 자막 시간은 변경하지 않았습니다. 원본 콘티 문서는 프로젝트에 따로 보관됩니다.\n\n| 컷 | 구간 | 시작 | 종료 | 파일 | 화면 | 가사 | 카메라·연결 |\n|---|---|---|---|---|---|---|---|\n'+cuts.map(c=>'| '+[c.code,c.section,C.fmt(c.start),C.fmt(c.end),c.fileName,c.description,c.lyricText,c.camera].map(esc).join(' | ')+' |').join('\n')+'\n';
+ const cell=x=>'"'+String(x??'').replace(/^[\s]*[=+@-]/,m=>"'"+m).replace(/"/g,'""')+'"';
+ if(kind==='csv')return '\uFEFF'+[['cut','section','start','end','duration','fileName','description','lyrics','camera','cast','mediaIn','videoMode'],...cuts.map(c=>[c.code,c.section,c.start,c.end,c.duration,c.fileName,c.description,c.lyricText,c.camera,c.cast,c.mediaIn,c.videoMode])].map(r=>r.map(cell).join(',')).join('\r\n');throw Error('내보내기 형식 오류');
+}
+const API={limits,time,range,codeKey,fileCode,path,basename,parse,markdown,csvRows,normalize,fresh,issues,editEdge,shift,layout,autoMatch,at,serialize,cleanCut,unique};
+root.StoryboardCore=API;if(typeof module!=='undefined'&&module.exports)module.exports=API;
+// Preserve the existing lyric migration, while adding a non-destructive, separate cut track.
+const oldFresh=C.fresh,oldNormalize=C.normalize;
+C.fresh=(...args)=>({...oldFresh(...args),version:4,storyboard:fresh()});
+C.normalize=(raw,...args)=>{if(raw?.version===4&&!raw.storyboard)throw Error('버전 4 프로젝트에 콘티 데이터가 없습니다.');const p=oldNormalize(raw?.version===4?{...raw,version:3}:raw,...args);p.version=4;p.storyboard=normalize(raw.storyboard);p.editor.selectedCutId=typeof raw.editor?.selectedCutId==='string'?raw.editor.selectedCutId:null;return p;};
+})(globalThis);
+
+</script>
+<script id="studio-app">
+/* Lyrics & Storyboard Sync 3.0.1 — local single-file UI. */
+(function(){
+'use strict';
+const C=globalThis.LyricSyncCore,$=id=>document.getElementById(id),a=$('audio');
+const PREFIX='zerosu-lyrics-sync-v2:project:',ACTIVE='zerosu-lyrics-sync-v2:active';
+const MAX_AUDIO=120*1024*1024,MAX_JSON=40*1024*1024,MAX_EMBED=40*1024*1024;
+const pristine=document.documentElement.cloneNode(true);pristine.querySelector('#portableProject').textContent='';let TEMPLATE='<!doctype html>\n'+pristine.outerHTML;
+let activeFile=null,packageBusy=false,storageConflict=false,filterText='',filterMode='all',pendingImport=null,cueEditingId=null,drag=null;
+const TAB=C.uid('tab');
+let project=C.fresh(),dirty=false,undoStack=[],redoStack=[],audioReady=false,objectUrl=null;
+let peaks=null,viewStart=0,viewZoom=1,playingIds='',tableSignature='',audioToken=0,loading=false;
+let interval=null,raf=0,toastTimer=0,persistTimer=0,editingId=null,fastDone=false,storageError='';
+let lastFrame=0,waveMessage='음원을 불러오면 파형을 생성합니다. 선택한 가사 구간은 연하게 표시됩니다.';
+let audioMessage='파일을 여기에 놓거나 위 버튼으로 선택하세요. 음원과 가사는 서버로 전송되지 않습니다.';
+const current=()=>project.rows.find(r=>r.id===project.editor.selectedRowId)||null;
+const index=()=>project.rows.findIndex(r=>r.id===project.editor.selectedRowId);
+function say(text,error=false){clearTimeout(toastTimer);$('toast').textContent=text;$('toast').classList.toggle('error',error);$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,error?10000:6000);}
+function busy(text){$('busyBanner').textContent=text;$('busyBanner').hidden=!text;}
+function safeSelected(){if(!project.rows.some(r=>r.id===project.editor.selectedRowId))project.editor.selectedRowId=project.rows[0]?.id??null;}
+function snap(){return JSON.stringify({title:project.title,rows:project.rows,cues:project.cues,storyboard:project.storyboard,selectedCutId:project.editor.selectedCutId,selectedRowId:project.editor.selectedRowId});}
+function checkpoint(){undoStack.push(snap());while(undoStack.length>50 || (undoStack.length>1 && undoStack.reduce((n,s)=>n+s.length,0)>4_000_000))undoStack.shift();redoStack=[];}
+function commit(structural=false){project.updatedAt=new Date().toISOString();dirty=true;safeSelected();interval=null;fastDone=false;persist();render(structural);}
+function restoreSnapshot(str){const s=JSON.parse(str);project.title=s.title;project.rows=s.rows;project.cues=s.cues||[];project.storyboard=s.storyboard||globalThis.StoryboardCore.fresh();project.editor.selectedCutId=s.selectedCutId;project.editor.selectedRowId=s.selectedRowId;safeSelected();}
+function undo(){if(!undoStack.length)return;redoStack.push(snap());restoreSnapshot(undoStack.pop());commit(true);say('직전 변경을 취소했습니다.');}
+function redo(){if(!redoStack.length)return;undoStack.push(snap());restoreSnapshot(redoStack.pop());commit(true);say('변경을 다시 적용했습니다.');}
+function persist(){
+  clearTimeout(persistTimer);
+  if(storageConflict){$('autosave').textContent='다른 탭에서 변경됨 · 내 작업을 사본으로 저장하세요.';return false;}
+  try{localStorage.setItem(PREFIX+project.projectId,JSON.stringify({project,dirty,writer:TAB}));localStorage.setItem(ACTIVE,project.projectId);storageError='';
+    $('autosave').textContent='자동 복구 저장 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' · 음원·컷 파일 제외';$('autosave').classList.remove('warn');return true;
+  }catch(err){storageError=err.name||'저장 실패';$('autosave').textContent='자동 복구 저장 불가 ('+storageError+'). 프로젝트 저장으로 JSON을 보관하세요.';$('autosave').classList.add('warn');return false;}
+}
+function schedulePersist(){clearTimeout(persistTimer);persistTimer=setTimeout(persist,250);}
+function abandon(message='현재 프로젝트를 닫을까요?'){
+  if(dirty && !confirm(message+'\n\n아직 파일로 저장하지 않은 변경이 있습니다. 계속하려면 확인을 누르세요. 취소한 뒤 ‘프로젝트 저장’으로 백업할 수 있습니다.'))return false;
+  const ok=persist();
+  if(!ok && (project.rows.length||project.audio.fileName) && !confirm('자동 복구 저장에도 실패했습니다. JSON을 저장하지 않았다면 작업을 잃을 수 있습니다. 그래도 계속할까요?'))return false;
+  return true;
+}
+function detachAudio(){
+  audioToken++;activeFile=null;loading=false;audioReady=false;interval=null;cancelAnimationFrame(raf);a.pause();a.removeAttribute('src');a.load();
+  if(objectUrl){URL.revokeObjectURL(objectUrl);objectUrl=null;}peaks=null;viewStart=0;viewZoom=1;$('zoom').value='1';busy('');
+  waveMessage='음원을 다시 선택하면 파형을 생성합니다.';audioMessage='음원은 JSON에 포함되지 않습니다. 원본 파일을 다시 선택하세요.';
+}
+function installProject(p,isDirty=false){detachAudio();storageConflict=false;$('conflictBanner').hidden=true;project=p;globalThis.StoryboardApp?.reset();dirty=isDirty;undoStack=[];redoStack=[];fastDone=false;tableSignature='';safeSelected();persist();render(true);}
+function makeEl(tag,props={},text){const e=document.createElement(tag);Object.assign(e,props);if(text!==undefined)e.textContent=text;return e;}
+function renderRows(force=false){
+  const sig=project.rows.map(r=>r.id).join('|');
+  if(force || sig!==tableSignature){
+    const frag=document.createDocumentFragment();
+    project.rows.forEach((r,i)=>{
+      const tr=makeEl('tr',{className:'row'});tr.dataset.id=r.id;
+      tr.append(makeEl('td',{className:'num'},String(i+1).padStart(2,'0')));
+      const td=makeEl('td',{className:'lyric'}),sec=makeEl('span',{className:'sec'}),txt=makeEl('span',{className:'lyric-text'});td.append(sec,txt);tr.append(td);
+      for(const k of ['start','end']){const td=makeEl('td'),inp=makeEl('input',{type:'number',step:'0.01',min:'0',placeholder:'—'});inp.dataset.field=k;inp.dataset.id=r.id;inp.setAttribute('aria-label',(i+1)+'번 '+(k==='start'?'시작':'종료')+' 초');td.append(inp);tr.append(td);}
+      tr.append(makeEl('td',{className:'duration-cell'}));
+      const tools=makeEl('td'),wrap=makeEl('div',{className:'row-actions'}),listen=makeEl('button',{className:'tiny'},'▶'),edit=makeEl('button',{className:'tiny'},'수정');listen.dataset.action='listen';listen.setAttribute('aria-label',(i+1)+'번 가사 듣기');edit.dataset.action='edit';edit.setAttribute('aria-label',(i+1)+'번 가사 수정');wrap.append(listen,edit);tools.append(wrap);tr.append(tools);frag.append(tr);
+    });
+    $('rows').replaceChildren(frag);tableSignature=sig;playingIds='__refresh__';
+  }
+  const errIds=new Set(C.validate(project).map(e=>e.rowId));
+  Array.from($('rows').children).forEach((el,i)=>{
+    const r=project.rows[i];if(!r)return;
+    el.classList.toggle('active',r.id===project.editor.selectedRowId);el.classList.toggle('invalid',errIds.has(r.id)&&r.start!==null&&r.end!==null);
+    el.querySelector('.sec').textContent=r.section;el.querySelector('.lyric-text').textContent=r.text;
+    for(const k of ['start','end']){const inp=el.querySelector('[data-field='+k+']');if(document.activeElement!==inp)inp.value=r[k]===null?'':r[k].toFixed(3);inp.max=project.duration??C.LIMIT.seconds;}
+    el.hidden=(filterText&&!((r.text+' '+r.section).toLocaleLowerCase().includes(filterText)))||(filterMode==='issues'&&!errIds.has(r.id))||(filterMode==='untimed'&&r.start!==null&&r.end!==null);
+    el.querySelector('.duration-cell').textContent=r.start!==null&&r.end!==null?(r.end-r.start).toFixed(2)+'s':'—';
+    el.querySelector('[data-action=listen]').disabled=!audioReady||loading||r.start===null||r.start>=project.duration;
+  });
+  $('filterCount').textContent=Array.from($('rows').children).filter(e=>!e.hidden).length+' / '+project.rows.length+'줄 표시';
+  $('empty').hidden=project.rows.length>0;$('tableWrap').hidden=!project.rows.length;
+}
+function refreshIssues(){
+  const errors=C.validate(project),n=project.rows.length,complete=project.rows.filter(r=>r.start!==null&&r.end!==null&&r.end>r.start).length;
+  $('progressText').textContent=complete+' / '+n+'줄';$('progressFill').style.width=(n?complete/n*100:0)+'%';$('progress').setAttribute('aria-valuemax',n);$('progress').setAttribute('aria-valuenow',complete);
+  const missing=errors.filter(e=>e.code==='missing').length,other=errors.length-missing;
+  $('issuesToggle').textContent=!n?'아직 가사가 없습니다. 가사 입력으로 시작하세요.':errors.length?('미입력 '+missing+'줄'+(other?' · 시간 오류 '+other+'건':'')+' — 눌러서 확인'):'모든 줄의 시간이 입력되었습니다. 전체 재생으로 싱크를 확인한 뒤 자막을 내보내세요.';
+  $('issuesBox').className='notice'+(other?' warn':'');
+  const frag=document.createDocumentFragment();errors.slice(0,80).forEach(e=>{const b=makeEl('button',{},e.message);b.onclick=()=>chooseById(e.rowId,true);frag.append(b);});
+  if(errors.length>80)frag.append(makeEl('small',{},'앞의 80건만 표시합니다. 수정하면 남은 항목이 표시됩니다.'));
+  $('issuesList').replaceChildren(frag);
+  $('stepAudio').classList.toggle('done',audioReady);$('stepLyrics').classList.toggle('done',n>0);$('stepSync').classList.toggle('done',n>0&&!errors.length);$('stepExport').classList.toggle('done',!dirty&&n>0);
+}
+function render(force=false){
+  safeSelected();const r=current(),i=index();
+  if(document.activeElement!==$('projectTitle'))$('projectTitle').value=project.title;
+  document.title=project.title+' · Lyrics Sync Studio';
+  $('dirtyBadge').textContent=dirty?'파일 미저장':(project.rows.length||project.audio.fileName?'파일 저장 요청됨':'시작 전');$('dirtyBadge').classList.toggle('warn',dirty);
+  $('saveMeta').textContent=dirty?'변경 사항을 파일로 백업하세요.':'JSON: 파일 제외 · .lysync / HTML: 음원·컷 파일 포함';
+  $('audioName').textContent=project.audio.fileName||'음원을 선택해 주세요';$('audioNote').textContent=audioMessage;
+  $('duration').textContent=C.fmt(project.duration);$('speed').value=project.editor.playbackRate;
+  $('selection').textContent=r?(i+1)+' / '+project.rows.length+' · '+r.section:'선택된 가사 없음';
+  const lyricText=r?r.text:'첫 가사를 기다리고 있어요.',lyricId=r?.id||'';
+  // Repeated stamps must not recreate/reset the lyric scroller. A different line starts at its top.
+  if($('current').dataset.rowId!==lyricId||$('current').textContent!==lyricText){
+    $('current').dataset.rowId=lyricId;$('current').textContent=lyricText;$('current').scrollTop=0;
+  }
+  $('showSelectedLyric').disabled=!r;
+  $('prev').disabled=i<=0;$('next').disabled=i<0||i>=project.rows.length-1;
+  for(const id of ['start','end','fast'])$(id).disabled=!r||!audioReady||loading;
+  for(const id of ['play','back','forward','speed'])$(id).disabled=!audioReady||loading;
+  $('chooseAudio').disabled=loading;$('audioInput').disabled=loading;
+  $('listen').disabled=!r||!audioReady||loading||r.start===null||r.start>=project.duration;
+  $('loop').disabled=!r||r.start===null||r.end===null||r.end<=r.start;
+  for(const id of ['clearTiming','minus','plus','moveUp','moveDown'])$(id).disabled=!r;
+  $('moveUp').disabled=!r||i<=0;$('moveDown').disabled=!r||i>=project.rows.length-1;
+  $('undo').disabled=!undoStack.length;$('redo').disabled=!redoStack.length;
+  for(const id of ['shiftTimes','resetTiming','export'])$(id).disabled=!project.rows.length;
+  $('zoom').disabled=!audioReady;$('followWave').disabled=!audioReady;
+  renderRows(force);refreshIssues();renderCues();renderSectionNav();$('splitRow').disabled=!r;$('mergeRow').disabled=!r||i>=project.rows.length-1;$('fillEnds').disabled=!project.rows.length;
+  $('saveBundle').disabled=!activeFile||!audioReady||loading||packageBusy;$('savePortable').disabled=!activeFile||!audioReady||loading||packageBusy;globalThis.StoryboardApp?.render();tick();
+}
+function chooseById(id,scroll=false){const r=project.rows.find(r=>r.id===id);if(!r)return;if(scroll){filterText='';filterMode='all';$('searchLyrics').value='';$('filterMode').value='all';}project.editor.selectedRowId=id;fastDone=false;interval=null;render();schedulePersist();if(scroll){const el=Array.from($('rows').children).find(el=>el.dataset.id===id);el?.scrollIntoView({block:'nearest',behavior:'auto'});}}
+// Recording/navigation in the audio panel must never scroll the document to the lower table.
+// Follow only the table's own vertical scroller; do not use scrollIntoView's ancestor scrolling.
+function followSelectedRow(){
+  const wrap=$('tableWrap');if(wrap.hidden||!wrap.getClientRects().length)return;
+  const row=Array.from($('rows').children).find(el=>el.dataset.id===project.editor.selectedRowId);
+  if(!row||row.hidden||!row.getClientRects().length)return;
+  const box=wrap.getBoundingClientRect(),rr=row.getBoundingClientRect();
+  const head=wrap.querySelector('thead')?.getBoundingClientRect().height||0;
+  const top=box.top+wrap.clientTop+head,bottom=box.top+wrap.clientTop+wrap.clientHeight;
+  let delta=0;
+  if(rr.top<top)delta=rr.top-top;
+  else if(rr.bottom>bottom)delta=rr.height>bottom-top?rr.top-top:rr.bottom-bottom;
+  if(delta)wrap.scrollTop=Math.max(0,Math.min(wrap.scrollHeight-wrap.clientHeight,wrap.scrollTop+delta));
+}
+function chooseOffset(delta){
+  const i=index();if(i<0)return;
+  const r=project.rows[Math.max(0,Math.min(project.rows.length-1,i+delta))];
+  chooseById(r.id);followSelectedRow();
+}
+function boundary(t){return C.round(Math.min(project.duration??C.LIMIT.seconds,Math.max(0,t)));}
+function stamp(kind,advance=false){
+  if(!audioReady||loading||!current())return say('음원과 가사를 먼저 준비하세요.',true);
+  if(kind==='start'&&advance&&fastDone)return say('마지막 줄의 시작은 이미 기록했습니다. E로 종료를 찍으세요.');
+  const r=current(),i=index(),t=boundary(a.currentTime);
+  if(kind==='end'&&(r.start===null||t<=r.start))return say('종료는 기록된 시작보다 늦어야 합니다. 시작 시간을 먼저 확인하세요.',true);
+  checkpoint();r[kind]=t;
+  if(kind==='start'&&advance&&i>0){const prev=project.rows[i-1];if(prev.start!==null&&prev.end===null&&prev.start<t)prev.end=t;}
+  if(advance&&i<project.rows.length-1)project.editor.selectedRowId=project.rows[i+1].id;
+  commit();if(kind==='start'&&advance&&i===project.rows.length-1)fastDone=true;
+  say((i+1)+'번 '+(kind==='start'?'시작':'종료')+' '+C.fmt(t)+' 기록'+(fastDone?' · 마지막 줄은 E로 종료':''));
+  followSelectedRow();
+}
+function nudge(sign){const r=current(),k=$('edge').value;if(!r||r[k]===null)return say('먼저 보정할 시간을 기록하세요.');const t=C.round(r[k]+Number($('nudgeStep').value)*sign);if(t<0||t>(project.duration??C.LIMIT.seconds))return say('음원 범위를 벗어나므로 변경하지 않았습니다.',true);checkpoint();r[k]=t;commit();}
+async function play(){if(!audioReady||loading)return;interval=null;if(a.paused){try{await a.play();}catch(err){say('재생하지 못했습니다. 브라우저 재생 버튼을 다시 누르세요.',true);}}else a.pause();}
+function seek(t){if(!audioReady||loading)return;interval=null;a.currentTime=Math.min(a.duration,Math.max(0,t));tick();}
+async function listen(){const r=current();if(!audioReady||!r||r.start===null||r.start>=project.duration)return;const lo=Math.max(0,r.start-.7),hi=r.end!==null&&r.end>r.start?Math.min(a.duration,r.end+.4):null;interval=hi!==null?{start:lo,end:hi,loop:$('loop').checked}:null;a.currentTime=lo;try{await a.play();}catch(e){interval=null;say('음원을 재생할 수 없습니다.',true);}}
+function tick(){
+  if(interval&&!a.paused&&a.currentTime>=interval.end){if(interval.loop)a.currentTime=interval.start;else{a.pause();interval=null;}}
+  const t=audioReady?a.currentTime:0;$('clock').textContent=C.fmt(t);$('play').textContent=a.paused?'▶ 재생':'Ⅱ 정지';
+  const active=audioReady?project.rows.filter(r=>r.start!==null&&r.end!==null&&t>=r.start&&t<r.end):[];
+  const ids=active.map(r=>r.id+'@'+r.text).join('|');
+  if(ids!==playingIds||!ids){playingIds=ids;const set=new Set(active.map(r=>r.id));for(const el of $('rows').children)el.classList.toggle('playing',set.has(el.dataset.id));$('subtitle').textContent=active.length?active.map(r=>r.text).join(' / '):(project.rows.length?(audioReady?'♪':'음원을 다시 연결하세요.'):'시간을 기록하면 여기에 표시됩니다.');}
+  $('stageLine').textContent=$('subtitle').textContent;const upcoming=project.rows.find(r=>r.start!==null&&r.start>t);$('stageNext').textContent=upcoming?'다음 · '+upcoming.text:'';
+  drawWave();globalThis.StoryboardApp?.tick();
+}
+function animate(time){if(time-lastFrame>32){lastFrame=time;tick();}if(!a.paused)raf=requestAnimationFrame(animate);}
+function drawWave(){
+  const c=$('wave'),b=c.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2),w=b.width,h=107;
+  if(!w)return;if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
+  const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const dur=project.duration||0,span=dur/viewZoom,t=audioReady?a.currentTime:0;
+  if(dur&&audioReady&&$('followWave').checked&&!a.paused&&(t<viewStart||t>viewStart+span))viewStart=Math.min(dur-span,Math.max(0,t-span*.15));
+  viewStart=Math.min(Math.max(0,viewStart),Math.max(0,dur-span));
+  $('waveScroll').hidden=viewZoom===1||!dur;$('pan').max=Math.max(0,dur-span);$('pan').value=viewStart;$('viewStart').textContent=C.fmt(viewStart);$('viewEnd').textContent=C.fmt(viewStart+span);c.setAttribute('aria-valuemax',dur);c.setAttribute('aria-valuenow',C.round(t));c.setAttribute('aria-valuetext',C.fmt(t));
+  const ymid=43,amp=31,xOf=t=>(t-viewStart)/span*w;
+  ctx.strokeStyle='#dce4d6';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,ymid);ctx.lineTo(w,ymid);ctx.stroke();
+  if(!dur){ctx.fillStyle='#7d8a7e';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('음원 선택 후 파형을 확인하세요',w/2,48);$('waveHint').textContent=waveMessage;return;}
+  const r=current();if(r&&r.start!==null&&r.end!==null&&r.end>r.start){ctx.fillStyle='#34694c16';ctx.fillRect(Math.max(0,xOf(r.start)),3,Math.max(0,Math.min(w,xOf(r.end))-Math.max(0,xOf(r.start))),77);}
+  if(peaks?.length){for(let x=0;x<w;x+=2){const t0=viewStart+x/w*span,t1=viewStart+(x+2)/w*span,i=Math.max(0,Math.floor(t0/dur*peaks.length)),j=Math.min(peaks.length,Math.max(i+1,Math.ceil(t1/dur*peaks.length)));let peak=0;for(let k=i;k<j;k++)peak=Math.max(peak,peaks[k]);const height=Math.max(1.3,peak*amp);ctx.fillStyle=t0<t?'#507e5b':'#b4c8ac';ctx.fillRect(x,ymid-height,1.4,height*2);}}
+  else{ctx.fillStyle='#83917f';ctx.font='11px system-ui';ctx.textAlign='center';ctx.fillText(audioReady?'시간축 탐색 가능 · '+(loading?'음원 확인 중':'파형 준비 또는 생략 상태'):'음원을 다시 연결하세요',w/2,30);}
+  ctx.fillStyle='#7c887c';ctx.font='10px system-ui';for(let i=0;i<=4;i++){const x=i/4*w;ctx.textAlign=i===0?'left':i===4?'right':'center';ctx.fillText(C.fmt(viewStart+i/4*span).replace(/\.\d+$/,''),x,100);ctx.fillRect(Math.min(w-1,x),81,1,5);}
+  if(r){for(const [k,color] of [['start','#34694c'],['end','#9d7950']]){const v=r[k];if(v!==null&&v>=viewStart&&v<=viewStart+span){const x=xOf(v);ctx.fillStyle=color;ctx.fillRect(x,4,1,74);if($('dragEdges').checked){ctx.beginPath();ctx.arc(x,ymid,6,0,Math.PI*2);ctx.fill();}ctx.font='9px system-ui';ctx.textAlign=x>w-30?'right':'left';ctx.fillText(k==='start'?'S':'E',x+3,12);}}}
+  if(audioReady&&t>=viewStart&&t<=viewStart+span){ctx.fillStyle='#ae7130';ctx.fillRect(xOf(t),0,1.6,81);ctx.beginPath();ctx.moveTo(xOf(t)-4,0);ctx.lineTo(xOf(t)+4,0);ctx.lineTo(xOf(t),6);ctx.fill();}
+  $('waveHint').textContent=waveMessage;
+}
+async function metadata(url){return new Promise((resolve,reject)=>{const tmp=new Audio();tmp.preload='metadata';let timer=setTimeout(()=>finish(Error('음원 정보를 읽지 못했습니다. 다른 형식의 음원을 선택하세요.')),15000);function finish(error){clearTimeout(timer);tmp.onloadedmetadata=tmp.onerror=null;const duration=tmp.duration;tmp.removeAttribute('src');tmp.load();error?reject(error):resolve(duration);}tmp.onloadedmetadata=()=>finish(!Number.isFinite(tmp.duration)||tmp.duration<=0||tmp.duration>C.LIMIT.seconds?Error('0초보다 길고 24시간 이내인 음원만 지원합니다.'):null);tmp.onerror=()=>finish(Error('브라우저에서 재생할 수 없는 음원입니다. MP3 또는 WAV로 다시 선택하세요.'));tmp.src=url;tmp.load();});}
+async function hashFile(file){if(!globalThis.crypto?.subtle)return null;try{const hash=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');}catch(e){return null;}}
+async function loadAudio(file){
+  if(!file||loading)return;
+  if(file.size===0||file.size>MAX_AUDIO)return say('음원은 0바이트보다 크고 120 MiB 이하여야 합니다.',true);
+  const token=++audioToken;loading=true;interval=null;a.pause();render();busy('음원 정보와 파일 식별 정보를 확인하고 있습니다.');let candidate=URL.createObjectURL(file),adopted=false;
+  try{
+    const dur=C.round(await metadata(candidate));if(token!==audioToken)return;
+    const hash=await hashFile(file);if(token!==audioToken)return;
+    const old=project.audio,hadPriorAudio=!!old.fileName||project.duration!==null,reasons=[];
+    if(old.sha256&&hash&&old.sha256!==hash)reasons.push('파일 해시가 다릅니다 (내용이 다른 음원).');
+    if(old.fileName&&old.fileName!==file.name)reasons.push('파일명이 다릅니다.');
+    if(old.size!==null&&old.size!==file.size)reasons.push('파일 크기가 다릅니다.');
+    if(project.duration!==null&&Math.abs(project.duration-dur)>.06)reasons.push('음원 길이: '+C.fmt(project.duration)+' → '+C.fmt(dur));
+    if(reasons.length && !confirm('기존 프로젝트의 음원 정보와 다릅니다.\n'+reasons.join('\n')+'\n\n이 음원으로 연결할까요? 기존 시간은 유지하며 자동 조정하지 않습니다. 새 노래라면 취소 후 새 프로젝트를 만드세요.'))return;
+    if(token!==audioToken)return;
+    if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=candidate;activeFile=file;adopted=true;peaks=null;viewStart=0;
+    project.duration=dur;project.audio={fileName:file.name,size:file.size,type:file.type||null,lastModified:file.lastModified??null,sha256:hash};
+    if(project.title==='새 프로젝트')project.title=file.name.replace(/\.[^.]+$/,'').slice(0,200)||'새 프로젝트';
+    const wasUnverified=!old.sha256 && hadPriorAudio;
+    audioMessage='연결됨 · '+(file.size/1024/1024).toFixed(1)+' MiB'+(hash?' · 해시 기록':' · 해시 미지원')+(wasUnverified?' · 이전 음원과 동일성은 최초 확인 필요':'');
+    undoStack=[];redoStack=[];audioReady=false;
+    await new Promise((resolve,reject)=>{
+      let done=false;const cleanup=()=>{a.removeEventListener('loadedmetadata',ok);a.removeEventListener('error',fail);clearTimeout(timer);};
+      const ok=()=>{if(done)return;done=true;cleanup();resolve();};const fail=()=>{if(done)return;done=true;cleanup();reject(Error('음원 플레이어 연결에 실패했습니다. 다시 선택하세요.'));};
+      const timer=setTimeout(fail,15000);a.addEventListener('loadedmetadata',ok);a.addEventListener('error',fail);a.src=objectUrl;a.load();
+    });
+    if(token!==audioToken)return;
+    audioReady=true;a.playbackRate=project.editor.playbackRate;loading=false;busy('');commit();
+    say('음원을 연결했습니다. 가사 시간을 자동으로 변경하지 않았습니다.');waveMessage='파형을 생성하고 있습니다. 재생과 시간 기록은 바로 사용할 수 있습니다.';drawWave();
+    createPeaks(file,token,dur);
+  }catch(e){if(token===audioToken){if(adopted){audioReady=false;audioMessage='음원 재연결 필요';}say(e.message||'음원 로드 실패',true);}}
+  finally{if(!adopted)URL.revokeObjectURL(candidate);if(token===audioToken){loading=false;busy('');render();}}
+}
+async function createPeaks(file,token,dur){
+  if(file.size>40*1024*1024||dur>1200){waveMessage='메모리 보호로 파형을 생략했습니다. 시간축 클릭·재생·기록은 가능합니다.';drawWave();return;}
+  let ctx;
+  try{
+    const AC=globalThis.AudioContext||globalThis.webkitAudioContext;if(!AC)throw Error('Web Audio 미지원');
+    ctx=new AC();const buffer=await ctx.decodeAudioData(await file.arrayBuffer());if(token!==audioToken)return;
+    const n=12000,out=new Float32Array(n),stride=Math.max(1,Math.floor(buffer.length/3_000_000));
+    for(let channel=0;channel<Math.min(2,buffer.numberOfChannels);channel++){
+      const samples=buffer.getChannelData(channel);for(let i=0;i<samples.length;i+=stride){const bucket=Math.min(n-1,Math.floor(i/samples.length*n));out[bucket]=Math.max(out[bucket],Math.abs(samples[i]));}
+    }
+    let max=.001;for(const v of out)max=Math.max(max,v);for(let i=0;i<n;i++)out[i]=out[i]/max;
+    if(token!==audioToken)return;peaks=out;waveMessage='파형 생성 완료 · 클릭 탐색 · 경계 드래그를 켜서 선택 줄의 S/E 수정';drawWave();globalThis.StoryboardApp?.drawWave();
+  }catch(e){if(token===audioToken){waveMessage='파형 생성 실패: 재생과 수동 시간 기록은 계속 사용할 수 있습니다.';drawWave();}}
+  finally{if(ctx)try{await ctx.close();}catch(e){}}
+}
+function download(name,content,type){const url=URL.createObjectURL(new Blob([content],{type})),link=makeEl('a',{href:url,download:name});document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+function flushInlineInput(){const el=document.activeElement;if(el=== $('projectTitle')||el?.matches('#rows input[data-field], #storyInspector input'))el.blur();}
+function saveProject(){flushInlineInput();flushTitle();project.updatedAt=new Date().toISOString();const p=C.clone(project);p.savedAt=new Date().toISOString();download(C.filename(project.title)+'_Sync_Project.json',JSON.stringify(p,null,2),'application/json;charset=utf-8');dirty=false;persist();render();say('프로젝트 JSON 다운로드를 시작했습니다. 음원·컷 이미지·영상을 별도로 보관하세요.');}
+async function openProject(file){
+  if(!file)return;
+  if(file.name.toLowerCase().endsWith('.lysync'))return openBundle(file);
+  if(file.size>MAX_JSON)return say('프로젝트 JSON은 40 MiB 이하여야 합니다.',true);
+  try{const currentId=project.projectId,text=await file.text();if(currentId!==project.projectId)return say('프로젝트가 바뀌어 이전 파일 불러오기를 취소했습니다.');const raw=JSON.parse(text.replace(/^\uFEFF/,'')),p=C.normalize(raw,file.name.replace(/(?:_Sync_Project)?\.json$/i,''));
+    if(!abandon('불러온 프로젝트로 전환할까요?'))return;
+    // A same-ID import may replace an older local recovery. Always surface that conflict.
+    let previous=null;try{previous=localStorage.getItem(PREFIX+p.projectId);}catch(e){}
+    if(previous && !confirm('같은 ID의 자동 복구 프로젝트가 있습니다.\n불러온 JSON 내용으로 해당 복구본을 교체할까요?\n필요한 복구본은 취소 후 ‘최근 작업’에서 JSON으로 저장하세요.'))return;
+    installProject(p,raw.version!==4);say(raw.version!==4?'이전 버전 프로젝트를 변환했습니다. 기존 시간을 유지했습니다. 음원을 다시 선택한 뒤 새 JSON을 저장하세요.':'프로젝트를 열었습니다. 음원을 다시 선택하세요.');
+  }catch(e){say('프로젝트를 열지 못했습니다: '+e.message,true);}
+}
+function flushTitle(){const text=$('projectTitle').value.trim();if(!text){$('projectTitle').value=project.title;return;}if(text!==project.title){checkpoint();project.title=text.slice(0,200);commit();}}
+function openLyrics(){a.pause();interval=null;if(project.rows.some(r=>r.text.includes('\n')))say('여러 줄 자막은 전체 편집에서 줄별로 분리됩니다. 문구 수정은 표의 수정 버튼을 사용하세요.',true);$('lyricsText').value=C.lyricsText(project.rows);$('keepMode').value='safe';$('lyricsError').textContent='';updateLyricsPreview();$('lyricsDialog').showModal();}
+function updateLyricsPreview(){try{const result=C.reconcile(project.rows,$('lyricsText').value,$('keepMode').value);$('lyricsPreview').textContent='입력 '+result.rows.length+'줄 · 기존 줄 유지 '+result.kept+'줄 · 기존 시간이 사라지는 줄 '+result.cleared+'줄'+(result.ambiguous?' · 반복 대응 불명확 '+result.ambiguous+'줄':'');$('lyricsPreview').className='notice'+(result.cleared?' warn':'');$('lyricsError').textContent='';$('applyLyrics').disabled=false;}catch(e){$('lyricsError').textContent=e.message;$('applyLyrics').disabled=true;}}
+function applyLyrics(){try{const result=C.reconcile(project.rows,$('lyricsText').value,$('keepMode').value);if(!result.rows.length&&!confirm('가사를 모두 지울까요? 실행 취소로 복원할 수 있습니다.'))return;if(result.cleared&&!confirm('기존 시간이 입력된 '+result.cleared+'줄이 삭제되거나 시간이 초기화됩니다.\n반복 가사는 추측해 연결하지 않습니다. 계속할까요?\n문구만 수정하려면 취소 후 각 줄의 ‘수정’을 사용하세요.'))return;checkpoint();project.rows=result.rows;safeSelected();$('lyricsDialog').close();commit(true);say('가사 '+result.rows.length+'줄을 적용했습니다.');}catch(e){$('lyricsError').textContent=e.message;}}
+function openRow(id=null){
+  editingId=id;const r=id?project.rows.find(r=>r.id===id):null;if(id&&!r)return;
+  a.pause();interval=null;$('rowHeading').textContent=id?'가사 수정':'한 줄 추가';$('rowText').value=r?.text||'';$('rowError').textContent='';$('deleteRow').hidden=!id;
+  const groups=new Map();for(const row of project.rows)if(!groups.has(row.sectionId))groups.set(row.sectionId,row.section);
+  const labels=new Map(),frag=document.createDocumentFragment();
+  for(const [gid,label] of groups){const n=(labels.get(label)||0)+1;labels.set(label,n);frag.append(makeEl('option',{value:gid},label+(n>1?' · 반복 '+n:'')));}
+  frag.append(makeEl('option',{value:'__new__'},'＋ 새 구간'));$('rowSection').replaceChildren(frag);$('rowSection').value=r?.sectionId||current()?.sectionId||'__new__';$('newSectionName').value='구간 미지정';$('newSectionWrap').hidden=$('rowSection').value!=='__new__';$('rowDialog').showModal();$('rowText').focus();
+}
+function applyRow(){
+  const text=$('rowText').value.trim();if(!text)return $('rowError').textContent='가사를 입력하세요.';
+  if(text.length>C.LIMIT.text||/\n\s*\n/.test(text))return $('rowError').textContent='가사는 2,000자 이내, 내부 빈 줄 없이 입력하세요.';
+  let sectionId=$('rowSection').value,section;
+  if(sectionId==='__new__'){section=$('newSectionName').value.trim();if(!section)return $('rowError').textContent='새 구간 이름을 입력하세요.';sectionId=C.uid('section');}
+  else{section=project.rows.find(r=>r.sectionId===sectionId)?.section;if(!section)return $('rowError').textContent='구간을 다시 선택하세요.';}
+  if(!editingId&&project.rows.length>=C.LIMIT.rows)return $('rowError').textContent='최대 1,000줄까지 추가할 수 있습니다.';
+  checkpoint();if(editingId){const r=project.rows.find(r=>r.id===editingId);r.text=text;r.sectionId=sectionId;r.section=section;}
+  else{const r={id:C.uid('lyric'),sectionId,section,text,start:null,end:null};project.rows.splice(index()+1,0,r);project.editor.selectedRowId=r.id;}
+  $('rowDialog').close();commit(true);say(editingId?'문구를 수정했습니다. 기존 시간은 유지했습니다.':'선택 줄 다음에 새 가사를 추가했습니다.');
+}
+function deleteRow(){if(!editingId||!confirm('이 가사와 기록한 시간을 삭제할까요? 실행 취소로 복원할 수 있습니다.'))return;checkpoint();const i=project.rows.findIndex(r=>r.id===editingId);project.rows.splice(i,1);project.editor.selectedRowId=project.rows[Math.min(i,project.rows.length-1)]?.id??null;$('rowDialog').close();commit(true);}
+function moveRow(delta){const i=index(),j=i+delta;if(i<0||j<0||j>=project.rows.length)return;checkpoint();[project.rows[i],project.rows[j]]=[project.rows[j],project.rows[i]];commit(true);say('가사 순서를 바꿨습니다. 시간 순서 경고를 확인하세요.');}
+function shiftIds(){const i=index(),r=current(),scope=$('shiftScope').value;return project.rows.filter((row,j)=>scope==='all'||(scope==='from'&&j>=i)||(scope==='section'&&r&&row.sectionId===r.sectionId)).map(r=>r.id);}
+function updateShift(){try{const text=$('shiftDelta').value;if(text==='')throw Error('이동 시간을 입력하세요.');const delta=Number(text),result=C.shift(project,shiftIds(),delta);$('shiftPreview').textContent='시간이 있는 '+result.count+'줄을 '+(delta>=0?'+':'')+delta+'초 이동합니다.';$('shiftPreview').className='notice';$('applyShift').disabled=!result.count||delta===0;}catch(e){$('shiftPreview').textContent=e.message;$('shiftPreview').className='notice warn';$('applyShift').disabled=true;}}
+function applyShift(){try{const delta=Number($('shiftDelta').value),result=C.shift(project,shiftIds(),delta);if(!result.count)return;checkpoint();project.rows=result.rows;$('shiftDialog').close();commit();say(result.count+'줄의 시간을 이동했습니다.');}catch(e){say(e.message,true);}}
+function listRecent(){
+  $('recentList').replaceChildren();let items=[],corrupt=0;
+  try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(!key?.startsWith(PREFIX))continue;try{const rec=JSON.parse(localStorage.getItem(key)),p=C.normalize(rec.project);items.push({key,project:p,dirty:!!rec.dirty});}catch(e){corrupt++;}}
+  }catch(e){$('recentList').append(makeEl('div',{className:'notice warn'},'브라우저 저장소에 접근할 수 없습니다. JSON 파일로 복원하세요.'));return;}
+  items.sort((x,y)=>Date.parse(y.project.updatedAt)-Date.parse(x.project.updatedAt));
+  if(!items.length)$('recentList').append(makeEl('div',{className:'notice'},'자동 복구 프로젝트가 없습니다.'));
+  for(const item of items){
+    const p=item.project,wrap=makeEl('div',{className:'recent-item'}),info=makeEl('div',{className:'recent-info'});
+    info.append(makeEl('div',{className:'recent-title'},p.title+(p.projectId===project.projectId?' · 현재':'')),makeEl('div',{className:'recent-meta'},p.rows.length+'줄 · '+C.fmt(p.duration)+' · '+new Date(p.updatedAt).toLocaleString('ko-KR')+(item.dirty?' · JSON 미저장 변경 있음':'')));
+    const open=makeEl('button',{className:'tiny'},'열기');open.disabled=p.projectId===project.projectId;open.onclick=()=>{if(!abandon('선택한 자동 복구 프로젝트로 전환할까요?'))return;installProject(C.clone(p),item.dirty);$('recentDialog').close();say('복구한 프로젝트의 음원을 다시 선택하세요.');};
+    const del=makeEl('button',{className:'tiny danger'},'삭제');del.disabled=p.projectId===project.projectId;del.onclick=()=>{if(confirm('“'+p.title+'”의 브라우저 자동 복구본을 삭제할까요? JSON 파일은 지우지 않습니다.'))try{localStorage.removeItem(item.key);listRecent();}catch(e){say('삭제에 실패했습니다.',true);}};
+    wrap.append(info,open,del);$('recentList').append(wrap);
+  }
+  if(corrupt)$('recentList').append(makeEl('div',{className:'notice warn'},'읽을 수 없는 복구본 '+corrupt+'개가 있습니다. 자동 삭제하지 않았습니다. JSON 백업을 사용하세요.'));
+}
+function onFileInput(id,fn){$(id).addEventListener('change',async e=>{const f=e.target.files?.[0];try{await fn(f);}catch(err){say(err.message,true);}finally{e.target.value='';}});}
+$('newProject').onclick=()=>{flushTitle();$('newTitle').value='';$('newDialog').showModal();};
+$('createProject').onclick=()=>{if(!abandon('새 프로젝트를 만들까요?'))return;const title=$('newTitle').value.trim()||'새 프로젝트';$('newDialog').close();installProject(C.fresh(title),true);say('새 프로젝트를 만들었습니다. 음원을 선택하고 가사를 입력하세요.');};
+$('newTitle').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();$('createProject').click();}});
+$('openProject').onclick=()=>{flushTitle();$('projectInput').click();};$('saveProject').onclick=saveProject;
+$('projectTitle').addEventListener('change',flushTitle);$('projectTitle').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();flushTitle();e.target.blur();}});
+$('recentProjects').onclick=()=>{flushTitle();persist();listRecent();$('recentDialog').showModal();};
+$('help').onclick=()=>{$('helpDialog').showModal();};
+for(const btn of document.querySelectorAll('[data-close]'))btn.onclick=()=>$(btn.dataset.close).close();
+$('chooseAudio').onclick=()=>{$('audioInput').click();};
+$('audioDrop').onclick=()=>{if(!loading)$('audioInput').click();};
+$('audioDrop').onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();e.stopPropagation();if(!loading)$('audioInput').click();}};
+$('audioDrop').ondragover=e=>{e.preventDefault();$('audioDrop').classList.add('dragover');};
+$('audioDrop').ondragleave=()=>$('audioDrop').classList.remove('dragover');
+$('audioDrop').ondrop=e=>{e.preventDefault();$('audioDrop').classList.remove('dragover');if(e.dataTransfer.files.length!==1)return say('음원은 한 번에 하나씩 선택하세요.');loadAudio(e.dataTransfer.files[0]);};
+document.addEventListener('dragover',e=>{if(e.dataTransfer?.types.includes('Files'))e.preventDefault();});document.addEventListener('drop',e=>{if(e.dataTransfer?.types.includes('Files'))e.preventDefault();});
+onFileInput('audioInput',loadAudio);onFileInput('projectInput',openProject);
+onFileInput('textInput',async f=>{if(!f)return;if(f.size>2_100_000)throw Error('TXT 파일이 너무 큽니다.');const text=await f.text();if(!$('lyricsDialog').open)return;$('lyricsText').value=text;updateLyricsPreview();});
+$('bulkLyrics').onclick=openLyrics;$('emptyLyrics').onclick=openLyrics;$('loadText').onclick=()=>$('textInput').click();$('lyricsText').oninput=updateLyricsPreview;$('keepMode').onchange=updateLyricsPreview;$('applyLyrics').onclick=applyLyrics;
+$('addRow').onclick=()=>openRow();$('rowSection').onchange=()=>$('newSectionWrap').hidden=$('rowSection').value!=='__new__';$('applyRow').onclick=applyRow;$('deleteRow').onclick=deleteRow;
+$('moveUp').onclick=()=>moveRow(-1);$('moveDown').onclick=()=>moveRow(1);
+$('rows').addEventListener('click',e=>{const tr=e.target.closest('tr');if(!tr)return;const act=e.target.closest('button')?.dataset.action;if(e.target.closest('input'))return;chooseById(tr.dataset.id);if(act==='listen')listen();if(act==='edit')openRow(tr.dataset.id);});
+$('rows').addEventListener('focusin',e=>{if(e.target.matches('input[data-field]')){project.editor.selectedRowId=e.target.dataset.id;fastDone=false;interval=null;render();schedulePersist();}});
+$('rows').addEventListener('change',e=>{const inp=e.target;if(!inp.matches('input[data-field]'))return;const r=project.rows.find(r=>r.id===inp.dataset.id),key=inp.dataset.field;if(!r)return;if(inp.validity.badInput){inp.value=r[key]===null?'':r[key].toFixed(3);return say('시간을 올바른 숫자로 입력하세요.',true);}const v=inp.value===''?null:Number(inp.value);if(v!==null&&(!Number.isFinite(v)||v<0||v>(project.duration??C.LIMIT.seconds))){inp.value=r[key]===null?'':r[key].toFixed(3);return say('0~'+(project.duration??C.LIMIT.seconds)+'초 범위로 입력하세요.',true);}const next=v===null?null:C.round(v);if(next===r[key])return;checkpoint();r[key]=next;commit();});
+$('issuesToggle').onclick=()=>{const open=$('issuesList').hidden;$('issuesList').hidden=!open;$('issuesToggle').setAttribute('aria-expanded',open);};
+$('start').onclick=()=>stamp('start');$('end').onclick=()=>stamp('end',true);$('fast').onclick=()=>stamp('start',true);$('prev').onclick=()=>chooseOffset(-1);$('next').onclick=()=>chooseOffset(1);
+// Explicit navigation is still available. These two buttons are the only audio-panel
+// actions that intentionally move the document; no scroll lock or touch cancellation is used.
+$('showSelectedLyric').onclick=()=>{
+  const r=current();if(!r)return;
+  $('modeLyrics').click();chooseById(r.id,true);
+};
+$('backToSync').onclick=()=>{
+  $('start').scrollIntoView({block:'center',behavior:'auto'});
+  if(!$('start').disabled)$('start').focus({preventScroll:true});
+};
+$('play').onclick=play;$('back').onclick=()=>seek(a.currentTime-3);$('forward').onclick=()=>seek(a.currentTime+3);$('listen').onclick=listen;
+$('loop').onchange=()=>{if(interval)interval.loop=$('loop').checked;};
+$('minus').onclick=()=>nudge(-1);$('plus').onclick=()=>nudge(1);$('nudgeStep').onchange=()=>{$('minus').textContent='−'+$('nudgeStep').value+'초';$('plus').textContent='+'+$('nudgeStep').value+'초';};
+$('speed').onchange=()=>{project.editor.playbackRate=Number($('speed').value);a.playbackRate=project.editor.playbackRate;persist();};
+$('undo').onclick=undo;$('redo').onclick=redo;
+$('clearTiming').onclick=()=>{const r=current();if(!r||(r.start===null&&r.end===null))return;checkpoint();r.start=r.end=null;commit();};
+$('resetTiming').onclick=()=>{if(!project.rows.length||!confirm('모든 줄의 시간을 지울까요? 실행 취소로 복원할 수 있습니다.'))return;checkpoint();project.rows.forEach(r=>r.start=r.end=null);commit();say('전체 시간을 초기화했습니다.');};
+$('shiftTimes').onclick=()=>{$('shiftDelta').value='0.3';$('shiftScope').value='from';updateShift();$('shiftDialog').showModal();};$('shiftDelta').oninput=updateShift;$('shiftScope').onchange=updateShift;$('applyShift').onclick=applyShift;
+$('export').onclick=()=>{flushInlineInput();flushTitle();try{const format=$('exportFormat').value;if(format==='lrc'&&project.rows.some(r=>r.text.includes('\n'))&&!confirm('LRC에는 자막 내부 줄바꿈을 공백으로 합쳐 저장합니다. 계속할까요? 여러 줄 자막은 SRT/WebVTT를 사용하세요.'))return;const content=format==='csv'?C.csv(project):format==='lrc'?C.lrc(project):format==='txt'?C.lyricsText(project.rows):C.subtitles(project,format);download(C.filename(project.title)+(format==='csv'?'_Timeline.csv':'_Lyrics.'+format),content,format==='csv'?'text/csv;charset=utf-8':format==='srt'?'application/x-subrip;charset=utf-8':format==='vtt'?'text/vtt;charset=utf-8':'text/plain;charset=utf-8');say(format.toUpperCase()+' 다운로드를 시작했습니다. 프로젝트 이어하기용 JSON도 저장하세요.');}catch(e){$('issuesList').hidden=false;$('issuesToggle').setAttribute('aria-expanded','true');say(e.message,true);}};
+$('zoom').onchange=()=>{viewZoom=Number($('zoom').value);viewStart=Math.max(0,a.currentTime-(project.duration||0)/viewZoom/2);drawWave();};
+$('pan').oninput=()=>{viewStart=Number($('pan').value);$('followWave').checked=false;drawWave();};
+$('followWave').onchange=drawWave;
+$('wave').onclick=e=>{if(drag?.suppress){drag=null;return;}if(!audioReady)return;const b=e.target.getBoundingClientRect();seek(viewStart+Math.max(0,Math.min(1,(e.clientX-b.left)/b.width))*(project.duration/viewZoom));};
+$('wave').onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();e.stopPropagation();seek(e.key==='Home'?0:e.key==='End'?project.duration:a.currentTime+(e.key==='ArrowLeft'?-3:3));}};
+a.addEventListener('timeupdate',tick);a.addEventListener('seeked',tick);a.addEventListener('play',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(animate);tick();});a.addEventListener('pause',()=>{cancelAnimationFrame(raf);tick();});
+a.addEventListener('ended',()=>{if(interval?.loop){a.currentTime=interval.start;a.play().catch(()=>{interval=null;});}else{interval=null;tick();}});
+a.addEventListener('error',()=>{if(audioReady){audioReady=false;interval=null;audioMessage='재생 오류. 음원을 다시 선택하세요.';render();say('음원 재생 오류가 발생했습니다. 파일을 다시 선택하세요.',true);}});
+window.addEventListener('resize',drawWave);
+// Pointer-operated transport buttons should not steal subsequent Enter/Space shortcuts.
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(e.detail>0&&b&&!b.closest('dialog'))b.blur();});
+document.addEventListener('keydown',e=>{
+  if(e.isComposing||e.altKey||document.querySelector('dialog[open]'))return;
+  const input=['INPUT','TEXTAREA','SELECT','AUDIO'].includes(e.target.tagName)||e.target.isContentEditable;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveProject();return;}
+  if(input)return;
+  if(globalThis.StoryboardApp?.handleKey(e))return;
+  if(e.ctrlKey||e.metaKey){const k=e.key.toLowerCase();if(k==='z'){e.preventDefault();e.shiftKey?redo():undo();}else if(k==='y'){e.preventDefault();redo();}return;}
+  if(e.target.tagName==='BUTTON'&&(e.key==='Enter'||e.key===' '))return;
+  if(e.repeat)return;
+  const actions={' ':play,s:()=>stamp('start'),e:()=>stamp('end',true),Enter:()=>stamp('start',true),ArrowUp:()=>chooseOffset(-1),ArrowDown:()=>chooseOffset(1),ArrowLeft:()=>seek(a.currentTime-3),ArrowRight:()=>seek(a.currentTime+3)};
+  const fn=actions[e.key]||actions[e.key.toLowerCase()];if(fn){e.preventDefault();fn();}
+});
+window.addEventListener('beforeunload',e=>{flushInlineInput();flushTitle();persist();if(dirty&&(project.rows.length||project.audio.fileName||project.storyboard?.cuts.length)){e.preventDefault();e.returnValue='';}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){flushInlineInput();flushTitle();persist();}});
+
+// Offline package interchange. JSON metadata is small; audio is deliberately excluded from recovery storage.
+function renderSectionNav(){
+  const groups=new Map();for(const r of project.rows){if(!groups.has(r.sectionId))groups.set(r.sectionId,{r,count:0});groups.get(r.sectionId).count++;}
+  const frag=document.createDocumentFragment();for(const [id,g] of groups){const b=makeEl('button',{className:'section-chip'+(current()?.sectionId===id?' selected':'')},g.r.section+' · '+g.count);b.onclick=()=>chooseById(g.r.id,true);frag.append(b);}
+  $('sectionNav').replaceChildren(frag);$('renameSection').disabled=!current();$('duplicateSection').disabled=!current();
+}
+function renderCues(){
+  const frag=document.createDocumentFragment(),errs=C.cueErrors(project);$('cueCount').textContent=project.cues.length+'개'+(errs.length?' · 확인 '+errs.length+'개':'');
+  for(const [i,c] of project.cues.entries()){
+    const t=C.cueTiming(project,c),wrap=makeEl('div',{className:'cue-item'}),head=makeEl('div',{className:'cue-item-info'});
+    const error=errs.find(e=>e.id===c.id);
+    head.append(makeEl('b',{},String(i+1).padStart(2,'0')+' · '+c.name),makeEl('small',{className:error?'cue-error':''},error?error.message:C.fmt(t.start)+' → '+C.fmt(t.end)+' · '+(c.mode==='lyrics'?'가사 연결 '+c.lyricIds.length+'줄':'직접 지정')));
+    if(c.notes)head.append(makeEl('div',{className:'cue-notes'},c.notes));
+    const tools=makeEl('div',{className:'toolbar'}),playCue=makeEl('button',{className:'tiny'},'▶'),edit=makeEl('button',{className:'tiny'},'수정');
+    playCue.disabled=!audioReady||loading||!!error;playCue.setAttribute('aria-label',(i+1)+'번 영상 큐 재생');playCue.onclick=async()=>{if(!audioReady||error)return;interval={start:t.start,end:t.end,loop:false};a.currentTime=t.start;try{await a.play();}catch(e){say('재생하지 못했습니다.',true);}};
+    edit.onclick=()=>openCue(c.id);tools.append(playCue,edit);wrap.append(head,tools);frag.append(wrap);
+  }
+  if(!project.cues.length)frag.append(makeEl('div',{className:'cue-empty'},'간주·장면 전환·촬영 메모를 추가하세요. 가사 자막과는 별도로 저장됩니다.'));
+  $('cueList').replaceChildren(frag);$('exportCues').disabled=!project.cues.length;$('exportCueMd').disabled=!project.cues.length;
+}
+function openCue(id=null){
+  flushInlineInput();cueEditingId=id;a.pause();interval=null;const c=project.cues.find(c=>c.id===id),r=current();
+  $('cueName').value=c?.name||'';$('cueMode').value=c?.mode||(r?'lyrics':'manual');$('cueStart').value=c?.start??(audioReady?C.round(a.currentTime):'');$('cueEnd').value=c?.end??'';$('cueNotes').value=c?.notes||'';$('cueError').textContent='';$('deleteCue').hidden=!c;
+  const frag=document.createDocumentFragment();for(const [i,row] of project.rows.entries()){
+    const label=makeEl('label',{className:'cue-choice'}),input=makeEl('input',{type:'checkbox',value:row.id,checked:c?c.lyricIds.includes(row.id):row.id===r?.id});
+    label.append(input,makeEl('span',{},(i+1)+'. '+row.text.replace(/\n/g,' / ')));frag.append(label);
+  }
+  $('cueLyricChoices').replaceChildren(frag);updateCueMode();$('cueDialog').showModal();$('cueName').focus();
+}
+function updateCueMode(){const manual=$('cueMode').value==='manual';$('cueManual').hidden=!manual;$('cueLinks').hidden=manual;}
+function applyCue(){try{
+  const c={id:cueEditingId||C.uid('cue'),name:$('cueName').value.trim(),mode:$('cueMode').value,lyricIds:Array.from($('cueLyricChoices').querySelectorAll('input:checked')).map(x=>x.value),start:$('cueStart').value===''?null:Number($('cueStart').value),end:$('cueEnd').value===''?null:Number($('cueEnd').value),notes:$('cueNotes').value.trim()};
+  if(c.mode==='lyrics'){c.start=c.end=null;if(!c.lyricIds.length)throw Error('연결할 가사를 한 줄 이상 선택하세요.');}else c.lyricIds=[];
+  const clean=C.normalizeCues([c])[0];if(!cueEditingId&&project.cues.length>=1000)throw Error('최대 1,000개 큐');
+  checkpoint();if(cueEditingId)project.cues[project.cues.findIndex(x=>x.id===cueEditingId)]=clean;else project.cues.push(clean);
+  $('cueDialog').close();commit();say('영상 큐를 저장했습니다. 가사 자막에는 포함되지 않습니다.');
+}catch(e){$('cueError').textContent=e.message;}}
+function openSplit(){flushInlineInput();const r=current();if(!r)return;a.pause();interval=null;const chars=Array.from(r.text),mid=Math.max(1,Math.floor(chars.length/2));let cut=r.text.lastIndexOf(' ',chars.slice(0,mid).join('').length);if(cut<=0)cut=chars.slice(0,mid).join('').length;
+  $('splitLeft').value=r.text.slice(0,cut).trim();$('splitRight').value=r.text.slice(cut).trim();const timed=r.start!==null&&r.end!==null&&r.end>r.start;
+  $('splitAt').value=timed?C.round(audioReady&&a.currentTime>r.start&&a.currentTime<r.end?a.currentTime:(r.start+r.end)/2):'';$('splitAt').disabled=!timed;$('splitError').textContent='';$('splitInfo').textContent='선택 가사: '+r.text+'\n'+(timed?C.fmt(r.start)+' ~ '+C.fmt(r.end)+' · 제안된 분할 시각은 추정치입니다. 직접 듣고 확인하세요.':'시간이 모두 비어 있으면 두 줄 모두 미입력으로 분할합니다.');$('splitDialog').showModal();
+}
+function applySplit(){try{const q=C.splitRow(project,current()?.id,$('splitLeft').value,$('splitRight').value,$('splitAt').value===''?null:Number($('splitAt').value));checkpoint();project=q;$('splitDialog').close();commit(true);say('가사를 두 줄로 분할했습니다. 영상 큐의 연결도 유지했습니다.');}catch(e){$('splitError').textContent=e.message;}}
+function mergeNext(){flushInlineInput();const r=current(),n=project.rows[index()+1];if(!r||!n)return;try{const q=C.mergeRow(project,r.id,'\n');if(!confirm('다음 가사와 하나의 2줄 자막으로 병합할까요?\n“'+r.text+'” + “'+n.text+'”\n\n중간 쉼도 자막 표시 시간에 포함됩니다. 연결된 영상 큐는 병합된 줄을 참조합니다.'))return;checkpoint();project=q;commit(true);say('두 가사를 병합했습니다. 시간과 영상 큐 연결을 확인하세요.');}catch(e){say(e.message,true);}}
+function cloneProject(){flushInlineInput();flushTitle();const oldTitle=project.title;project=C.clone(project);project.projectId=C.uid('project');project.title=(oldTitle+' (사본)').slice(0,200);project.createdAt=new Date().toISOString();storageConflict=false;$('conflictBanner').hidden=true;undoStack=[];redoStack=[];commit(true);say('별도 ID의 사본을 만들었습니다. 파일로 저장하세요.');}
+function onStorage(e){
+  if(e.key!==PREFIX+project.projectId||!e.newValue)return;
+  try{const value=JSON.parse(e.newValue);if(value.writer===TAB)return;storageConflict=true;$('conflictBanner').hidden=false;$('autosave').textContent='다른 탭 변경 감지 · 자동 복구 저장 일시 중지';$('autosave').classList.add('warn');}catch(err){}
+}
+function blobBase64(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('음원 파일을 읽지 못했습니다.'));reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.readAsDataURL(file);});}
+function checkEnvelope(raw){
+  if(!raw||raw.format!=='zerosu-lyrics-bundle'||![1,2].includes(raw.version))throw Error('지원하지 않는 통합 파일입니다.');
+  const p=C.normalize(raw.project),m=raw.media;
+  if(!m||typeof m.name!=='string'||!m.name||m.name.length>500||typeof m.base64!=='string'||!Number.isSafeInteger(m.size)||m.size<=0||m.size>MAX_EMBED)throw Error('내장 음원 정보 또는 용량 오류');
+  if(m.base64.length>Math.ceil(MAX_EMBED/3)*4||m.base64.length%4!==0||(/[^A-Za-z0-9+/=]/.test(m.base64)||m.base64.slice(0,-2).includes('=')||/=.$/.test(m.base64)&&!m.base64.endsWith('==')))throw Error('음원 Base64가 손상되었습니다.');
+  if(m.type!=null&&typeof m.type!=='string')throw Error('음원 유형 오류');
+  const bytes=atob(m.base64);if(bytes.length!==m.size||(p.audio.size!==null&&p.audio.size!==m.size))throw Error('음원 크기 검증 실패');
+  const buffer=new Uint8Array(bytes.length);for(let i=0;i<bytes.length;i++)buffer[i]=bytes.charCodeAt(i);
+  const file=new File([buffer],m.name,{type:/^audio\/[a-z0-9.+-]+$/i.test(m.type||'')?m.type:'application/octet-stream',lastModified:Number.isSafeInteger(m.lastModified)?m.lastModified:0});
+  return {p,file};
+}
+async function validateEnvelope(raw){const result=checkEnvelope(raw),expected=result.p.audio.sha256;
+  if(expected){const actual=await hashFile(result.file);if(actual&&actual!==expected)throw Error('음원 해시 검증 실패: 파일이 변경되었거나 손상되었습니다.');}
+  const url=URL.createObjectURL(result.file);try{await metadata(url);}finally{URL.revokeObjectURL(url);}
+  result.storyFiles=await globalThis.StoryboardApp.validateBundle(raw,result.p);return result;
+}
+async function exportPackage(asHtml){
+  if(packageBusy||!audioReady||!activeFile)return say('음원을 먼저 연결하세요.',true);
+  if(activeFile.size>MAX_EMBED)return say('음원 포함 저장은 40 MiB 이하에서 지원합니다. 큰 음원은 JSON + 원본 파일로 보관하세요.',true);
+  flushInlineInput();flushTitle();const p=C.clone(project),file=activeFile,signature=JSON.stringify(project);p.savedAt=new Date().toISOString();
+  packageBusy=true;render();busy('음원·콘티·컷 파일을 묶고 있습니다.');
+  try{
+    const cutMedia=await globalThis.StoryboardApp.bundleMedia(p,file.size);
+    const base64=await blobBase64(file),bundle={format:'zerosu-lyrics-bundle',version:2,appVersion:'3.0.0',project:p,media:{name:file.name,type:file.type,size:file.size,lastModified:file.lastModified,base64},cutMedia};
+    const serialized=JSON.stringify(bundle);if(new Blob([serialized]).size>125*1024*1024)throw Error('통합 파일이 125 MiB를 초과합니다. JSON과 원본 음원을 따로 보관하세요.');let content=serialized;
+    if(asHtml){const safe=serialized.replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');content=TEMPLATE.replace(/(<script\b[^>]*id="portableProject"[^>]*>)[\s\S]*?(<\/script>)/i,(_,open,close)=>open+safe+close);if(!content.includes(safe))throw Error('휴대용 HTML 템플릿 오류');}
+    download(C.filename(p.title)+(asHtml?'_Portable.html':'.lysync'),content,asHtml?'text/html;charset=utf-8':'application/json;charset=utf-8');
+    if(signature===JSON.stringify(project)){dirty=false;persist();}say((asHtml?'휴대용 HTML':'통합 .lysync')+' 다운로드를 시작했습니다. 이 파일에는 음원과 연결된 컷 파일도 포함됩니다.');
+  }catch(e){say('음원 포함 저장 실패: '+e.message,true);}finally{packageBusy=false;busy('');render();}
+}
+async function openBundle(file){
+  if(!file)return;if(file.size>125*1024*1024)throw Error('통합 파일은 125 MiB 이하여야 합니다.');
+  const pid=project.projectId;busy('통합 파일의 음원과 프로젝트를 확인하고 있습니다.');
+  try{const raw=JSON.parse((await file.text()).replace(/^\uFEFF/,'')),{p,file:audioFile,storyFiles}=await validateEnvelope(raw);
+    if(project.projectId!==pid)return say('프로젝트가 변경되어 가져오기를 취소했습니다.');
+    if(!abandon('통합 프로젝트를 열까요?'))return;
+    let exists=false;try{exists=!!localStorage.getItem(PREFIX+p.projectId);}catch(e){}
+    if(exists&&!confirm('같은 ID의 자동 복구본이 있습니다. 선택한 통합 파일로 교체할까요?'))return;
+    installProject(p,false);globalThis.StoryboardApp.restoreFiles(storyFiles);await loadAudio(audioFile);if(project.projectId===p.projectId&&activeFile===audioFile&&audioReady){dirty=false;persist();render();say('통합 파일에서 음원·가사·콘티·연결 파일을 복원했습니다.');}
+  }finally{busy('');}
+}
+async function restoreEmbedded(raw){
+  busy('내장 음원과 프로젝트를 복원하고 있습니다.');const pid=project.projectId,initialState=JSON.stringify(project);
+  try{const {p,file,storyFiles}=await validateEnvelope(raw);if(project.projectId!==pid)return;
+    if(JSON.stringify(project)!==initialState&&!confirm('내장 파일을 읽는 동안 작업이 변경되었습니다. 내장 프로젝트로 교체할까요?'))return;
+    if(project.projectId===p.projectId&&Date.parse(project.updatedAt)>Date.parse(p.updatedAt)){
+      if(!confirm('이 HTML보다 최근의 자동 복구본이 있습니다.\n확인: HTML 안에 저장된 버전으로 교체\n취소: 현재 복구본 유지 (음원은 다시 선택)'))return;
+    }
+    installProject(p,false);globalThis.StoryboardApp.restoreFiles(storyFiles);await loadAudio(file);if(project.projectId===p.projectId&&activeFile===file&&audioReady){dirty=false;persist();render();say('내장 프로젝트를 열었습니다. 수정한 뒤 음원 포함 저장으로 새 파일을 만드세요.');}
+  }finally{busy('');}
+}
+async function importSubtitleFile(file){
+  if(!file)return;if(file.size>MAX_JSON)throw Error('자막 파일이 너무 큽니다.');const ext=file.name.split('.').pop().toLowerCase(),result=C.importSubtitles(await file.text(),ext);
+  const probe={...C.fresh(),rows:result.rows},issues=C.validate(probe);pendingImport={...result,fileName:file.name,projectId:project.projectId};
+  $('importSummary').textContent=result.rows.length+'개 자막 · '+ext.toUpperCase()+' · 미입력/시간 확인 '+issues.length+'건';
+  $('importWarnings').textContent=result.warnings.join('\n')||'가사 내용과 시작·종료를 가져옵니다. 기존의 서식/위치 정보는 편집하지 않습니다.';
+  $('importPreview').textContent=result.rows.slice(0,8).map((r,i)=>(i+1)+'. '+C.fmt(r.start)+' → '+C.fmt(r.end)+'\n'+r.text).join('\n\n');$('importMode').value='new';a.pause();$('importDialog').showModal();
+}
+function applyImported(){if(!pendingImport)return;const data=pendingImport,mode=$('importMode').value;
+  if(mode==='new'){
+    if(!abandon('자막으로 새 프로젝트를 만들까요?'))return;const p=C.fresh(data.fileName.replace(/\.[^.]+$/,''));p.rows=C.clone(data.rows);p.editor.selectedRowId=p.rows[0].id;installProject(p,true);
+  }else{
+    if(data.projectId!==project.projectId)return say('프로젝트가 바뀌었습니다. 자막을 다시 선택하세요.',true);
+    if(!confirm('현재 가사를 가져온 자막으로 모두 교체할까요?\n음원과 영상 큐는 유지합니다. 기존 가사와 연결된 큐는 연결을 다시 지정해야 합니다.'))return;
+    checkpoint();project.rows=C.clone(data.rows);project.editor.selectedRowId=project.rows[0].id;commit(true);
+  }
+  $('importDialog').close();pendingImport=null;say('자막을 가져왔습니다. 시간 경고와 마지막 종료를 확인하세요.');
+}
+function beginDrag(e){if(!audioReady||!$('dragEdges').checked||!current()||e.button!==0)return;
+  const b=$('wave').getBoundingClientRect(),span=project.duration/viewZoom,x=e.clientX-b.left,r=current();const candidates=['start','end'].filter(k=>r[k]!==null).map(k=>({k,d:Math.abs((r[k]-viewStart)/span*b.width-x)})).filter(o=>o.d<14).sort((a,b)=>a.d-b.d);
+  if(!candidates.length)return;e.preventDefault();a.pause();interval=null;drag={id:r.id,k:candidates[0].k,original:r[candidates[0].k],snapshot:snap(),pointer:e.pointerId,moved:false,suppress:false};$('wave').setPointerCapture(e.pointerId);
+}
+function moveDrag(e){if(!drag||drag.suppress||drag.pointer!==e.pointerId)return;const r=project.rows.find(r=>r.id===drag.id);if(!r)return;const b=$('wave').getBoundingClientRect(),t=C.round(viewStart+Math.max(0,Math.min(1,(e.clientX-b.left)/b.width))*(project.duration/viewZoom));
+  // Prevent inverted boundaries. Do not silently push the adjacent lyric.
+  if((drag.k==='start'&&r.end!==null&&t>=r.end)||(drag.k==='end'&&r.start!==null&&t<=r.start))return;
+  r[drag.k]=t;drag.moved=true;renderRows();refreshIssues();drawWave();$('waveHint').textContent=(drag.k==='start'?'시작':'종료')+' '+C.fmt(t)+' · 놓으면 적용 / Esc 취소';
+}
+function finishDrag(e,cancel=false){if(!drag||drag.suppress)return;const r=project.rows.find(r=>r.id===drag.id),d=drag;
+  if(r)r[d.k]=cancel?d.original:r[d.k];if($('wave').hasPointerCapture(d.pointer))$('wave').releasePointerCapture(d.pointer);
+  drag={suppress:true};if(!cancel&&r&&r[d.k]!==d.original){undoStack.push(d.snapshot);if(undoStack.length>50)undoStack.shift();redoStack=[];commit();say('파형에서 '+(d.k==='start'?'시작':'종료')+'을 수정했습니다.');}else render();
+  setTimeout(()=>{if(drag?.suppress)drag=null;},100);
+}
+$('searchLyrics').oninput=()=>{filterText=$('searchLyrics').value.trim().toLocaleLowerCase();renderRows();};$('filterMode').onchange=()=>{filterMode=$('filterMode').value;renderRows();};
+$('splitRow').onclick=openSplit;$('applySplit').onclick=applySplit;$('mergeRow').onclick=mergeNext;
+$('fillEnds').onclick=()=>{const result=C.alignEnds(project,project.rows.map(r=>r.id));if(!result.count)return say('자동으로 채울 수 있는 빈 종료 시간이 없습니다. 시작 시간을 먼저 입력하세요.');if(!confirm(result.count+'줄의 빈 종료를 다음 줄 시작(마지막은 음원 끝)으로 채울까요?\n실제 노래 종료를 분석한 값이 아닙니다. 간주와 쉼을 직접 보정하세요.'))return;checkpoint();project.rows=result.rows;commit();};
+$('renameSection').onclick=()=>{const r=current();if(!r)return;const name=prompt('구간 이름을 입력하세요. 같은 구간 ID의 모든 줄에 적용합니다.',r.section);if(name===null)return;if(!name.trim()||name.length>120)return say('구간명은 1~120자로 입력하세요.',true);checkpoint();project.rows.forEach(x=>{if(x.sectionId===r.sectionId)x.section=name.trim();});commit();};
+$('duplicateSection').onclick=()=>{const r=current();if(!r)return;const source=project.rows.filter(x=>x.sectionId===r.sectionId);if(source.length+project.rows.length>C.LIMIT.rows)return say('최대 1,000줄을 초과합니다.',true);if(!confirm('선택 구간 '+source.length+'줄을 해당 구간 뒤에 복제할까요?\n새 ID를 만들고 시간은 모두 비웁니다.'))return;const gid=C.uid('section'),copies=source.map(x=>({...x,id:C.uid('lyric'),sectionId:gid,start:null,end:null})),last=project.rows.map(x=>x.sectionId).lastIndexOf(r.sectionId);checkpoint();project.rows.splice(last+1,0,...copies);project.editor.selectedRowId=copies[0].id;commit(true);};
+$('cloneProject').onclick=cloneProject;$('resolveConflict').onclick=cloneProject;window.addEventListener('storage',onStorage);
+$('saveBundle').onclick=()=>exportPackage(false);$('savePortable').onclick=()=>exportPackage(true);
+$('importSubtitles').onclick=()=>$('subtitleInput').click();onFileInput('subtitleInput',importSubtitleFile);$('applyImport').onclick=applyImported;
+$('addCue').onclick=()=>openCue();$('cueMode').onchange=updateCueMode;$('applyCue').onclick=applyCue;
+$('deleteCue').onclick=()=>{if(!cueEditingId||!confirm('이 영상 큐를 삭제할까요?'))return;checkpoint();project.cues=project.cues.filter(c=>c.id!==cueEditingId);$('cueDialog').close();commit();};
+$('exportCues').onclick=()=>{flushInlineInput();try{download(C.filename(project.title)+'_MV_Cues.json',C.storyboard(project),'application/json;charset=utf-8');say('영상 큐 JSON을 내보냈습니다.');}catch(e){say(e.message,true);}};
+$('exportCueMd').onclick=()=>{flushInlineInput();try{download(C.filename(project.title)+'_MV_Cues.md',C.storyboard(project,'md'),'text/markdown;charset=utf-8');}catch(e){say(e.message,true);}};
+$('stagePreview').onclick=()=>{tick();$('stageDialog').showModal();};$('stagePlay').onclick=play;
+$('stageDialog').addEventListener('keydown',e=>{if(e.key===' '&&e.target.tagName!=='BUTTON'){e.preventDefault();play();}});
+$('wave').addEventListener('pointerdown',beginDrag);$('wave').addEventListener('pointermove',moveDrag);$('wave').addEventListener('pointerup',e=>finishDrag(e));$('wave').addEventListener('pointercancel',e=>finishDrag(e,true));$('dragEdges').onchange=drawWave;
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&drag&&!drag.suppress){e.preventDefault();finishDrag(e,true);}});
+
+function environmentReport(){
+  let storage='실패';try{const key=PREFIX+'test_'+TAB;localStorage.setItem(key,'1');storage=localStorage.getItem(key)==='1'?'현재 세션 읽기/쓰기 성공 (영구 보관은 별도 확인)':'읽기 실패';localStorage.removeItem(key);}catch(e){storage=e.name;}
+  const lines=['Lyrics & Storyboard Sync 3.0.1 환경 점검',new Date().toISOString(),'주소 유형: '+location.protocol,'브라우저: '+navigator.userAgent,'자동 복구 저장소: '+storage,'Web Audio: '+(globalThis.AudioContext||globalThis.webkitAudioContext?'지원':'미지원'),'SHA-256 API: '+(globalThis.crypto?.subtle?'지원':'미지원'),'연결 음원: '+(audioReady?'로드 성공':'없음 / 재연결 필요'),'파형: '+(peaks?'생성됨':'없음 / 생성 중 / 생략'),'가사 시간 확인: '+C.validate(project).length+'건','콘티 컷: '+project.storyboard.cuts.length+'개','콘티 시간 확인: '+globalThis.StoryboardCore.issues(project.storyboard,project.duration).length+'건','이전 버전 큐 확인: '+C.cueErrors(project).length+'건','','이 보고서는 스피커 소리, 브라우저 종료 후 저장 복구, 모든 파일 코덱을 검증하지 않습니다.','외부로 전송하지 않으며, 보고서 저장 버튼을 눌렀을 때만 파일로 내려받습니다.'];
+  $('diagnosticText').textContent=lines.join('\n');$('diagnosticDialog').showModal();
+}
+$('diagnostics').onclick=environmentReport;$('saveDiagnostic').onclick=()=>download('Lyrics_Sync_Environment.txt',$('diagnosticText').textContent,'text/plain;charset=utf-8');
+
+// Stable, in-memory interface to the storyboard workspace. File blobs never enter recovery JSON.
+globalThis.LyricSyncApp={
+ finishTemplate(script){if(script&&!pristine.querySelector('#'+script.id))pristine.querySelector('body').append(script.cloneNode(true));TEMPLATE='<!doctype html>\n'+pristine.outerHTML;},
+ get project(){return project;},get audio(){return a;},get ready(){return audioReady&&!loading;},get peaks(){return peaks;},get file(){return activeFile;},
+ get undoAvailable(){return !!undoStack.length;},get redoAvailable(){return !!redoStack.length;},
+ change(fn){flushInlineInput();checkpoint();fn(project);commit(true);},
+ chooseCut(id){project.editor.selectedCutId=id;schedulePersist();},
+ render,play,seek,undo,redo,say,download,loadAudio,installProject,
+ pause(){a.pause();interval=null;},
+ async playRange(start,end,loop=false){if(!audioReady)return say('음원을 먼저 연결하세요.',true);interval={start,end,loop};a.currentTime=start;try{await a.play();}catch(e){say('재생 버튼을 다시 누르세요.',true);}},
+ flush:flushInlineInput
+};
+
+// Restore metadata only. No hidden network requests or automatic audio loads.
+try{const id=localStorage.getItem(ACTIVE),saved=id?localStorage.getItem(PREFIX+id):null;if(saved){const rec=JSON.parse(saved);project=C.normalize(rec.project);dirty=!!rec.dirty;audioMessage='자동 복구한 프로젝트입니다. 원본 음원을 다시 선택하세요.';waveMessage='프로젝트 복구됨 · 음원 재연결 필요';say('이전 프로젝트를 자동 복구했습니다. 원본 음원을 다시 선택하세요.');}}
+catch(e){storageError=e.name||'복구 실패';$('autosave').textContent='자동 복구를 사용할 수 없습니다. JSON 프로젝트를 여세요.';$('autosave').classList.add('warn');}
+render(true);
+const embedded=$('portableProject').textContent.trim();if(embedded){try{const raw=JSON.parse(embedded);setTimeout(()=>restoreEmbedded(raw).catch(e=>say('내장 프로젝트 복원 실패: '+e.message,true)),0);}catch(e){say('내장 데이터 오류: '+e.message,true);}}
+})();
+
+</script>
+<script id="studio-storyboard_app">
+/* Asset-backed storyboard workspace. All media remain local Blob/File objects. */
+(function(root){'use strict';
+const S=root.StoryboardCore,C=root.LyricSyncCore,B=root.LyricSyncApp,$=id=>document.getElementById(id),a=B.audio;
+const MAX_FILES=500*1024*1024,MAX_BUNDLE=80*1024*1024;
+let runtime=new Map(),pending=null,timingMode='layout',orderMode='link',viewTime=0,mode='story',drag=null,signature='',lastPeak=null,lastVideoKey='',lastActive='',sequenceFiles=[],videoFailed=false;
+let mediaGeneration=0;
+const P=()=>B.project,SB=()=>P().storyboard,selected=()=>SB().cuts.find(c=>c.id===P().editor.selectedCutId)||SB().cuts[0]||null;
+const el=(tag,text,props={})=>{const e=document.createElement(tag);if(text!==null&&text!==undefined)e.textContent=text;Object.assign(e,props);return e;};
+const timeNow=()=>B.ready?a.currentTime:viewTime;
+const duration=()=>Math.max(P().duration||0,...SB().cuts.map(c=>c.end||0),1);
+function error(e,where='storyEditError'){if($(where))$(where).textContent=e.message||String(e);B.say(e.message||String(e),true);}
+function update(fn){try{B.change(fn);$('storyEditError').textContent='';}catch(e){error(e);}}
+function setSB(sb){const clean=S.normalize(sb);update(p=>p.storyboard=clean);}
+function switchMode(v){mode=v;document.body.classList.toggle('story-mode',v==='story');document.body.classList.toggle('lyrics-mode',v==='lyrics');$('modeStory').classList.toggle('active',v==='story');$('modeLyrics').classList.toggle('active',v==='lyrics');$('modeStory').setAttribute('aria-selected',v==='story');$('modeLyrics').setAttribute('aria-selected',v==='lyrics');render(true);B.render();}
+function choose(id,seek=true){const c=SB().cuts.find(c=>c.id===id);if(!c)return;B.chooseCut(id);if(seek&&c.start!==null){B.pause();viewTime=c.start;if(B.ready)B.seek(c.start);}render(true);tick();}
+function relative(step){let i=SB().cuts.findIndex(c=>c.id===selected()?.id);const c=SB().cuts[Math.max(0,Math.min(SB().cuts.length-1,i+step))];if(c)choose(c.id);}
+function seekTo(t){viewTime=Math.min(duration(),Math.max(0,t));if(B.ready)B.seek(viewTime);tick();}
+function thumb(assetId){const e=runtime.get(assetId);return e?.kind==='image'?e.url:null;}
+function options(sel,currentId,emptyLabel='파일 미연결'){sel.replaceChildren(el('option',emptyLabel,{value:''}));for(const asset of SB().assets){const e=el('option',asset.path+(runtime.has(asset.id)?'':' (재연결 필요)'),{value:asset.id});sel.append(e);}sel.value=currentId||'';}
+function render(force=false){if(!SB())return;if(!SB().cuts.some(c=>c.id===P().editor.selectedCutId))B.chooseCut(SB().cuts[0]?.id||null);
+ const linked=SB().cuts.filter(c=>c.assetId&&runtime.has(c.assetId)).length;
+ $('storyCount').textContent=SB().cuts.length+'컷 · 파일 연결 '+linked+'/'+SB().cuts.length;
+ $('storyUndo').disabled=!B.undoAvailable;$('storyRedo').disabled=!B.redoAvailable;
+ for(const id of ['exportCutJson','exportCutCsv','exportCutMd','clearStory','storyShift','storyLayout','mapMedia'])$(id).disabled=!SB().cuts.length;
+ $('storyFromFiles').disabled=!SB().assets.length;$('storySources').disabled=!SB().sources.length;
+ $('storyPlay').disabled=!B.ready;
+ const c=selected();$('storyInspector').hidden=!c;
+ if(c){$('storySelection').textContent=c.code+' · '+c.section;$('storyOriginal').textContent='원본 '+C.fmt(c.sourceStart)+' → '+C.fmt(c.sourceEnd);
+ for(const [id,k] of [['cutStart','start'],['cutEnd','end'],['cutMediaIn','mediaIn']])if(document.activeElement!==$(id))$(id).value=c[k]??'';
+ if(document.activeElement!==$('cutAsset'))options($('cutAsset'),c.assetId);
+ $('cutVideoMode').value=c.videoMode;$('storyVideoOptions').hidden=SB().assets.find(x=>x.id===c.assetId)?.kind!=='video';
+ $('storyDetails').textContent=[c.lyricText?'가사 참조: '+c.lyricText:'',c.description?'화면: '+c.description:'',c.camera?'카메라·연결: '+c.camera:'',c.cast?'등장: '+c.cast:'',c.images.length>1?'원본 복수 이미지: '+c.images.join(', ')+' (대표 1개만 재생)':''].filter(Boolean).join('\n');
+ for(const id of ['cutStampStart','cutStampEnd','cutListen'])$(id).disabled=!B.ready;
+ }
+ if(!Array.from($('storyFps').options).some(o=>+o.value===SB().fps))$('storyFps').append(el('option',String(SB().fps),{value:String(SB().fps)}));$('storyFps').value=String(SB().fps);
+ const errs=S.issues(SB(),P().duration),missing=SB().cuts.filter(c=>!c.assetId||!runtime.has(c.assetId)).length;
+ $('storyIssuesSummary').textContent=SB().cuts.length?(errs.length?'시간 확인 '+errs.length+'건':'컷 시간 입력 완료')+' · 파일 미연결 '+missing+'컷':'콘티 가져오기로 시작하세요.';
+ $('storyIssues').textContent=errs.slice(0,80).map(e=>e.message).join('\n')+(missing?'\n'+missing+'컷은 실제 파일을 연결해야 원화를 볼 수 있습니다.':'');
+ const sig=JSON.stringify([SB(),P().rows.map(r=>[r.id,r.text,r.start,r.end]),P().duration,P().editor.selectedCutId,$('storySearch').value,$('storyFilter').value,$('storyZoom').value,runtime.size,mode]);
+ if(force||sig!==signature){signature=sig;renderTracks();renderTiles();renderSections();}
+ tick();
+}
+function renderSections(){const groups=new Set(),frag=document.createDocumentFragment();for(const c of SB().cuts){if(groups.has(c.sectionId))continue;groups.add(c.sectionId);const b=el('button',c.section+' · '+C.fmt(c.start),{className:selected()?.sectionId===c.sectionId?'selected':''});b.onclick=()=>choose(c.id);frag.append(b);}$('storySections').replaceChildren(frag);}
+function renderTiles(){const frag=document.createDocumentFragment(),filter=$('storyFilter').value,search=$('storySearch').value.toLocaleLowerCase();for(const c of SB().cuts){const asset=SB().assets.find(x=>x.id===c.assetId),r=runtime.get(c.assetId);if(filter==='unlinked'&&r)continue;if(filter==='untimed'&&c.start!==null&&c.end!==null)continue;if(search&&!(c.code+' '+c.section+' '+c.description+' '+(asset?.path||c.fileName)).toLocaleLowerCase().includes(search))continue;
+ const b=el('button',null,{className:'story-tile'+(c.id===selected()?.id?' selected':'')+(!r?' unlinked':'')});b.dataset.cut=c.id;
+ const f=el('figure'),url=thumb(c.assetId);if(url)f.append(el('img',null,{src:url,loading:'lazy',alt:c.code}));else f.textContent=asset?.kind==='video'?'▶ VIDEO':c.code;
+ const info=el('div',null,{className:'info'});info.append(el('b',c.code+' · '+c.section),el('small',C.fmt(c.start)+' → '+C.fmt(c.end)),el('span',c.description||c.title,{className:'tile-desc'}),el('small',asset?asset.fileName+(r?'':' · 재연결 필요'):(c.fileName||'파일 미연결'),{className:'file-status'}));b.append(f,info);b.onclick=()=>choose(c.id);frag.append(b);
+ }if(!frag.children.length)frag.append(el('div',SB().cuts.length?'조건에 맞는 컷이 없습니다.':'콘티의 54컷·76컷 등을 한 번에 불러올 수 있습니다.',{className:'story-empty-message'}));$('storyCutList').replaceChildren(frag);}
+function renderTracks(){if(mode!=='story')return;const total=duration(),container=$('storyScroll'),w=Math.max(300,container.clientWidth)*Number($('storyZoom').value);$('storyTracks').style.width=w+'px';
+ const ruler=document.createDocumentFragment();const tickCount=Math.max(2,Math.floor(w/90));for(let i=0;i<=tickCount;i++){const mark=el('span',C.fmt(total*i/tickCount),{className:'story-tickmark'});mark.style.left=(i/tickCount*100)+'%';if(i===tickCount)mark.style.transform='translateX(-100%)';ruler.append(mark);}$('storyRuler').replaceChildren(ruler);
+ const cuts=document.createDocumentFragment();for(const c of SB().cuts){if(c.start===null||c.end===null||c.end<=c.start)continue;const b=el('div',null,{className:'cut-block'+(c.id===selected()?.id?' selected':'')});b.tabIndex=0;b.setAttribute('role','button');b.setAttribute('aria-label',c.code+' '+C.fmt(c.start)+'부터 '+C.fmt(c.end));b.title=c.code+' · '+c.description;b.dataset.cut=c.id;b.style.left=(c.start/total*100)+'%';b.style.width=((c.end-c.start)/total*100)+'%';const url=thumb(c.assetId);if(url)b.append(el('img',null,{src:url,loading:'lazy',alt:''}));b.append(el('span',c.code,{className:'code'}),el('span',(c.end-c.start).toFixed(2)+'s',{className:'length'}));for(const edge of ['start','end']){const handle=el('span',null,{className:'cut-handle '+edge});handle.dataset.edge=edge;handle.setAttribute('aria-label',c.code+' '+edge+' 경계');b.append(handle);}b.onclick=e=>{if(e.target.closest('.cut-handle')||Date.now()<suppressClickUntil)return;choose(c.id);};b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();choose(c.id);}};cuts.append(b);}$('storyCutTrack').replaceChildren(cuts);
+ const lyrics=document.createDocumentFragment();for(const r of P().rows){if(r.start===null||r.end===null||r.end<=r.start)continue;const b=el('div',r.text,{className:'story-lyricblock'});b.style.left=(r.start/total*100)+'%';b.style.width=((r.end-r.start)/total*100)+'%';lyrics.append(b);}$('storyLyricTrack').replaceChildren(lyrics);drawWave();lastActive='';
+}
+function drawWave(){if(mode!=='story')return;const canvas=$('storyWave'),w=Math.max(1,Math.round($('storyTracks').clientWidth)),h=35;canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.clearRect(0,0,w,h);ctx.fillStyle='#b8cbb0';const peaks=B.peaks,total=duration(),ad=P().duration||total;if(peaks){for(let x=0;x<w;x+=2){const i=Math.floor(x/w*total/ad*peaks.length);if(i>=peaks.length)break;const next=Math.min(peaks.length,Math.max(i+1,Math.ceil((x+2)/w*total/ad*peaks.length)));let v=0;for(let j=i;j<next;j++)v=Math.max(v,peaks[j]);ctx.fillRect(x,h/2-v*15,1.2,Math.max(1,v*30));}}else{ctx.fillStyle='#869780';ctx.font='11px system-ui';ctx.fillText('음원 연결 후 파형이 표시됩니다. 컷 시간은 독립적으로 편집할 수 있습니다.',10,22);}lastPeak=peaks;}
+function tick(){if(mode!=='story'){if(!$('storyVideo').paused)$('storyVideo').pause();return;}const t=timeNow(),total=duration();$('storySeek').max=total;$('storySeek').value=t;$('storyClock').textContent=C.fmt(t);$('storyPlay').textContent=a.paused?'▶ 재생':'Ⅱ 정지';$('storyPlay').disabled=!B.ready;
+ const x=t/total*$('storyTracks').clientWidth;$('storyPlayhead').style.left=x+'px';const scroll=$('storyScroll');if($('storyFollow').checked&&!a.paused&&(x<scroll.scrollLeft||x>scroll.scrollLeft+scroll.clientWidth-25))scroll.scrollLeft=Math.max(0,x-scroll.clientWidth*.2);
+ if(lastPeak!==B.peaks)drawWave();const active=S.at(SB(),t),c=active[0]||null;const activeKey=active.map(c=>c.id).join('|');if(activeKey!==lastActive){lastActive=activeKey;for(const e of document.querySelectorAll('[data-cut]'))e.classList.toggle('playing',active.some(c=>c.id===e.dataset.cut));}
+ showPreview(c,t,active.length);const caption=$('storyCaptions').checked?P().rows.filter(r=>r.start!==null&&r.end!==null&&t>=r.start&&t<r.end).map(r=>r.text).join('\n'):'';$('storyCaption').textContent=caption;
+}
+function showPreview(c,t,count){const img=$('storyImage'),video=$('storyVideo'),ph=$('storyPlaceholder'),media=c?runtime.get(c.assetId):null;
+ $('storyPreviewLabel').textContent=c?c.code+' · '+c.section+(count>1?' · 겹침 '+count+'컷':''):C.fmt(t)+' · 화면 빈 구간';
+ if(!c||!media){if(!video.paused)video.pause();if(lastVideoKey){video.removeAttribute('src');video.load();lastVideoKey='';}img.hidden=true;video.hidden=true;ph.hidden=false;$('storyPreviewCode').textContent=c?c.code+' · 파일 미연결':SB().cuts.length?'화면 빈 구간':'콘티를 불러오세요';$('storyPreviewDescription').textContent=c?(c.description||c.title||'')+'\n'+(c.fileName?'연결할 파일: '+c.fileName:'컷 파일을 선택해 주세요.'):'콘티 가져오기 → 컷 파일 연결 → 타임라인 조정';return;}
+ if(media.kind==='image'){video.pause();if(lastVideoKey){video.removeAttribute('src');video.load();lastVideoKey='';}video.hidden=true;if(img.getAttribute('src')!==media.url){img.src=media.url;img.dataset.failed='';}img.hidden=!!img.dataset.failed;ph.hidden=!img.dataset.failed;if(img.dataset.failed){$('storyPreviewCode').textContent=c.code+' · 이미지 표시 실패';$('storyPreviewDescription').textContent='다른 PNG/JPEG 파일로 연결해 주세요.';}return;}
+ img.hidden=true;
+ const key=c.id+'|'+media.url;if(lastVideoKey!==key){video.pause();lastVideoKey=key;videoFailed=false;video.src=media.url;video.muted=true;video.load();}
+ video.hidden=videoFailed;ph.hidden=!videoFailed;if(videoFailed){$('storyPreviewCode').textContent=c.code+' · 영상 재생 실패';$('storyPreviewDescription').textContent='이 브라우저에서 해석할 수 있는 MP4/WebM 파일로 다시 연결하세요.';return;}
+ if(!Number.isFinite(video.duration)||video.duration<=0)return;
+ const mediaIn=c.mediaIn||0;if(mediaIn>=video.duration){video.pause();video.hidden=true;ph.hidden=false;$('storyPreviewCode').textContent='원본 시작 시각 초과';$('storyPreviewDescription').textContent='영상 길이 '+C.fmt(video.duration)+'보다 빠른 시작값을 입력하세요.';return;}
+ const elapsed=Math.max(0,t-c.start),remaining=video.duration-mediaIn,ended=elapsed>=remaining&&c.videoMode!=='loop';const goal=c.videoMode==='loop'?mediaIn+(elapsed%remaining):Math.min(video.duration-.04,mediaIn+elapsed);
+ const desired=Math.max(0,goal);if(!video.seeking&&Math.abs(video.currentTime-desired)>(a.paused?.012:.16)){try{video.currentTime=desired;}catch(e){}}
+ video.playbackRate=a.playbackRate;
+ if(B.ready&&!a.paused&&!a.seeking&&!ended){if(video.paused)video.play().catch(()=>{});}else if(!video.paused)video.pause();
+}
+$('storyImage').onerror=()=>{$('storyImage').dataset.failed='1';tick();};$('storyVideo').onerror=()=>{videoFailed=true;tick();};$('storyVideo').onloadedmetadata=()=>tick();a.addEventListener('pause',()=>tick());a.addEventListener('ratechange',()=>tick());
+function mediaKind(file){const ext=file.name.split('.').pop().toLowerCase();if(['png','jpg','jpeg','webp','gif','avif','bmp'].includes(ext))return 'image';if(['mp4','webm','mov','ogv','m4v'].includes(ext))return 'video';return null;}
+function assetMeta(file,kind,id){return {id:id||C.uid('asset'),kind,fileName:file.name,path:S.path(file.webkitRelativePath||file._relativePath||file.name),size:file.size,type:file.type,lastModified:file.lastModified};}
+async function addFiles(list){const pid=P().projectId,generation=mediaGeneration;const inputs=Array.from(list).filter(f=>mediaKind(f));if(!inputs.length)return B.say('PNG·JPG 등의 이미지 또는 MP4·WebM 컷 영상을 선택하세요. ZIP은 압축을 푼 후 폴더를 선택하세요.',true);if(inputs.length>2000)throw Error('한 번에 최대 2,000개 파일입니다.');
+ let bytes=[...runtime.values()].reduce((n,x)=>n+x.file.size,0)+inputs.reduce((n,f)=>n+f.size,0);if(bytes>MAX_FILES)throw Error('메모리 보호: 연결 파일 합계 500 MiB 이하여야 합니다. 프로젝트를 나누거나 작은 미리보기 파일을 사용하세요.');
+ const sb=C.clone(SB()),adopt=[];let replaced=0;const reconnectCounts=new Map();for(const f of inputs)reconnectCounts.set(f.name,(reconnectCounts.get(f.name)||0)+1);
+ for(const f of inputs){if(!f.size||f.size>120*1024*1024)throw Error('각 파일은 0 초과~120 MiB 이하: '+f.name);const kind=mediaKind(f),meta=assetMeta(f,kind);let matches=sb.assets.filter(x=>x.path===meta.path);if(!matches.length&&reconnectCounts.get(f.name)===1)matches=sb.assets.filter(x=>x.fileName===f.name&&x.size===f.size);
+ let old=matches.length===1?matches[0]:null;if(old){if(old.size!==meta.size)replaced++;meta.id=old.id;sb.assets[sb.assets.findIndex(x=>x.id===old.id)]=meta;}else sb.assets.push(meta);adopt.push({meta,file:f});
+ }
+ if(replaced&&!confirm(replaced+'개 파일의 경로는 같지만 크기가 바뀌었습니다. 해당 파일을 교체할까요?'))return;
+ if(pid!==P().projectId||generation!==mediaGeneration)return;const result=S.autoMatch(S.normalize(sb));
+ for(const {meta,file} of adopt){const old=runtime.get(meta.id);if(old)URL.revokeObjectURL(old.url);runtime.set(meta.id,{file,url:URL.createObjectURL(file),kind:meta.kind});}
+ setSB(result.storyboard);signature='';render(true);B.say(inputs.length+'개 파일 준비 · '+result.matched+'컷 자동 연결'+(result.ambiguous?' · '+result.ambiguous+'컷은 후보가 여럿이므로 직접 연결하세요.':''));
+}
+async function importDocuments(files){const pid=P().projectId,docs=Array.from(files);if(!docs.length)return;let all=[],sources=[],warnings=[],fps=30;for(const file of docs){if(file.size>S.limits.source)throw Error('콘티 문서는 5 MiB 이하입니다.');const r=S.parse(await file.text(),file.name);all.push(...r.cuts);sources.push(r.source);warnings.push(...r.warnings.map(s=>file.name+': '+s));fps=r.fps;}
+ S.unique(all);if(pid!==P().projectId)return;pending={cuts:all,sources,warnings,fps,pid,base:JSON.stringify(SB())};$('storyImportSummary').textContent=docs.length+'개 문서 · '+all.length+'컷 · '+C.fmt(all[0].start)+' → '+C.fmt(all.at(-1).end);$('storyImportWarnings').textContent=warnings.join('\n')||'원문에 기록된 시작·종료를 그대로 사용합니다. 가사와 음원은 바꾸지 않습니다.';
+ const frag=document.createDocumentFragment();for(const c of all){const tr=el('tr');for(const text of [c.code,c.section,C.fmt(c.start)+' → '+C.fmt(c.end),(c.description||'')+(c.fileName?'\n'+c.fileName:'')])tr.append(el('td',text));frag.append(tr);}$('storyImportRows').replaceChildren(frag);$('storyImportMode').value='replace';$('storyImportError').textContent='';$('storyImportDialog').showModal();
+}
+function applyImport(){try{if(!pending||pending.pid!==P().projectId)throw Error('프로젝트가 변경되었습니다. 다시 가져오세요.');if(pending.base!==JSON.stringify(SB())&&!confirm('가져오기를 확인하는 동안 콘티가 변경되었습니다. 계속할까요?'))return;
+ const sb=C.clone(SB());if($('storyImportMode').value==='append'){sb.cuts.push(...pending.cuts);sb.sources.push(...pending.sources);S.unique(sb.cuts);}else{sb.cuts=pending.cuts;sb.sources=pending.sources;sb.fps=pending.fps;}
+ const result=S.autoMatch(S.normalize(sb));B.change(p=>{p.storyboard=result.storyboard;p.editor.selectedCutId=sb.cuts[0].id;});$('storyImportDialog').close();pending=null;switchMode('story');choose(sb.cuts[0].id);B.say(sb.cuts.length+'컷에 원본 시간을 적용했습니다. 가사 타임라인은 그대로입니다.');
+ }catch(e){error(e,'storyImportError');}}
+function linkAsset(id,assetId){setSB({...SB(),cuts:SB().cuts.map(c=>c.id===id?{...c,assetId:assetId||null}:c)});}
+function renderMapping(){const frag=document.createDocumentFragment();for(const c of SB().cuts){const row=el('div',null,{className:'story-maprow'}),label=el('label',c.code),sel=el('select');options(sel,c.assetId);sel.setAttribute('aria-label',c.code+' 파일 연결');sel.onchange=()=>{linkAsset(c.id,sel.value);};row.append(label,sel);frag.append(row);}$('storyMapList').replaceChildren(frag);}
+function openOrder(kind){orderMode=kind;sequenceFiles=SB().assets.filter(x=>runtime.has(x.id)).sort((x,y)=>x.path.localeCompare(y.path,'en',{numeric:true,sensitivity:'base'}));if(!sequenceFiles.length)return B.say('실제 컷 파일을 먼저 선택하세요.',true);if(kind==='link'&&sequenceFiles.length!==SB().cuts.length)return B.say('순서 연결은 컷 수와 연결한 파일 수가 같아야 합니다. 컷 '+SB().cuts.length+'개 / 파일 '+sequenceFiles.length+'개. 개별 연결을 사용하세요.',true);
+ $('storyOrderHeading').textContent=kind==='create'?'파일만으로 컷 생성 · 범위 균등 배치':'파일 순서대로 기존 컷에 연결';$('storyFromFilesRange').hidden=kind!=='create';$('storyFilesStart').value=0;$('storyFilesEnd').value=P().duration??'';$('storyOrderPreview').textContent=sequenceFiles.map((f,i)=>(kind==='create'?String(i+1).padStart(2,'0'):SB().cuts[i].code)+' ← '+f.path).join('\n');$('storyOrderError').textContent='';$('storyOrderDialog').showModal();}
+function applyOrder(){try{if(sequenceFiles.some(f=>!runtime.has(f.id)))throw Error('파일 연결이 바뀌었습니다. 다시 선택하세요.');let sb=C.clone(SB());if(orderMode==='create'){
+ if(sb.cuts.length&&!confirm('기존 콘티 트랙을 파일 순서 기반 컷으로 교체할까요? 가사는 유지합니다.'))return;const gid=C.uid('cutsection');sb.cuts=sequenceFiles.map((f,i)=>{const c=S.cleanCut({cut:'C'+String(i+1).padStart(2,'0'),section:'파일 배치',sectionId:gid,fileName:f.path},i);c.assetId=f.id;return c;});sb=S.layout(sb,sb.cuts.map(c=>c.id),S.time($('storyFilesStart').value),S.time($('storyFilesEnd').value),false,P().duration);
+ }else{if(sb.cuts.length!==sequenceFiles.length)throw Error('컷 수가 변경되었습니다.');sb.cuts.forEach((c,i)=>c.assetId=sequenceFiles[i].id);}
+ setSB(sb);$('storyOrderDialog').close();if($('storyMapDialog').open)renderMapping();B.say(orderMode==='create'?'지정한 범위를 파일 수만큼 균등 분할했습니다. 이 시간은 자동 가사 정렬 결과가 아닙니다.':'확인한 순서로 파일을 연결했습니다. 컷 시간은 유지했습니다.');
+ }catch(e){error(e,'storyOrderError');}}
+function changeEdge(edge,value){try{const c=selected();if(!c)return;setSB(S.editEdge(SB(),c.id,edge,value,$('cutLinked').checked,P().duration));}catch(e){error(e);render();}}
+function stamp(edge){if(!B.ready)return B.say('음원을 먼저 연결하세요.',true);changeEdge(edge,C.round(a.currentTime));}
+function nudge(sign){const c=selected(),edge=$('cutEdge').value;if(!c||c[edge]===null)return;const v=$('cutStep').value,target=v==='frame'?(Math.round(c[edge]*SB().fps)+sign)/SB().fps:c[edge]+sign*Number(v);changeEdge(edge,C.round(target));}
+function timingIds(){const cs=SB().cuts,c=selected(),i=cs.findIndex(x=>x.id===c?.id),scope=$('storyTimingScope').value;return cs.filter((x,j)=>scope==='all'||scope==='section'&&x.sectionId===c?.sectionId||scope==='from'&&j>=i||scope==='untimed'&&(x.start===null||x.end===null)).map(c=>c.id);}
+function openTiming(kind){if(!selected())return;timingMode=kind;const c=selected(),group=SB().cuts.filter(x=>x.sectionId===c.sectionId);$('storyTimingTitle').textContent=kind==='section'?'구간 시작 경계 조정':kind==='shift'?'컷 시간 일괄 이동':'선택 범위에 컷 배치';$('storyTimingHint').textContent=kind==='section'?'이 구간의 첫 컷 시작과 맞닿은 앞 구간의 마지막 컷 종료만 바꿉니다. 나머지 컷 시간과 가사 시간은 그대로입니다.':kind==='shift'?'선택한 컷의 시작·종료를 같은 양만큼 이동합니다. 앞뒤 빈 구간이나 겹침이 생기면 경고합니다.':'지정한 범위 안에서만 컷 시간을 다시 배분합니다. 가사 시간은 바꾸지 않으며, 이 배치는 자동 보컬 정렬이 아닙니다.';
+ $('storyScopeWrap').hidden=kind==='section';$('storyRangeFields').hidden=kind!=='layout';$('storyDeltaWrap').hidden=kind!=='shift';$('storyProportionWrap').hidden=kind!=='layout';$('storySectionStartWrap').hidden=kind!=='section';$('storyTimingScope').value='section';$('storyRangeStart').value=group[0]?.start??0;$('storyRangeEnd').value=group.at(-1)?.end??P().duration??'';$('storySectionStart').value=group[0]?.start??'';$('storyDelta').value='0.1';$('storyTimingError').textContent='';timingPreview();$('storyTimingDialog').showModal();}
+function timingPreview(){const ids=timingIds();$('storyTimingPreview').textContent=timingMode==='section'?'대상: '+selected()?.section+' · 첫 컷 '+SB().cuts.find(c=>c.sectionId===selected()?.sectionId)?.code:ids.length+'컷에 적용 · 가사 시간은 유지';}
+function applyTiming(){try{let sb;if(timingMode==='section'){const first=SB().cuts.find(c=>c.sectionId===selected()?.sectionId);sb=S.editEdge(SB(),first.id,'start',S.time($('storySectionStart').value),true,P().duration);}else if(timingMode==='shift'){if($('storyDelta').value==='')throw Error('이동량을 입력하세요.');sb=S.shift(SB(),timingIds(),Number($('storyDelta').value),P().duration);}else sb=S.layout(SB(),timingIds(),S.time($('storyRangeStart').value),S.time($('storyRangeEnd').value),$('storyProportion').value==='ratio',P().duration);setSB(sb);$('storyTimingDialog').close();B.say('컷 타임라인을 수정했습니다. 가사와 원본 콘티 시간은 그대로입니다.');}catch(e){error(e,'storyTimingError');}}
+let suppressClickUntil=0;
+function startDrag(e){const handle=e.target.closest('.cut-handle');if(!handle||e.button!==0)return;const id=handle.parentElement.dataset.cut;B.pause();B.chooseCut(id);drag={id,edge:handle.dataset.edge,original:C.clone(SB()),draft:null,pointer:e.pointerId,element:$('storyTracks')};drag.element.setPointerCapture(e.pointerId);e.preventDefault();}
+function moveDrag(e){if(!drag||e.pointerId!==drag.pointer)return;const b=$('storyTracks').getBoundingClientRect(),t=C.round(Math.max(0,Math.min(1,(e.clientX-b.left)/b.width))*duration());try{drag.draft=S.editEdge(drag.original,drag.id,drag.edge,t,$('cutLinked').checked,P().duration);$('storyEditError').textContent='';const c=drag.draft.cuts.find(c=>c.id===drag.id);$(drag.edge==='start'?'cutStart':'cutEnd').value=c[drag.edge];for(const cut of drag.draft.cuts){const node=Array.from($('storyCutTrack').children).find(x=>x.dataset.cut===cut.id);if(node&&cut.start!==null&&cut.end>cut.start){node.style.left=cut.start/duration()*100+'%';node.style.width=(cut.end-cut.start)/duration()*100+'%';}}}catch(err){$('storyEditError').textContent=err.message;drag.draft=null;}}
+function endDrag(e,cancel=false){if(!drag||(e.pointerId!=null&&e.pointerId!==drag.pointer))return;const d=drag;drag=null;suppressClickUntil=Date.now()+150;try{d.element.releasePointerCapture(d.pointer);}catch(e){}if(!cancel&&d.draft)setSB(d.draft);render(true);}
+function encode(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=()=>reject(Error('컷 파일을 읽지 못했습니다: '+file.name));r.readAsDataURL(file);});}
+async function bundleMedia(p,audioSize){const ids=new Set(p.storyboard.cuts.map(c=>c.assetId).filter(Boolean));const assets=p.storyboard.assets.filter(a=>ids.has(a.id));if(ids.size!==assets.length)throw Error('콘티에 참조만 남은 파일이 있습니다. 파일 연결을 수정하세요.');const items=assets.map(meta=>{const rec=runtime.get(meta.id);if(!rec)throw Error('통합 저장 전에 컷 파일을 다시 연결하세요: '+meta.fileName);if(rec.file.size!==meta.size)throw Error('파일 정보 불일치: '+meta.fileName);return {meta,file:rec.file};});if(audioSize+items.reduce((n,x)=>n+x.file.size,0)>MAX_BUNDLE)throw Error('음원+사용 중인 컷 파일 합계가 80 MiB를 초과합니다. JSON과 원본 폴더로 보관하세요.');
+ // Include only used files, exactly matching this project snapshot; no silent missing attachments.
+ p.storyboard.assets=assets;const out=[];for(const x of items)out.push({id:x.meta.id,name:x.file.name,type:x.file.type,size:x.file.size,lastModified:x.file.lastModified,base64:await encode(x.file)});return out;}
+async function validateBundle(raw,p){const items=raw.cutMedia??[];if(!Array.isArray(items)||items.length>2000)throw Error('내장 컷 파일 배열 오류');let total=raw.media?.size||0;const out=[],seen=new Set();for(const m of items){const meta=p.storyboard.assets.find(x=>x.id===m.id);if(!meta||seen.has(m.id)||m.size!==meta.size||!Number.isSafeInteger(m.size)||m.size<1)throw Error('내장 컷 파일 메타데이터 오류');seen.add(m.id);total+=m.size;if(total>MAX_BUNDLE)throw Error('내장 파일 총 용량 80 MiB 초과');if(typeof m.base64!=='string'||m.base64.length!==Math.ceil(m.size/3)*4||(/[^A-Za-z0-9+/=]/.test(m.base64)||m.base64.slice(0,-2).includes('=')||/=.$/.test(m.base64)&&!m.base64.endsWith('==')))throw Error('내장 컷 파일 Base64 손상');const str=atob(m.base64);if(str.length!==m.size)throw Error('내장 컷 파일 크기 불일치');const buf=new Uint8Array(str.length);for(let i=0;i<str.length;i++)buf[i]=str.charCodeAt(i);const file=new File([buf],meta.fileName,{type:meta.type,lastModified:meta.lastModified});if(mediaKind(file)!==meta.kind)throw Error('지원하지 않는 내장 컷 파일 유형');out.push({meta,file});}
+ if(raw.version===2)for(const c of p.storyboard.cuts)if(c.assetId&&!seen.has(c.assetId))throw Error('내장 컷 파일 누락: '+c.code);return out;}
+function restoreFiles(items=[]){for(const {meta,file} of items)runtime.set(meta.id,{file,url:URL.createObjectURL(file),kind:meta.kind});signature='';render(true);}
+function reset(){mediaGeneration++;for(const e of runtime.values())URL.revokeObjectURL(e.url);runtime=new Map();viewTime=0;pending=null;signature='';lastVideoKey='';lastActive='';$('storyVideo').pause();$('storyVideo').removeAttribute('src');$('storyVideo').load();}
+function handleKey(e){if(mode!=='story'||e.ctrlKey||e.metaKey||e.isComposing)return false;if(e.key==='Enter'&&e.target.tagName!=='BUTTON'){e.preventDefault();if(!e.repeat)B.say('콘티 경계는 S(시작), E(종료)로 기록합니다. Enter 연속 가사 기록은 가사 싱크 모드에서 사용하세요.');return true;}let fn=({s:()=>stamp('start'),e:()=>stamp('end'),ArrowUp:()=>relative(-1),ArrowDown:()=>relative(1)})[e.key]||({s:()=>stamp('start'),e:()=>stamp('end')})[e.key.toLowerCase()];if(!fn)return false;e.preventDefault();if(!e.repeat)fn();return true;}
+root.StoryboardApp={render,tick,drawWave,reset,bundleMedia,validateBundle,restoreFiles,handleKey};
+$('modeStory').onclick=()=>switchMode('story');$('modeLyrics').onclick=()=>switchMode('lyrics');
+$('importStory').onclick=()=>$('storyInput').click();$('storyInput').onchange=async e=>{try{await importDocuments(e.target.files);}catch(err){error(err);}finally{e.target.value='';}};$('applyStoryImport').onclick=applyImport;
+$('addMedia').onclick=()=>$('storyMediaInput').click();$('addMediaFolder').onclick=()=>$('storyFolderInput').click();for(const id of ['storyMediaInput','storyFolderInput'])$(id).onchange=async e=>{try{await addFiles(e.target.files);}catch(err){error(err);}finally{e.target.value='';}};
+$('storyDrop').ondragover=e=>{e.preventDefault();$('storyDrop').classList.add('dragover');};$('storyDrop').ondragleave=()=>$('storyDrop').classList.remove('dragover');$('storyDrop').ondrop=async e=>{e.preventDefault();$('storyDrop').classList.remove('dragover');try{const list=Array.from(e.dataTransfer.files),docs=list.filter(f=>/\.(md|markdown|csv|json|txt)$/i.test(f.name)),media=list.filter(f=>mediaKind(f));if(media.length)await addFiles(media);if(docs.length)await importDocuments(docs);if(!media.length&&!docs.length)throw Error('지원하는 콘티/컷 파일을 놓으세요. 폴더는 폴더 선택 버튼을 사용하세요.');}catch(err){error(err);}};
+$('mapMedia').onclick=()=>{renderMapping();$('storyMapDialog').showModal();};$('storyAutoMatch').onclick=()=>{const r=S.autoMatch(SB());setSB(r.storyboard);renderMapping();B.say(r.matched+'컷 연결 · 중복 후보 '+r.ambiguous+'컷');};$('storyOrderMatch').onclick=()=>openOrder('link');$('storyFromFiles').onclick=()=>openOrder('create');$('applyStoryOrder').onclick=applyOrder;
+$('cutAsset').onchange=()=>{if(selected())linkAsset(selected().id,$('cutAsset').value);};$('cutStart').onchange=()=>changeEdge('start',$('cutStart').value);$('cutEnd').onchange=()=>changeEdge('end',$('cutEnd').value);
+$('cutStampStart').onclick=()=>stamp('start');$('cutStampEnd').onclick=()=>stamp('end');$('cutMinus').onclick=()=>nudge(-1);$('cutPlus').onclick=()=>nudge(1);
+$('cutListen').onclick=()=>{const c=selected();if(!c||c.start===null||c.end===null||c.end<=c.start||c.end>(P().duration||0))return B.say('유효한 시작·종료와 음원이 필요합니다.',true);B.playRange(c.start,c.end,$('cutLoop').checked);};
+$('cutMediaIn').onchange=()=>{try{const n=S.time($('cutMediaIn').value);if(n===null)throw Error('영상 원본 시작 시각을 입력하세요.');setSB({...SB(),cuts:SB().cuts.map(c=>c.id===selected()?.id?{...c,mediaIn:n}:c)});}catch(e){error(e);}};$('cutVideoMode').onchange=()=>setSB({...SB(),cuts:SB().cuts.map(c=>c.id===selected()?.id?{...c,videoMode:$('cutVideoMode').value}:c)});
+$('storyFps').onchange=()=>setSB({...SB(),fps:Number($('storyFps').value)});$('storyLayout').onclick=()=>openTiming('layout');$('storyShift').onclick=()=>openTiming('shift');$('storySectionBoundary').onclick=()=>openTiming('section');$('storyTimingScope').onchange=timingPreview;$('applyStoryTiming').onclick=applyTiming;$('storySectionNow').onclick=()=>{$('storySectionStart').value=C.round(timeNow());};
+$('storyUndo').onclick=B.undo;$('storyRedo').onclick=B.redo;$('storyPrev').onclick=()=>relative(-1);$('storyNext').onclick=()=>relative(1);$('storyPlay').onclick=B.play;$('storySeek').oninput=e=>seekTo(Number(e.target.value));$('storyZoom').onchange=()=>render(true);$('storySearch').oninput=()=>render(true);$('storyFilter').onchange=()=>render(true);$('storyCaptions').onchange=tick;$('storyCover').onchange=()=>{$('storyPreview').classList.toggle('fit-cover',$('storyCover').checked);};
+for(const id of ['storyRuler','storyWave'])$(id).onclick=e=>{const b=$('storyTracks').getBoundingClientRect();seekTo((e.clientX-b.left)/b.width*duration());};
+$('storyTracks').addEventListener('pointerdown',startDrag);$('storyTracks').addEventListener('pointermove',moveDrag);$('storyTracks').addEventListener('pointerup',e=>endDrag(e));$('storyTracks').addEventListener('pointercancel',e=>endDrag(e,true));window.addEventListener('keydown',e=>{if(e.key==='Escape'&&drag){e.preventDefault();endDrag(e,true);}});
+$('storyFullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('storyPreview').requestFullscreen();}catch(e){B.say('이 환경에서는 전체화면을 열 수 없습니다.',true);}};
+for(const [id,kind] of [['exportCutJson','json'],['exportCutCsv','csv'],['exportCutMd','md']])$(id).onclick=()=>{try{B.flush();const text=S.serialize(SB(),P().title,kind,P().duration);B.download(C.filename(P().title)+'_Cut_Timeline.'+kind,text,kind==='json'?'application/json;charset=utf-8':kind==='csv'?'text/csv;charset=utf-8':'text/markdown;charset=utf-8');B.say('적용한 컷 시간과 파일 연결을 내보냈습니다. 가사 시간은 별도입니다.');}catch(e){error(e);}};
+$('storySources').onclick=()=>{const frag=document.createDocumentFragment();for(const s of SB().sources){const d=el('details'),sum=el('summary',s.name),pre=el('pre',s.text),b=el('button','원본 그대로 저장');b.onclick=()=>B.download(S.basename(s.name),s.text,'text/plain;charset=utf-8');d.append(sum,pre,b);frag.append(d);}$('storySourcesList').replaceChildren(frag);$('storySourcesDialog').showModal();};
+$('clearStory').onclick=()=>{if(confirm('콘티 컷 트랙만 비울까요? 가사·음원·연결 파일 목록은 유지합니다. 실행 취소할 수 있습니다.'))setSB({...SB(),cuts:[]});};
+for(const btn of document.querySelectorAll('[data-close]'))if(!btn.onclick)btn.onclick=()=>$(btn.dataset.close).close();
+window.addEventListener('resize',()=>{signature='';renderTracks();});
+B.finishTemplate(document.currentScript);
+render(true);
+})(globalThis);
+
+</script>
+</body>
+</html>
